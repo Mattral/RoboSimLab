@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import TooltipHotspot from "./TooltipHotspot";
 
 interface HumanoidProps {
   theta: number;
@@ -307,6 +308,47 @@ export const Humanoid3D = ({ theta, showCoM, showPolygon }: HumanoidProps) => {
                 <meshBasicMaterial color="#f0a500" transparent opacity={0.35} />
               </mesh>
             </group>
+          )}
+
+          {/* Educational tooltip hotspots */}
+          <TooltipHotspot
+            position={[0, 2.05 * scale, 0.2]}
+            label="LIDAR Scanner"
+            explanation="Rotating laser scanner measures distances to nearby objects, building a 360° map of the environment for navigation and obstacle avoidance."
+            color="#00d4aa"
+          />
+          <TooltipHotspot
+            position={[0.15, 1.95 * scale, 0.15]}
+            label="Stereo Camera"
+            explanation="Dual cameras provide depth perception through triangulation, enabling the robot to estimate distances and recognize objects."
+            color="#0984e3"
+          />
+          <TooltipHotspot
+            position={[0, 1.3 * scale, 0.22]}
+            label="IMU Sensor"
+            explanation="The Inertial Measurement Unit detects body tilt and angular velocity. It's the primary input for the balance controller."
+            color="#6c5ce7"
+          />
+          <TooltipHotspot
+            position={[0.2, 0.8 * scale, 0]}
+            label="Knee Actuator"
+            explanation="High-torque servo motors at each knee joint provide the force needed to support body weight and absorb impact during walking."
+            color="#00b894"
+          />
+          <TooltipHotspot
+            position={[0, 0.03, 0.15]}
+            label="Force Sensor"
+            explanation="Pressure sensors under each foot measure ground reaction forces, critical for detecting foot contact and weight distribution."
+            color="#f0a500"
+          />
+          {showCoM && (
+            <TooltipHotspot
+              position={[0.15, 1.1 * scale, 0.3]}
+              label="Center of Mass"
+              explanation="The balance point of the robot. The controller adjusts joint torques to keep it within the support polygon formed by the feet."
+              color="#f0a500"
+              size={0.03}
+            />
           )}
         </group>
       </group>

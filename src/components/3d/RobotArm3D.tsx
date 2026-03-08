@@ -1,6 +1,7 @@
 import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import TooltipHotspot from "./TooltipHotspot";
 
 interface RobotArmProps {
   joint1: number;
@@ -355,6 +356,44 @@ export const RobotArm3D = ({ joint1, joint2, joint3, link1 = 1.2, link2 = 1.0, l
 
       {/* Trajectory trail */}
       {trailPoints.length > 1 && <TrajectoryTrail points={trailPoints} />}
+
+      {/* Educational tooltip hotspots */}
+      <TooltipHotspot
+        position={[0.4, 0.05, 0]}
+        label="Base Joint"
+        explanation="The base revolute joint rotates the entire arm around the vertical axis. It provides the first degree of freedom (θ₁)."
+        color="#00d4aa"
+      />
+      <group rotation={[0, joint1, 0]}>
+        <TooltipHotspot
+          position={[0.18, link1 * 0.5, 0]}
+          label="Actuator"
+          explanation="Servo motors inside the link housing drive joint rotation. Encoder feedback enables precise position control."
+          color="#0984e3"
+        />
+        <group position={[0, link1, 0]} rotation={[0, 0, joint2]}>
+          <TooltipHotspot
+            position={[0.16, 0, 0]}
+            label="Shoulder Joint"
+            explanation="The shoulder joint (θ₂) tilts the arm forward and backward. The Jacobian maps its velocity to end-effector motion."
+            color="#00b894"
+          />
+          <group position={[0, link2, 0]} rotation={[0, 0, joint3]}>
+            <TooltipHotspot
+              position={[0.14, 0, 0]}
+              label="Elbow Joint"
+              explanation="The elbow joint (θ₃) controls forearm extension. Near full extension, manipulability drops — this is a singularity."
+              color="#0984e3"
+            />
+            <TooltipHotspot
+              position={[0, link3 + 0.15, 0]}
+              label="End Effector"
+              explanation="The gripper is the tool center point (TCP). Forward kinematics computes its position from all joint angles."
+              color="#f0a500"
+            />
+          </group>
+        </group>
+      </group>
     </group>
   );
 };
