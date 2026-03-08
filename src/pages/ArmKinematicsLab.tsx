@@ -26,6 +26,9 @@ const ArmKinematicsLab = () => {
   const [showJacobian, setShowJacobian] = useState(false);
   const [showEllipsoid, setShowEllipsoid] = useState(false);
   const [showDH, setShowDH] = useState(false);
+  const [showDebug, setShowDebug] = useState(false);
+  const [showTrail, setShowTrail] = useState(false);
+  const trailRef = useRef<THREE.Vector3[]>([]);
 
   // Imitation learning state
   const [recording, setRecording] = useState(false);
