@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import {
   Cpu, Route, SlidersHorizontal, Users, PersonStanding, Navigation,
   Eye, Brain, Zap, Network, Wrench, ArrowRight, Sparkles, Activity, GitBranch,
-  Layers, Map, Bot, Gamepad2, GitCompareArrows, Sigma, Radar, Search, Shuffle, CircuitBoard
+  Layers, Map, Bot, Gamepad2, GitCompareArrows, Sigma, Radar, Search, Shuffle, CircuitBoard,
+  Blocks, Workflow, Target, BarChart3
 } from "lucide-react";
 
 interface ModuleCard {
@@ -214,6 +215,42 @@ const modules: ModuleCard[] = [
     route: "/sim/neural-policy",
     tags: ["Neural", "AI"],
   },
+  {
+    id: "digital-twin-builder",
+    title: "Digital Twin Builder",
+    description: "Assemble modular robots from links, joints, and sensors with configurable mass and geometry",
+    icon: Blocks,
+    color: "hsl(170, 65%, 45%)",
+    route: "/sim/digital-twin-builder",
+    tags: ["Builder", "Twin"],
+  },
+  {
+    id: "control-architecture",
+    title: "Control Architecture",
+    description: "Visualize the sensor→perception→planning→control→actuator pipeline with real-time data flow",
+    icon: Workflow,
+    color: "hsl(220, 70%, 55%)",
+    route: "/sim/control-architecture",
+    tags: ["Pipeline", "System"],
+  },
+  {
+    id: "task-designer",
+    title: "Robot Task Designer",
+    description: "Design custom robot tasks with goal positions, obstacles, reward fields, and gradient navigation",
+    icon: Target,
+    color: "hsl(135, 60%, 42%)",
+    route: "/sim/task-designer",
+    tags: ["Tasks", "Design"],
+  },
+  {
+    id: "digital-twin-dashboard",
+    title: "Digital Twin Dashboard",
+    description: "Real-time monitoring of joint torques, velocities, energy consumption, and controller output",
+    icon: BarChart3,
+    color: "hsl(28, 80%, 52%)",
+    route: "/sim/digital-twin-dashboard",
+    tags: ["Monitor", "Telemetry"],
+  },
 ];
 
 const SimulationGallery = () => {
@@ -334,7 +371,7 @@ const SimulationGallery = () => {
       <footer className="relative z-10 border-t border-border/20 px-6 py-5">
         <div className="max-w-7xl mx-auto flex items-center justify-between text-[10px] text-muted-foreground/60">
           <span className="tracking-wide">RoboSimLab — Browser-based Robotics Research</span>
-          <span className="font-mono tracking-wider">v4.0</span>
+          <span className="font-mono tracking-wider">v5.0</span>
         </div>
       </footer>
     </div>

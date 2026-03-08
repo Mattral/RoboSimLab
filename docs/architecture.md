@@ -20,11 +20,15 @@ Internal documentation for RoboSimLab's simulation engine, component architectur
 │      ├── ControlSection (collapsible panels)        │
 │      └── SliderControl (precision inputs)           │
 ├─────────────────────────────────────────────────────┤
-│  Simulation Modules (17 modules)                    │
+│  Simulation Modules (26 modules)                    │
 │  ├── Canvas-based (2D): PID, Motion Planning,       │
 │  │   Swarm, Navigation, Perception, SLAM, RL,       │
 │  │   Multi-Agent, Sensor Fusion, Teleoperation,     │
-│  │   Algorithm Comparison, Multi-Agent RL           │
+│  │   Algorithm Comparison, Multi-Agent RL,          │
+│  │   Differentiable Robotics, SLAM Viz, RL Intro,   │
+│  │   Sim-to-Real, Neural Policy, Digital Twin       │
+│  │   Builder, Control Architecture, Task Designer,  │
+│  │   Digital Twin Dashboard                         │
 │  └── Three.js (3D): Arm Kinematics, Humanoid,      │
 │      Robot Dynamics, Robot Builder, Trajectory Opt   │
 └─────────────────────────────────────────────────────┘
