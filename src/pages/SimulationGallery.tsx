@@ -85,7 +85,7 @@ const modules: ModuleCard[] = [
     icon: Brain,
     color: "hsl(50, 80%, 50%)",
     route: "/sim/rl-playground",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "dynamics",
