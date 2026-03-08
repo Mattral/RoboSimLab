@@ -356,12 +356,40 @@ const ArmKinematicsLab = () => {
             <fog attach="fog" args={["hsl(225, 15%, 6%)", 8, 20]} />
           </Canvas>
         </Suspense>
-        <div className="absolute top-3 left-3 glass-panel text-[11px] font-mono text-muted-foreground px-3 py-2 rounded-lg">
-          θ₁={((joint1 * 180) / Math.PI).toFixed(1)}° θ₂={((joint2 * 180) / Math.PI).toFixed(1)}° θ₃={((joint3 * 180) / Math.PI).toFixed(1)}°
-          <span className="ml-2 text-primary">{mode.toUpperCase()}</span>
-          {recording && <span className="ml-2 text-destructive">● REC</span>}
-          {playing && <span className="ml-2 text-primary">▶ PLAY</span>}
+        {/* Focus Mode overlay */}
+        <FocusMode
+          active={focusMode}
+          onToggle={() => setFocusMode(false)}
+          robotName="3-DOF Articulated Arm"
+          labels={[
+            { name: "Base Joint", value: `${(joint1 * 180 / Math.PI).toFixed(1)}°`, color: "hsl(172, 78%, 47%)" },
+            { name: "Shoulder Joint", value: `${(joint2 * 180 / Math.PI).toFixed(1)}°`, color: "hsl(152, 68%, 42%)" },
+            { name: "Elbow Joint", value: `${(joint3 * 180 / Math.PI).toFixed(1)}°`, color: "hsl(212, 78%, 52%)" },
+            { name: "End Effector", value: `(${endX.toFixed(2)}, ${endY.toFixed(2)})`, color: "hsl(268, 58%, 52%)" },
+            { name: "Manipulability", value: manipulability.toFixed(3), color: "hsl(38, 88%, 52%)" },
+          ]}
+        />
+        {/* Context-aware telemetry */}
+        <div className="absolute top-3 right-3 w-[160px] z-20">
+          <TelemetryPanel
+            mode={mode === "ik" ? "Planning" : mode === "imitation" ? "Learning" : playing ? "Learning" : "Idle"}
+            items={[
+              { label: "EE X", value: endX.toFixed(3), unit: " m" },
+              { label: "EE Y", value: endY.toFixed(3), unit: " m" },
+              { label: "Orientation", value: (totalAngle * 180 / Math.PI).toFixed(1), unit: "°" },
+              { label: "Manipulability", value: manipulability.toFixed(3), highlight: manipulability < 0.3 },
+              ...(mode === "imitation" ? [{ label: "Frames", value: String(demoRef.current.length), color: "hsl(0, 65%, 52%)" }] : []),
+            ]}
+          />
         </div>
+        {!focusMode && (
+          <div className="absolute top-3 left-3 glass-panel text-[11px] font-mono text-muted-foreground px-3 py-2 rounded-lg">
+            θ₁={((joint1 * 180) / Math.PI).toFixed(1)}° θ₂={((joint2 * 180) / Math.PI).toFixed(1)}° θ₃={((joint3 * 180) / Math.PI).toFixed(1)}°
+            <span className="ml-2 text-primary">{mode.toUpperCase()}</span>
+            {recording && <span className="ml-2 text-destructive">● REC</span>}
+            {playing && <span className="ml-2 text-primary">▶ PLAY</span>}
+          </div>
+        )}
         <ContextHint
           visible={learningMode && mode === "ik"}
           message="Inverse Kinematics finds joint angles that position the end-effector at your target. Move the target sliders and watch how the arm reconfigures."
@@ -370,7 +398,7 @@ const ArmKinematicsLab = () => {
           visible={learningMode && showEllipsoid && mode === "fk"}
           message="The manipulability ellipsoid shows motion capability. A sphere means equal dexterity in all directions; a flat ellipse means the robot is near a singularity."
         />
-        {showEllipsoid && (
+        {showEllipsoid && !focusMode && (
           <div className="absolute bottom-3 left-3 glass-panel text-[10px] font-mono text-muted-foreground px-3 py-2 rounded-lg">
             w = {manipulability.toFixed(3)} | σ₁={eig1.toFixed(2)} σ₂={eig2.toFixed(2)}
           </div>
