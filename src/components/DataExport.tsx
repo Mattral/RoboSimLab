@@ -5,7 +5,7 @@ interface DataExportProps {
   filename: string;
 }
 
-export const exportToCSV = (data: Record<string, number>[], filename: string) => {
+export const exportToCSV = (data: Array<Record<string, number | string>>, filename: string) => {
   if (data.length === 0) return;
   const headers = Object.keys(data[0]);
   const csv = [
