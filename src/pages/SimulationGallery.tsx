@@ -114,6 +114,15 @@ const modules: ModuleCard[] = [
     route: "/sim/robot-builder",
     tags: ["3D", "Builder"],
   },
+  {
+    id: "trajectory-optimization",
+    title: "Trajectory Optimization",
+    description: "Define start/goal poses, optimize trajectories with cost minimization and collision avoidance",
+    icon: GitBranch,
+    color: "hsl(292, 58%, 50%)",
+    route: "/sim/trajectory-optimization",
+    tags: ["3D", "Optimize"],
+  },
 ];
 
 const SimulationGallery = () => {

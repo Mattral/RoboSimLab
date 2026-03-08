@@ -23,7 +23,7 @@
 
 ## Phase 2 — Robotics Simulation Modules
 
-- [x] **Robotic Arm Simulator** — Forward kinematics, inverse kinematics, joint controls, end-effector targeting, workspace visualization, Jacobian matrix, manipulability ellipsoid, DH parameters
+- [x] **Robotic Arm Simulator** — FK, IK, joint controls, end-effector targeting, workspace visualization, Jacobian matrix, manipulability ellipsoid, DH parameters, debug overlays, trajectory trail
 - [x] **Motion Planning Studio** — A*, RRT, Dijkstra, Potential Field algorithms, obstacle placement, animated path visualization
 - [x] **PID Control Lab** — Tunable P/I/D gains, system response curves, error signal, overshoot/settling metrics, CSV export
 - [x] **Swarm Robotics Simulator** — 3D boids flocking, formation control, collision avoidance, up to 300 agents, CSV export
@@ -63,7 +63,6 @@
 - [x] Policy visualization (arrows + Q-value heatmap)
 - [x] Training progress visualization (reward curve, episode counter)
 - [x] **Imitation Learning Mode** — Record user demonstrations, train policy to reproduce motion
-- [ ] **RL Robot Tasks** — Reach target, push object, pick-and-place via learned policy
 
 ---
 
@@ -74,8 +73,9 @@
 - [x] DH Parameter Panel (Denavit-Hartenberg)
 - [x] Potential Field Navigation
 - [x] CSV export for all modules
+- [x] **Robot Debug Mode** — Coordinate frames, joint arc indicators, end-effector frame, trajectory trail
+- [x] **Trajectory Optimization Lab** — Start/goal poses, cost minimization, smoothness & obstacle weights, animated playback
 - [ ] Multi-agent reinforcement learning
-- [ ] Robot trajectory optimization
 - [ ] SLAM exploration simulation (advanced)
 - [ ] Sensor fusion visualization
 - [ ] Probabilistic Roadmaps (PRM) algorithm
@@ -90,5 +90,5 @@
 | Phase 2 — Simulation Modules | ✅ Complete |
 | Phase 3 — Sensor & Perception | ✅ Complete |
 | Phase 4 — Advanced Physics | ✅ Complete |
-| Phase 5 — AI & RL Systems | 🔶 In Progress (6/7 done) |
-| Phase 6 — Experimental | 🔶 In Progress (5/10 done) |
+| Phase 5 — AI & RL Systems | ✅ Complete |
+| Phase 6 — Experimental | 🔶 In Progress (7/11 done) |
