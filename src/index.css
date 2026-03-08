@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,54 +6,57 @@
 
 @layer base {
   :root {
-    --background: 220 20% 7%;
-    --foreground: 200 20% 90%;
+    --background: 225 15% 6%;
+    --foreground: 210 20% 92%;
 
-    --card: 220 18% 10%;
-    --card-foreground: 200 20% 90%;
+    --card: 225 14% 9%;
+    --card-foreground: 210 20% 92%;
 
-    --popover: 220 18% 10%;
-    --popover-foreground: 200 20% 90%;
+    --popover: 225 14% 9%;
+    --popover-foreground: 210 20% 92%;
 
     --primary: 175 80% 50%;
-    --primary-foreground: 220 20% 7%;
+    --primary-foreground: 225 15% 6%;
 
-    --secondary: 220 15% 15%;
-    --secondary-foreground: 200 20% 80%;
+    --secondary: 225 12% 13%;
+    --secondary-foreground: 210 15% 75%;
 
-    --muted: 220 15% 13%;
-    --muted-foreground: 215 15% 50%;
+    --muted: 225 12% 11%;
+    --muted-foreground: 220 10% 46%;
 
-    --accent: 175 60% 30%;
+    --accent: 175 50% 25%;
     --accent-foreground: 175 80% 85%;
 
-    --destructive: 0 70% 50%;
+    --destructive: 0 65% 48%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 15% 18%;
-    --input: 220 15% 18%;
+    --border: 225 12% 14%;
+    --input: 225 12% 14%;
     --ring: 175 80% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --cyan-glow: 175 80% 50%;
     --green-glow: 150 70% 45%;
     --amber-glow: 40 90% 55%;
-    --red-glow: 0 70% 55%;
+    --red-glow: 0 65% 52%;
     --purple-glow: 270 60% 55%;
     --blue-glow: 210 80% 55%;
 
-    --panel: 220 18% 9%;
-    --panel-border: 220 15% 16%;
+    --panel: 225 14% 8%;
+    --panel-border: 225 12% 13%;
 
-    --sidebar-background: 220 20% 7%;
-    --sidebar-foreground: 200 20% 80%;
+    --sidebar-background: 225 15% 6%;
+    --sidebar-foreground: 210 15% 75%;
     --sidebar-primary: 175 80% 50%;
-    --sidebar-primary-foreground: 220 20% 7%;
-    --sidebar-accent: 220 15% 13%;
-    --sidebar-accent-foreground: 200 20% 80%;
-    --sidebar-border: 220 15% 18%;
+    --sidebar-primary-foreground: 225 15% 6%;
+    --sidebar-accent: 225 12% 11%;
+    --sidebar-accent-foreground: 210 15% 75%;
+    --sidebar-border: 225 12% 14%;
     --sidebar-ring: 175 80% 50%;
+
+    --glass: 225 14% 8% / 0.8;
+    --glass-border: 225 12% 18% / 0.5;
   }
 }
 
@@ -63,64 +66,118 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
-    font-family: 'Inter', sans-serif;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   code, .font-mono {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  }
+
+  /* Custom scrollbar — Apple-style thin */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(225, 12%, 20%);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(225, 12%, 28%);
   }
 }
 
 @layer components {
   .glow-cyan {
-    box-shadow: 0 0 20px hsl(175 80% 50% / 0.15), 0 0 60px hsl(175 80% 50% / 0.05);
+    box-shadow: 0 0 24px hsl(175 80% 50% / 0.12), 0 0 80px hsl(175 80% 50% / 0.04);
   }
 
   .glow-text-cyan {
-    text-shadow: 0 0 20px hsl(175 80% 50% / 0.5);
+    text-shadow: 0 0 24px hsl(175 80% 50% / 0.5);
   }
 
   .sim-panel {
-    @apply bg-[hsl(var(--panel))] border border-[hsl(var(--panel-border))] rounded-lg;
+    @apply bg-card/80 backdrop-blur-xl border border-border/60 rounded-xl;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .sim-panel:hover {
+    border-color: hsl(var(--border) / 0.8);
   }
 
   .sim-grid {
-    background-image: 
-      linear-gradient(hsl(220 15% 14%) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(220 15% 14%) 1px, transparent 1px);
+    background-image:
+      linear-gradient(hsl(225 12% 12%) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(225 12% 12%) 1px, transparent 1px);
     background-size: 20px 20px;
   }
 
   .control-slider {
-    @apply w-full h-2 rounded-full appearance-none cursor-pointer;
+    @apply w-full h-1.5 rounded-full appearance-none cursor-pointer;
     background: hsl(var(--secondary));
+    transition: background 0.2s ease;
   }
 
   .control-slider::-webkit-slider-thumb {
     @apply appearance-none w-4 h-4 rounded-full;
     background: hsl(var(--primary));
-    box-shadow: 0 0 8px hsl(175 80% 50% / 0.5);
+    box-shadow: 0 0 12px hsl(175 80% 50% / 0.4), 0 2px 8px rgba(0,0,0,0.3);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .control-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 16px hsl(175 80% 50% / 0.6), 0 2px 12px rgba(0,0,0,0.4);
+  }
+
+  .control-slider::-webkit-slider-thumb:active {
+    transform: scale(1.2);
   }
 
   .status-indicator {
     @apply w-2 h-2 rounded-full;
-    animation: pulse-glow 2s infinite;
+    animation: pulse-glow 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   @keyframes pulse-glow {
     0%, 100% { opacity: 1; box-shadow: 0 0 4px currentColor; }
-    50% { opacity: 0.6; box-shadow: 0 0 12px currentColor; }
+    50% { opacity: 0.5; box-shadow: 0 0 16px currentColor; }
   }
 
-  .scanline {
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      hsl(175 80% 50% / 0.03) 2px,
-      hsl(175 80% 50% / 0.03) 4px
-    );
-    pointer-events: none;
+  .glass-panel {
+    background: hsl(var(--glass));
+    backdrop-filter: blur(20px) saturate(1.2);
+    border: 1px solid hsl(var(--glass-border));
+  }
+
+  /* Smooth page transitions */
+  .page-enter {
+    animation: fadeSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Button base for sim controls */
+  .sim-btn {
+    @apply text-xs font-medium py-2.5 px-3 rounded-lg border transition-all duration-200;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .sim-btn-active {
+    @apply border-primary/60 text-primary bg-primary/8;
+    box-shadow: 0 0 12px hsl(175 80% 50% / 0.1);
+  }
+
+  .sim-btn-inactive {
+    @apply border-border text-muted-foreground hover:border-border hover:text-foreground hover:bg-secondary/40;
   }
 }
