@@ -193,9 +193,9 @@ const RobotTaskDesigner = () => {
       }
 
       // Robot
-      const agent = agentRef.current;
-      const rx = ox + agent.x * cellW;
-      const ry = oy + agent.y * cellH;
+      const curAgent = agentRef.current;
+      const rx = ox + curAgent.x * cellW;
+      const ry = oy + curAgent.y * cellH;
       ctx.fillStyle = "hsl(38, 90%, 55%)";
       ctx.beginPath(); ctx.arc(rx, ry, 6, 0, Math.PI * 2); ctx.fill();
       ctx.strokeStyle = "hsla(38, 90%, 55%, 0.4)";
