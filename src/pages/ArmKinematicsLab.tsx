@@ -281,7 +281,7 @@ const ArmKinematicsLab = () => {
             <OrbitControls autoRotate={autoRotate} autoRotateSpeed={1} enableDamping dampingFactor={0.05} minDistance={2} maxDistance={12} target={[0, 1.5, 0]} />
             <SceneLighting />
             <RobotBase3D />
-            <RobotArm3D joint1={joint1} joint2={joint2} joint3={joint3} link1={link1} link2={link2} link3={link3} />
+            <RobotArm3D joint1={joint1} joint2={joint2} joint3={joint3} link1={link1} link2={link2} link3={link3} showDebug={showDebug} trailPoints={showTrail ? trailRef.current : []} />
             {showWorkspace && (
               <mesh position={[0, 0, 0]}>
                 <sphereGeometry args={[link1 + link2 + link3, 24, 24]} />
