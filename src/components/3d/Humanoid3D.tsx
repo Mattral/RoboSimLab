@@ -198,8 +198,8 @@ export const Humanoid3D = ({ theta, showCoM, showPolygon }: HumanoidProps) => {
                 <meshStandardMaterial color="#00d4aa" metalness={0.3} roughness={0.1} emissive="#00d4aa" emissiveIntensity={0.8} />
               </mesh>
               {/* Camera lens */}
-              <mesh position={[0.05, 0.02, 0.095]}>
-                <cylinderGeometry args={[0.012, 0.012, 0.008, 8]} rotation={[Math.PI / 2, 0, 0]} />
+              <mesh position={[0.05, 0.02, 0.095]} rotation={[Math.PI / 2, 0, 0]}>
+                <cylinderGeometry args={[0.012, 0.012, 0.008, 8]} />
                 <meshStandardMaterial color="#0d1117" metalness={0.9} roughness={0.1} />
               </mesh>
               {/* Depth sensor */}
