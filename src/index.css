@@ -173,7 +173,8 @@
   }
 
   .sim-btn-active {
-    @apply border-primary/60 text-primary bg-primary/8;
+    @apply border-primary/60 text-primary;
+    background: hsl(175 80% 50% / 0.08);
     box-shadow: 0 0 12px hsl(175 80% 50% / 0.1);
   }
 
