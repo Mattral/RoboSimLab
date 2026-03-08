@@ -13,6 +13,7 @@ import { exportToCSV } from "@/components/DataExport";
 const HumanoidBalanceSimulator = () => {
   const learningMode = useLearningMode();
   const [cinematic, setCinematic] = useState(false);
+  const [focusMode, setFocusMode] = useState(false);
   const [kp, setKp] = useState(50);
   const [kd, setKd] = useState(15);
   const [disturbance, setDisturbance] = useState(0);
