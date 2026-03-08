@@ -19,34 +19,32 @@ Built with React, Three.js, TypeScript, and Tailwind CSS. Designed to Apple Huma
 ### Gallery — 6 Lab Categories, 29 Modules
 > The home page organizes all simulators into Locomotion, Manipulation, Autonomy, Control, AI, and Digital Twin labs.
 
-![Gallery](https://img.shields.io/badge/screenshot-Gallery-0d1117?style=for-the-badge&logo=react&logoColor=00d4aa)
+![Gallery](docs/screenshots/gallery.png)
 
 ### Quadruped Robot — Walking Gaits & CoM
 > Four-legged robot with walk/trot gait switching, center of mass tracking, support polygon, and disturbance recovery.
 
-![Quadruped](https://img.shields.io/badge/screenshot-Quadruped-0d1117?style=for-the-badge&logo=robot&logoColor=00d4aa)
+![Quadruped](docs/screenshots/quadruped.png)
 
 ### Robotic Arm — FK/IK with Jacobian Analysis
 > 3-DOF articulated arm with forward/inverse kinematics, manipulability ellipsoid, DH parameters, and trajectory trail.
 
-![Arm](https://img.shields.io/badge/screenshot-Robotic_Arm-0d1117?style=for-the-badge&logo=codepen&logoColor=00b894)
+![Arm](docs/screenshots/arm.png)
 
 ### Drone Simulator — Attitude & Waypoint Control
 > Quadcopter with manual thrust/roll/pitch/yaw control and autonomous waypoint navigation with trajectory visualization.
 
-![Drone](https://img.shields.io/badge/screenshot-Drone-0d1117?style=for-the-badge&logo=drone&logoColor=f0a500)
+![Drone](docs/screenshots/drone.png)
 
 ### Humanoid Balance — PD Control & Push Recovery
 > 3D humanoid with inverted pendulum dynamics, telemetry showing STABLE/UNSTABLE status, and real-time torque charts.
 
-![Humanoid](https://img.shields.io/badge/screenshot-Humanoid-0d1117?style=for-the-badge&logo=accessibility&logoColor=e74c3c)
+![Humanoid](docs/screenshots/humanoid.png)
 
 ### Soft Robot — Pneumatic Deformable Body
 > Soft pneumatic robot with 3-chamber pressure control, shape presets, wireframe overlay, and continuum mechanics.
 
-![Soft](https://img.shields.io/badge/screenshot-Soft_Robot-0d1117?style=for-the-badge&logo=atom&logoColor=6c5ce7)
-
-> **💡 To add real screenshots:** Run the app locally, take screenshots of each simulator, save them to `docs/screenshots/`, and update the image paths above.
+![Soft Robot](docs/screenshots/soft-robot.png)
 
 ---
 
