@@ -24,7 +24,7 @@
 ## Phase 2 — Robotics Simulation Modules
 
 - [x] **Robotic Arm Simulator** — FK, IK, joint controls, end-effector targeting, workspace visualization, Jacobian matrix, manipulability ellipsoid, DH parameters, debug overlays, trajectory trail
-- [x] **Motion Planning Studio** — A*, RRT, Dijkstra, Potential Field algorithms, obstacle placement, animated path visualization
+- [x] **Motion Planning Studio** — A*, RRT, Dijkstra, PRM, Potential Field algorithms, obstacle placement, animated path visualization
 - [x] **PID Control Lab** — Tunable P/I/D gains, system response curves, error signal, overshoot/settling metrics, CSV export
 - [x] **Swarm Robotics Simulator** — 3D boids flocking, formation control, collision avoidance, up to 300 agents, CSV export
 
@@ -42,11 +42,11 @@
 
 ## Phase 4 — Advanced Robotics Physics
 
-- [x] **Robot Dynamics & Torque Simulator** — Joint torque, velocity, acceleration charts, CSV export
+- [x] **Robot Dynamics & Torque Simulator** — Joint torque, velocity, acceleration charts, velocity vector arrows, coordinate frames, debug overlays, cinematic camera, CSV export
 - [x] Energy propagation visualization (kinetic + potential)
 - [x] Payload mass and friction controls
 - [x] Trajectory rendering with real-time dynamics
-- [x] **Humanoid Balance Simulator** — Inverted pendulum PD control, CoM visualization, support polygon, CSV export
+- [x] **Humanoid Balance Simulator** — Inverted pendulum PD control, CoM visualization, support polygon, cinematic camera, CSV export
 - [x] **Autonomous Navigation** — Waypoint following, reactive obstacle avoidance, SLAM mapping
 - [x] **Multi-Agent Coordination** — Nearest-first & priority auction task allocation, communication radius
 - [x] **Custom Robot Builder** — 1–7 DOF configurable manipulators, JSON export
@@ -55,7 +55,7 @@
 
 ## Phase 5 — AI & Reinforcement Learning Systems
 
-> ⚠️ Phase 1–4 fully complete.
+> ✅ Phase 1–4 fully complete.
 
 - [x] **RL Playground** — Q-learning grid world, epsilon-greedy exploration, CSV export
 - [x] State representation & action selection
@@ -72,13 +72,15 @@
 - [x] Robot Jacobian visualization
 - [x] DH Parameter Panel (Denavit-Hartenberg)
 - [x] Potential Field Navigation
+- [x] **Probabilistic Roadmaps (PRM)** algorithm
 - [x] CSV export for all modules
 - [x] **Robot Debug Mode** — Coordinate frames, joint arc indicators, end-effector frame, trajectory trail
+- [x] **Velocity Vector Arrows** — 3D ArrowHelper overlays for joint velocities in Dynamics module
+- [x] **Cinematic Camera Mode** — Smooth auto-orbit in Dynamics, Humanoid, and Arm modules
 - [x] **Trajectory Optimization Lab** — Start/goal poses, cost minimization, smoothness & obstacle weights, animated playback
 - [ ] Multi-agent reinforcement learning
 - [ ] SLAM exploration simulation (advanced)
 - [ ] Sensor fusion visualization
-- [ ] Probabilistic Roadmaps (PRM) algorithm
 
 ---
 
@@ -91,4 +93,4 @@
 | Phase 3 — Sensor & Perception | ✅ Complete |
 | Phase 4 — Advanced Physics | ✅ Complete |
 | Phase 5 — AI & RL Systems | ✅ Complete |
-| Phase 6 — Experimental | 🔶 In Progress (7/11 done) |
+| Phase 6 — Experimental | 🔶 In Progress (10/13 done) |
