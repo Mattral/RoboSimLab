@@ -121,6 +121,44 @@
 
 ---
 
+## Phase 10 — Boston Dynamics / Apple-Level Visual Polish
+
+> Final refinement pass targeting professional robotics demo quality
+
+### Robot Body Quality (✅ Complete)
+- [x] **Material system overhaul** — Brushed metal, matte polymer, rubber surfaces with physically-based metalness/roughness values
+- [x] **Precision joint housings** — Encoder rings, tick marks, bearing details, slow encoder spin animation
+- [x] **Actuator housing detail** — Ventilation slots, status LEDs, cable clip points
+- [x] **End-effector refinement** — Rubber grip pads, contact sensors, tool center point indicator, breathing micro-motion
+- [x] **Base platform engineering** — 8-bolt mounting circle, logo plate, encoder ring, ground shadow disc
+
+### Micro-Motion System (✅ Complete)
+- [x] **Arm servo hum** — Subtle base vibration (0.0008 rad oscillation)
+- [x] **Joint encoder spin** — Slow inner ring rotation on every joint
+- [x] **Gripper breathing** — End-effector gentle rotation oscillation
+- [x] **Humanoid torso sway** — Micro-stabilization corrections (3mm displacement)
+- [x] **Head scanning** — Slow sensor sweep left/right
+- [x] **LIDAR spin** — Rotating ring on head dome
+- [x] **Core light breathing** — Chest status LED opacity pulse
+
+### Lighting (✅ Complete)
+- [x] **Three-point studio lighting** — Key (warm white), fill (cool blue), rim (teal accent)
+- [x] **2048px shadow maps** — Crisp self-shadowing on robot bodies
+- [x] **Ground contact shadow** — Subtle dark disc under robot base
+- [x] **Hemisphere ground bounce** — Realistic ambient from dark floor
+
+### Educational Layer (✅ Complete)
+- [x] **EducationPanel polish** — Icon badge, rounded borders, smooth open/close transitions, spacing refinement
+- [x] **ContextHint polish** — Rounded corners, improved typography line-height, amber accent
+
+### Remaining Improvements
+- [ ] Focus Mode — cinematic camera zoom on robot click
+- [ ] Context-aware telemetry — panels adapt to current robot mode
+- [ ] Component hover tooltips — explanations for joints, sensors, actuators
+- [ ] Motion path visualization — planned vs executed trajectory overlays
+
+---
+
 ## Status Summary
 
 | Phase | Status |
@@ -134,5 +172,6 @@
 | Phase 7 — Research Capabilities | ✅ Complete (5/5 done) |
 | Phase 8 — Digital Twin Lab | ✅ Complete (4/4 done) |
 | Phase 9 — Visual & Educational | ✅ Complete (7/7 done) |
+| Phase 10 — Boston Dynamics Polish | 🔄 In Progress (20/24 done) |
 
-**Total Modules: 26 | Version: v5.1**
+**Total Modules: 26 | Version: v5.2**
