@@ -6,11 +6,26 @@ import SliderControl from "@/components/SliderControl";
 import ControlSection from "@/components/ControlSection";
 import { RobotArm3D, RobotBase3D, SceneLighting } from "@/components/3d/RobotArm3D";
 import { exportToCSV } from "@/components/DataExport";
+import * as THREE from "three";
 
 interface DynamicsData {
   t: number; torque1: number; torque2: number; torque3: number;
   vel1: number; vel2: number; vel3: number; energy: number;
 }
+
+/** 3D velocity arrow rendered at a joint position */
+const VelocityArrow = ({ origin, direction, length, color }: { origin: [number, number, number]; direction: [number, number, number]; length: number; color: string }) => {
+  const arrow = useRef<THREE.ArrowHelper>(null);
+  useEffect(() => {
+    if (arrow.current) {
+      const dir = new THREE.Vector3(...direction).normalize();
+      arrow.current.setDirection(dir);
+      arrow.current.setLength(Math.abs(length) * 0.3, 0.08, 0.04);
+      arrow.current.setColor(new THREE.Color(color));
+    }
+  }, [direction, length, color]);
+  return <primitive ref={arrow} object={new THREE.ArrowHelper(new THREE.Vector3(...direction).normalize(), new THREE.Vector3(...origin), Math.abs(length) * 0.3, color, 0.08, 0.04)} />;
+};
 
 const RobotDynamicsSimulator = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -20,13 +35,23 @@ const RobotDynamicsSimulator = () => {
   const [load, setLoad] = useState(1.0);
   const [friction, setFriction] = useState(0.1);
   const [chartMode, setChartMode] = useState<"torque" | "velocity" | "energy">("torque");
+  const [showDebug, setShowDebug] = useState(false);
+  const [showVectors, setShowVectors] = useState(false);
+  const [showTrail, setShowTrail] = useState(false);
+  const [cinematic, setCinematic] = useState(false);
   const stateRef = useRef({ j1: 0, j2: -0.5, j3: 0.3, v1: 0.5, v2: -0.3, v3: 0.8, t: 0 });
   const dataRef = useRef<DynamicsData[]>([]);
   const [joints, setJoints] = useState({ j1: 0, j2: -0.5, j3: 0.3 });
+  const [velocities, setVelocities] = useState({ v1: 0, v2: 0, v3: 0 });
+  const trailRef = useRef<THREE.Vector3[]>([]);
+
+  const link1 = 1.2, link2 = 1.0, link3 = 0.8;
 
   const reset = useCallback(() => {
     stateRef.current = { j1: 0, j2: -0.5, j3: 0.3, v1: 0.5, v2: -0.3, v3: 0.8, t: 0 };
-    dataRef.current = []; setJoints({ j1: 0, j2: -0.5, j3: 0.3 });
+    dataRef.current = []; trailRef.current = [];
+    setJoints({ j1: 0, j2: -0.5, j3: 0.3 });
+    setVelocities({ v1: 0.5, v2: -0.3, v3: 0.8 });
   }, []);
 
   useEffect(() => {
@@ -53,10 +78,23 @@ const RobotDynamicsSimulator = () => {
         if (dataRef.current.length > 500) dataRef.current.shift();
       }
       setJoints({ j1: s.j1, j2: s.j2, j3: s.j3 });
+      setVelocities({ v1: s.v1, v2: s.v2, v3: s.v3 });
+
+      // Trail
+      if (showTrail) {
+        const ex = Math.sin(s.j2) * link2 + Math.sin(s.j2 + s.j3) * link3;
+        const ey = link1 + Math.cos(s.j2) * link2 + Math.cos(s.j2 + s.j3) * link3;
+        const pt = new THREE.Vector3(ex, ey, 0);
+        if (trailRef.current.length === 0 || trailRef.current[trailRef.current.length - 1].distanceTo(pt) > 0.02) {
+          trailRef.current = [...trailRef.current, pt];
+          if (trailRef.current.length > 500) trailRef.current = trailRef.current.slice(-500);
+        }
+      }
     }, 16);
     return () => clearInterval(interval);
-  }, [running, speed, load, friction]);
+  }, [running, speed, load, friction, showTrail]);
 
+  // Chart rendering
   useEffect(() => {
     const canvas = canvasRef.current; const container = chartContainerRef.current;
     if (!canvas || !container) return;
@@ -65,7 +103,7 @@ const RobotDynamicsSimulator = () => {
       const dpr = window.devicePixelRatio; const w = container.clientWidth; const h = container.clientHeight;
       canvas.width = w * dpr; canvas.height = h * dpr; canvas.style.width = w + "px"; canvas.style.height = h + "px";
       ctx.resetTransform(); ctx.scale(dpr, dpr); ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = "hsl(225, 14%, 8%)"; ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = "hsl(228, 15%, 7%)"; ctx.fillRect(0, 0, w, h);
       const data = dataRef.current; if (data.length < 2) { requestAnimationFrame(draw); return; }
       const margin = { top: 25, right: 10, bottom: 20, left: 50 };
       const plotW = w - margin.left - margin.right; const plotH = h - margin.top - margin.bottom;
@@ -73,7 +111,7 @@ const RobotDynamicsSimulator = () => {
       const toX = (t: number) => margin.left + ((t - tMin) / (tMax - tMin || 1)) * plotW;
       const titles = { torque: "JOINT TORQUES (N·m)", velocity: "JOINT VELOCITIES (rad/s)", energy: "SYSTEM ENERGY (J)" };
       ctx.fillStyle = "hsl(220, 10%, 42%)"; ctx.font = "10px 'Inter'"; ctx.textAlign = "left"; ctx.fillText(titles[chartMode], margin.left, 15);
-      ctx.strokeStyle = "hsl(225, 12%, 18%)"; ctx.lineWidth = 1;
+      ctx.strokeStyle = "hsl(228, 13%, 16%)"; ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(margin.left, margin.top); ctx.lineTo(margin.left, h - margin.bottom); ctx.lineTo(w - margin.right, h - margin.bottom); ctx.stroke();
       ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.moveTo(margin.left, margin.top + plotH / 2); ctx.lineTo(w - margin.right, margin.top + plotH / 2); ctx.stroke(); ctx.setLineDash([]);
       const drawLine = (getter: (d: DynamicsData) => number, color: string, maxVal: number) => {
@@ -83,25 +121,49 @@ const RobotDynamicsSimulator = () => {
       };
       if (chartMode === "torque") {
         const maxV = Math.max(1, ...data.map(d => Math.max(Math.abs(d.torque1), Math.abs(d.torque2), Math.abs(d.torque3))));
-        drawLine(d => d.torque1, "hsl(175, 80%, 50%)", maxV); drawLine(d => d.torque2, "hsl(150, 70%, 45%)", maxV); drawLine(d => d.torque3, "hsl(210, 80%, 55%)", maxV);
+        drawLine(d => d.torque1, "hsl(172, 78%, 47%)", maxV); drawLine(d => d.torque2, "hsl(152, 68%, 42%)", maxV); drawLine(d => d.torque3, "hsl(212, 78%, 52%)", maxV);
       } else if (chartMode === "velocity") {
         const maxV = Math.max(1, ...data.map(d => Math.max(Math.abs(d.vel1), Math.abs(d.vel2), Math.abs(d.vel3))));
-        drawLine(d => d.vel1, "hsl(175, 80%, 50%)", maxV); drawLine(d => d.vel2, "hsl(150, 70%, 45%)", maxV); drawLine(d => d.vel3, "hsl(210, 80%, 55%)", maxV);
+        drawLine(d => d.vel1, "hsl(172, 78%, 47%)", maxV); drawLine(d => d.vel2, "hsl(152, 68%, 42%)", maxV); drawLine(d => d.vel3, "hsl(212, 78%, 52%)", maxV);
       } else {
         const maxV = Math.max(1, ...data.map(d => Math.abs(d.energy)));
-        drawLine(d => d.energy, "hsl(40, 90%, 55%)", maxV * 1.5);
+        drawLine(d => d.energy, "hsl(38, 88%, 52%)", maxV * 1.5);
+      }
+      // Legend
+      ctx.font = "9px 'JetBrains Mono'"; ctx.textAlign = "left";
+      const legends = chartMode === "energy"
+        ? [{ label: "Energy", color: "hsl(38, 88%, 52%)" }]
+        : [{ label: "J1", color: "hsl(172, 78%, 47%)" }, { label: "J2", color: "hsl(152, 68%, 42%)" }, { label: "J3", color: "hsl(212, 78%, 52%)" }];
+      let lx = margin.left;
+      for (const l of legends) {
+        ctx.fillStyle = l.color; ctx.fillRect(lx, h - 10, 10, 2);
+        ctx.fillStyle = "hsl(220, 10%, 46%)"; ctx.fillText(l.label, lx + 14, h - 6);
+        lx += 50;
       }
       requestAnimationFrame(draw);
     };
     const id = requestAnimationFrame(draw); return () => cancelAnimationFrame(id);
   }, [chartMode, joints]);
 
+  // Compute joint positions for velocity arrows
+  const j2Pos: [number, number, number] = [0, link1, 0]; // approximate in base frame
+  const endX = Math.sin(joints.j2) * link2 + Math.sin(joints.j2 + joints.j3) * link3;
+  const endY = link1 + Math.cos(joints.j2) * link2 + Math.cos(joints.j2 + joints.j3) * link3;
+
   const controls = (
     <>
       <ControlSection title="Parameters">
-        <SliderControl label="Payload Mass" value={load} min={0.1} max={5} step={0.1} unit=" kg" onChange={setLoad} color="hsl(175, 80%, 50%)" />
-        <SliderControl label="Joint Friction" value={friction} min={0} max={2} step={0.05} onChange={setFriction} color="hsl(40, 90%, 55%)" />
-        <SliderControl label="Speed" value={speed} min={0.5} max={5} step={0.5} unit="x" onChange={setSpeed} color="hsl(210, 80%, 55%)" />
+        <SliderControl label="Payload Mass" value={load} min={0.1} max={5} step={0.1} unit=" kg" onChange={setLoad} color="hsl(172, 78%, 47%)" />
+        <SliderControl label="Joint Friction" value={friction} min={0} max={2} step={0.05} onChange={setFriction} color="hsl(38, 88%, 52%)" />
+        <SliderControl label="Speed" value={speed} min={0.5} max={5} step={0.5} unit="x" onChange={setSpeed} color="hsl(212, 78%, 52%)" />
+      </ControlSection>
+      <ControlSection title="Visualization">
+        <div className="grid grid-cols-2 gap-2">
+          <button onClick={() => setShowDebug(!showDebug)} className={`sim-btn ${showDebug ? "sim-btn-active" : "sim-btn-inactive"}`}>Debug</button>
+          <button onClick={() => setShowVectors(!showVectors)} className={`sim-btn ${showVectors ? "sim-btn-active" : "sim-btn-inactive"}`}>Vectors</button>
+          <button onClick={() => setShowTrail(!showTrail)} className={`sim-btn ${showTrail ? "sim-btn-active" : "sim-btn-inactive"}`}>Trail</button>
+          <button onClick={() => setCinematic(!cinematic)} className={`sim-btn ${cinematic ? "sim-btn-active" : "sim-btn-inactive"}`}>Cinematic</button>
+        </div>
       </ControlSection>
       <ControlSection title="Chart Mode">
         <div className="flex gap-2">
@@ -110,6 +172,13 @@ const RobotDynamicsSimulator = () => {
               {m === "torque" ? "τ" : m === "velocity" ? "ω" : "E"}
             </button>
           ))}
+        </div>
+      </ControlSection>
+      <ControlSection title="Live Data">
+        <div className="space-y-1 text-[10px] font-mono text-muted-foreground">
+          <div className="flex justify-between"><span>ω₁</span><span style={{ color: "hsl(172, 78%, 47%)" }}>{velocities.v1.toFixed(3)} rad/s</span></div>
+          <div className="flex justify-between"><span>ω₂</span><span style={{ color: "hsl(152, 68%, 42%)" }}>{velocities.v2.toFixed(3)} rad/s</span></div>
+          <div className="flex justify-between"><span>ω₃</span><span style={{ color: "hsl(212, 78%, 52%)" }}>{velocities.v3.toFixed(3)} rad/s</span></div>
         </div>
       </ControlSection>
       <ControlSection title="Simulation">
@@ -129,18 +198,35 @@ const RobotDynamicsSimulator = () => {
           <Suspense fallback={<div className="flex items-center justify-center h-full text-muted-foreground text-sm">Loading 3D Scene...</div>}>
             <Canvas shadows>
               <PerspectiveCamera makeDefault position={[3, 3, 4]} fov={50} />
-              <OrbitControls enableDamping dampingFactor={0.05} target={[0, 1.5, 0]} minDistance={2} maxDistance={10} />
+              <OrbitControls
+                enableDamping dampingFactor={0.05} target={[0, 1.5, 0]}
+                minDistance={2} maxDistance={10}
+                autoRotate={cinematic} autoRotateSpeed={0.8}
+              />
               <SceneLighting />
               <RobotBase3D />
-              <RobotArm3D joint1={joints.j1} joint2={joints.j2} joint3={joints.j3} />
-              <fog attach="fog" args={["hsl(225, 15%, 6%)", 8, 20]} />
+              <RobotArm3D
+                joint1={joints.j1} joint2={joints.j2} joint3={joints.j3}
+                showDebug={showDebug} trailPoints={showTrail ? trailRef.current : []}
+              />
+              {/* Velocity arrows at joints */}
+              {showVectors && (
+                <>
+                  <VelocityArrow origin={[0, 0.2, 0]} direction={[velocities.v1, 0, 0]} length={velocities.v1} color="#00d4aa" />
+                  <VelocityArrow origin={[0, link1, 0]} direction={[0, velocities.v2, 0]} length={velocities.v2} color="#2ecc71" />
+                  <VelocityArrow origin={[endX * 0.5, link1 + (endY - link1) * 0.5, 0]} direction={[0, velocities.v3, 0]} length={velocities.v3} color="#3498db" />
+                </>
+              )}
+              <fog attach="fog" args={["hsl(228, 16%, 5%)", 8, 20]} />
             </Canvas>
           </Suspense>
-          <div className="absolute top-3 left-3 glass-panel text-[11px] font-mono text-muted-foreground px-3 py-2 rounded-lg">
-            Load: {load.toFixed(1)}kg | Friction: {friction.toFixed(2)}
+          <div className="absolute top-3 left-3 glass-panel text-[10px] font-mono text-muted-foreground px-3 py-2 rounded-lg">
+            Load: {load.toFixed(1)}kg · Friction: {friction.toFixed(2)}
+            {showDebug && <span className="ml-2 text-primary">DEBUG</span>}
+            {cinematic && <span className="ml-2 text-amber-glow">CINEMATIC</span>}
           </div>
         </div>
-        <div ref={chartContainerRef} className="h-[180px] border-t border-border/40 relative shrink-0">
+        <div ref={chartContainerRef} className="h-[180px] border-t border-border/30 relative shrink-0">
           <canvas ref={canvasRef} className="absolute inset-0" />
         </div>
       </div>
