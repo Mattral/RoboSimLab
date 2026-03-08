@@ -76,7 +76,7 @@ const modules: ModuleCard[] = [
     icon: Eye,
     color: "hsl(320, 60%, 55%)",
     route: "/sim/perception",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "rl-playground",
