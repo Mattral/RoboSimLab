@@ -19,8 +19,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-      - run: npm ci
+      - run: npm install --legacy-peer-deps
       - run: npm run lint
 
   typecheck:
@@ -31,8 +30,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-      - run: npm ci
+      - run: npm install --legacy-peer-deps
       - run: npx tsc --noEmit
 
   test:
@@ -43,8 +41,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-      - run: npm ci
+      - run: npm install --legacy-peer-deps
       - run: npm test -- --run --reporter=verbose
 
   build:
@@ -56,8 +53,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-      - run: npm ci
+      - run: npm install --legacy-peer-deps
       - run: npm run build
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
