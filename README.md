@@ -10,6 +10,43 @@ Built with React, Three.js, TypeScript, and Tailwind CSS. Designed to Apple Huma
 ![Labs](https://img.shields.io/badge/labs-6-blue)
 ![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen)
 ![Docker](https://img.shields.io/badge/docker-ready-blue)
+![CI](https://github.com/Mattral/RoboSimLab/actions/workflows/ci.yml/badge.svg)
+
+---
+
+## 🖼️ Screenshots
+
+### Gallery — 6 Lab Categories, 29 Modules
+> The home page organizes all simulators into Locomotion, Manipulation, Autonomy, Control, AI, and Digital Twin labs.
+
+![Gallery](https://img.shields.io/badge/screenshot-Gallery-0d1117?style=for-the-badge&logo=react&logoColor=00d4aa)
+
+### Quadruped Robot — Walking Gaits & CoM
+> Four-legged robot with walk/trot gait switching, center of mass tracking, support polygon, and disturbance recovery.
+
+![Quadruped](https://img.shields.io/badge/screenshot-Quadruped-0d1117?style=for-the-badge&logo=robot&logoColor=00d4aa)
+
+### Robotic Arm — FK/IK with Jacobian Analysis
+> 3-DOF articulated arm with forward/inverse kinematics, manipulability ellipsoid, DH parameters, and trajectory trail.
+
+![Arm](https://img.shields.io/badge/screenshot-Robotic_Arm-0d1117?style=for-the-badge&logo=codepen&logoColor=00b894)
+
+### Drone Simulator — Attitude & Waypoint Control
+> Quadcopter with manual thrust/roll/pitch/yaw control and autonomous waypoint navigation with trajectory visualization.
+
+![Drone](https://img.shields.io/badge/screenshot-Drone-0d1117?style=for-the-badge&logo=drone&logoColor=f0a500)
+
+### Humanoid Balance — PD Control & Push Recovery
+> 3D humanoid with inverted pendulum dynamics, telemetry showing STABLE/UNSTABLE status, and real-time torque charts.
+
+![Humanoid](https://img.shields.io/badge/screenshot-Humanoid-0d1117?style=for-the-badge&logo=accessibility&logoColor=e74c3c)
+
+### Soft Robot — Pneumatic Deformable Body
+> Soft pneumatic robot with 3-chamber pressure control, shape presets, wireframe overlay, and continuum mechanics.
+
+![Soft](https://img.shields.io/badge/screenshot-Soft_Robot-0d1117?style=for-the-badge&logo=atom&logoColor=6c5ce7)
+
+> **💡 To add real screenshots:** Run the app locally, take screenshots of each simulator, save them to `docs/screenshots/`, and update the image paths above.
 
 ---
 
@@ -111,7 +148,7 @@ Every simulation module includes a **Learning Mode** toggle that transforms the 
 - **3D Tooltip Hotspots** — Hover over joints, sensors, and actuators for inline explanations
 - **Contextual Hints** — Interactive tooltips that appear during specific interactions
 - **Focus Mode** — Cinematic robot inspection with subsystem labels
-- **Visual Overlays** — Debug frames, manipulability ellipsoids, velocity vectors
+- **Context-Aware Telemetry** — Panels adapt to show mode-specific data (walking → step frequency, balancing → torque)
 
 ---
 
@@ -155,6 +192,25 @@ src/
 
 ## 📦 Deployment
 
+### Vercel (Recommended)
+The project is a standard Vite SPA — deploy directly to Vercel:
+1. Connect your GitHub repo to Vercel
+2. Build command: `npm run build`
+3. Output directory: `dist`
+4. Framework preset: Vite
+
+All routes use client-side routing (`react-router-dom`), so Vercel's default SPA rewrites handle fallback automatically.
+
+### Docker
+
+```bash
+docker build -t robosimlab .
+docker run -d -p 8080:80 robosimlab
+```
+
+The Dockerfile uses a multi-stage build (Node 20 → Nginx Alpine) with SPA fallback routing configured.
+
+### Guides
 | Guide | Description |
 |-------|-------------|
 | [🐳 Docker](./docs/docker.md) | Multi-stage builds, Docker Compose, Nginx config |
@@ -162,18 +218,24 @@ src/
 | [⚙️ CI/CD](./docs/ci-cd.md) | GitHub Actions — lint, test, build, Docker push |
 | [🏗️ Architecture](./docs/architecture.md) | Simulation engine, kinematics, control systems |
 
-### Quick Deploy
+---
 
-```bash
-docker build -t robosimlab .
-docker run -d -p 8080:80 robosimlab
-```
+## 🔄 CI/CD
+
+GitHub Actions run automatically on push:
+
+| Workflow | Description |
+|----------|-------------|
+| **CI** (`ci.yml`) | Lint → Type Check → Test → Build |
+| **Docker** (`docker.yml`) | Build & push image to GHCR on main/tags |
 
 ---
 
 ## 📋 Roadmap
 
-See [roadmap.md](./roadmap.md) for detailed phase-by-phase progress tracking (11 phases complete).
+See [roadmap.md](./roadmap.md) for detailed phase-by-phase progress tracking (11 phases, all complete).
+
+**Current status:** v6.0 — 29 modules across 6 labs, all operational.
 
 ---
 
