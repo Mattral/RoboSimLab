@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -46,6 +50,26 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        panel: "hsl(var(--panel))",
+        "panel-border": "hsl(var(--panel-border))",
+        cyan: {
+          glow: "hsl(var(--cyan-glow))",
+        },
+        green: {
+          glow: "hsl(var(--green-glow))",
+        },
+        amber: {
+          glow: "hsl(var(--amber-glow))",
+        },
+        red: {
+          glow: "hsl(var(--red-glow))",
+        },
+        purple: {
+          glow: "hsl(var(--purple-glow))",
+        },
+        blue: {
+          glow: "hsl(var(--blue-glow))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
