@@ -11,6 +11,9 @@ import MotionPlanningStudio from "./pages/MotionPlanningStudio";
 import SensorPerceptionLab from "./pages/SensorPerceptionLab";
 import HumanoidBalanceSimulator from "./pages/HumanoidBalanceSimulator";
 import RLPlayground from "./pages/RLPlayground";
+import RobotDynamicsSimulator from "./pages/RobotDynamicsSimulator";
+import AutonomousNavigation from "./pages/AutonomousNavigation";
+import MultiAgentCoordination from "./pages/MultiAgentCoordination";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +33,9 @@ const App = () => (
           <Route path="/sim/perception" element={<SensorPerceptionLab />} />
           <Route path="/sim/humanoid-balance" element={<HumanoidBalanceSimulator />} />
           <Route path="/sim/rl-playground" element={<RLPlayground />} />
+          <Route path="/sim/dynamics" element={<RobotDynamicsSimulator />} />
+          <Route path="/sim/navigation" element={<AutonomousNavigation />} />
+          <Route path="/sim/multi-agent" element={<MultiAgentCoordination />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

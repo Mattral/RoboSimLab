@@ -67,7 +67,7 @@ const modules: ModuleCard[] = [
     icon: Navigation,
     color: "hsl(210, 80%, 55%)",
     route: "/sim/navigation",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "perception",
@@ -94,7 +94,7 @@ const modules: ModuleCard[] = [
     icon: Zap,
     color: "hsl(15, 80%, 55%)",
     route: "/sim/dynamics",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "multi-agent",
@@ -103,7 +103,7 @@ const modules: ModuleCard[] = [
     icon: Network,
     color: "hsl(190, 70%, 50%)",
     route: "/sim/multi-agent",
-    status: "coming-soon",
+    status: "active",
   },
 ];
 
