@@ -217,6 +217,7 @@ const ArmKinematicsLab = () => {
           <button onClick={() => setShowDH(!showDH)} className={`sim-btn ${showDH ? "sim-btn-active" : "sim-btn-inactive"}`}>DH Params</button>
           <button onClick={() => setShowWorkspace(!showWorkspace)} className={`sim-btn ${showWorkspace ? "sim-btn-active" : "sim-btn-inactive"}`}>Workspace</button>
           <button onClick={() => setAutoRotate(!autoRotate)} className={`sim-btn ${autoRotate ? "sim-btn-active" : "sim-btn-inactive"}`}>Auto-Rotate</button>
+          <FocusToggleButton active={focusMode} onToggle={() => setFocusMode(!focusMode)} />
           <button onClick={() => { trailRef.current = []; setShowTrail(false); setTimeout(() => setShowTrail(true), 10); }} className="sim-btn sim-btn-inactive">Clear Trail</button>
         </div>
       </ControlSection>
