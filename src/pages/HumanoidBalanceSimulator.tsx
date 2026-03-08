@@ -5,12 +5,15 @@ import SimLayout, { useLearningMode } from "@/components/SimLayout";
 import SliderControl from "@/components/SliderControl";
 import ControlSection from "@/components/ControlSection";
 import EducationPanel from "@/components/EducationPanel";
+import FocusMode, { FocusToggleButton } from "@/components/FocusMode";
+import TelemetryPanel from "@/components/TelemetryPanel";
 import { Humanoid3D, HumanoidSceneLighting } from "@/components/3d/Humanoid3D";
 import { exportToCSV } from "@/components/DataExport";
 
 const HumanoidBalanceSimulator = () => {
   const learningMode = useLearningMode();
   const [cinematic, setCinematic] = useState(false);
+  const [focusMode, setFocusMode] = useState(false);
   const [kp, setKp] = useState(50);
   const [kd, setKd] = useState(15);
   const [disturbance, setDisturbance] = useState(0);
@@ -92,10 +95,11 @@ const HumanoidBalanceSimulator = () => {
         </div>
       </ControlSection>
       <ControlSection title="Display">
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 gap-2">
           <button onClick={() => setShowCoM(!showCoM)} className={`sim-btn ${showCoM ? "sim-btn-active" : "sim-btn-inactive"}`}>CoM</button>
           <button onClick={() => setShowPolygon(!showPolygon)} className={`sim-btn ${showPolygon ? "sim-btn-active" : "sim-btn-inactive"}`}>Support</button>
           <button onClick={() => setCinematic(!cinematic)} className={`sim-btn ${cinematic ? "sim-btn-active" : "sim-btn-inactive"}`}>Cinematic</button>
+          <FocusToggleButton active={focusMode} onToggle={() => setFocusMode(!focusMode)} />
         </div>
       </ControlSection>
       <ControlSection title="Simulation">
@@ -139,9 +143,37 @@ const HumanoidBalanceSimulator = () => {
               <fog attach="fog" args={["hsl(225, 15%, 6%)", 8, 18]} />
             </Canvas>
           </Suspense>
-          <div className="absolute top-3 left-3 glass-panel text-[11px] font-mono text-muted-foreground px-3 py-2 rounded-lg">
-            θ={(theta * 180 / Math.PI).toFixed(1)}° ω={stateRef.current.omega.toFixed(2)} rad/s τ={stateRef.current.torque.toFixed(1)} N·m
+          {/* Focus Mode */}
+          <FocusMode
+            active={focusMode}
+            onToggle={() => setFocusMode(false)}
+            robotName="Humanoid Balance Robot"
+            labels={[
+              { name: "LIDAR Scanner", color: "hsl(172, 78%, 47%)" },
+              { name: "Stereo Camera", color: "hsl(212, 78%, 52%)" },
+              { name: "Depth Sensor", color: "hsl(268, 58%, 52%)" },
+              { name: "Force Sensors (feet)", color: "hsl(38, 88%, 52%)" },
+              { name: "IMU (torso)", color: "hsl(152, 68%, 42%)" },
+              { name: "PD Balance Controller", value: `Kp=${kp} Kd=${kd}`, color: "hsl(0, 65%, 52%)" },
+            ]}
+          />
+          {/* Context-aware telemetry */}
+          <div className="absolute top-3 right-3 w-[155px] z-20">
+            <TelemetryPanel
+              mode={Math.abs(theta) > 0.15 ? "Balancing" : running ? "Balancing" : "Idle"}
+              items={[
+                { label: "Tilt", value: (theta * 180 / Math.PI).toFixed(1), unit: "°", highlight: Math.abs(theta) > 0.1 },
+                { label: "Angular Vel", value: stateRef.current.omega.toFixed(2), unit: " rad/s" },
+                { label: "Torque", value: stateRef.current.torque.toFixed(1), unit: " N·m", highlight: Math.abs(stateRef.current.torque) > 10 },
+                { label: "Stability", value: Math.abs(theta) < 0.05 ? "STABLE" : Math.abs(theta) < 0.2 ? "OK" : "UNSTABLE", color: Math.abs(theta) < 0.05 ? "hsl(152, 68%, 42%)" : Math.abs(theta) < 0.2 ? "hsl(38, 88%, 52%)" : "hsl(0, 65%, 52%)" },
+              ]}
+            />
           </div>
+          {!focusMode && (
+            <div className="absolute top-3 left-3 glass-panel text-[11px] font-mono text-muted-foreground px-3 py-2 rounded-lg">
+              θ={(theta * 180 / Math.PI).toFixed(1)}° ω={stateRef.current.omega.toFixed(2)} rad/s τ={stateRef.current.torque.toFixed(1)} N·m
+            </div>
+          )}
         </div>
         <div ref={chartContainerRef} className="h-[160px] border-t border-border/40 relative shrink-0">
           <canvas ref={canvasRef} className="absolute inset-0" />
