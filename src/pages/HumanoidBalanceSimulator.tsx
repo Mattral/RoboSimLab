@@ -95,10 +95,11 @@ const HumanoidBalanceSimulator = () => {
         </div>
       </ControlSection>
       <ControlSection title="Display">
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 gap-2">
           <button onClick={() => setShowCoM(!showCoM)} className={`sim-btn ${showCoM ? "sim-btn-active" : "sim-btn-inactive"}`}>CoM</button>
           <button onClick={() => setShowPolygon(!showPolygon)} className={`sim-btn ${showPolygon ? "sim-btn-active" : "sim-btn-inactive"}`}>Support</button>
           <button onClick={() => setCinematic(!cinematic)} className={`sim-btn ${cinematic ? "sim-btn-active" : "sim-btn-inactive"}`}>Cinematic</button>
+          <FocusToggleButton active={focusMode} onToggle={() => setFocusMode(!focusMode)} />
         </div>
       </ControlSection>
       <ControlSection title="Simulation">
