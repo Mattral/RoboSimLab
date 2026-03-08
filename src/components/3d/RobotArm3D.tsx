@@ -17,30 +17,80 @@ const JointMaterial = ({ color }: { color: string }) => (
   <meshStandardMaterial color={color} metalness={0.7} roughness={0.2} />
 );
 
+/** Mechanical link with bolt rings, cable channels, and actuator housing */
 const LinkSegment = ({ length, color, radius = 0.08 }: { length: number; color: string; radius?: number }) => (
   <group>
+    {/* Main structural tube */}
     <mesh position={[0, length / 2, 0]} castShadow>
-      <cylinderGeometry args={[radius, radius * 0.9, length, 16]} />
-      <meshStandardMaterial color={color} metalness={0.6} roughness={0.3} />
+      <cylinderGeometry args={[radius, radius * 0.92, length, 20]} />
+      <meshStandardMaterial color={color} metalness={0.65} roughness={0.25} />
     </mesh>
-    <mesh position={[0, length * 0.15, 0]}>
-      <torusGeometry args={[radius + 0.01, 0.015, 8, 16]} />
-      <meshStandardMaterial color="#1a1a2e" metalness={0.8} roughness={0.2} />
+    {/* Inner structural ridge */}
+    <mesh position={[0, length / 2, 0]} castShadow>
+      <cylinderGeometry args={[radius * 0.6, radius * 0.55, length * 0.85, 8]} />
+      <meshStandardMaterial color="#0d1117" metalness={0.8} roughness={0.15} />
     </mesh>
-    <mesh position={[0, length * 0.85, 0]}>
-      <torusGeometry args={[radius + 0.01, 0.015, 8, 16]} />
-      <meshStandardMaterial color="#1a1a2e" metalness={0.8} roughness={0.2} />
+    {/* Bolt rings at connection points */}
+    {[0.12, 0.88].map((pos, i) => (
+      <group key={i} position={[0, length * pos, 0]}>
+        <mesh>
+          <torusGeometry args={[radius + 0.012, 0.012, 8, 20]} />
+          <meshStandardMaterial color="#1a1a2e" metalness={0.85} roughness={0.15} />
+        </mesh>
+        {/* Bolt studs */}
+        {[0, Math.PI / 2, Math.PI, Math.PI * 1.5].map((angle, j) => (
+          <mesh key={j} position={[Math.cos(angle) * (radius + 0.012), 0, Math.sin(angle) * (radius + 0.012)]}>
+            <sphereGeometry args={[0.008, 6, 6]} />
+            <meshStandardMaterial color="#2d3436" metalness={0.9} roughness={0.1} />
+          </mesh>
+        ))}
+      </group>
+    ))}
+    {/* Cable channel (side rail) */}
+    <mesh position={[radius * 0.85, length / 2, 0]} castShadow>
+      <boxGeometry args={[0.015, length * 0.6, 0.025]} />
+      <meshStandardMaterial color="#1a1a2e" metalness={0.7} roughness={0.3} />
+    </mesh>
+    {/* Actuator housing at midpoint */}
+    <mesh position={[-radius * 0.6, length * 0.45, 0]} castShadow>
+      <boxGeometry args={[radius * 0.5, length * 0.2, radius * 0.6]} />
+      <meshStandardMaterial color="#1a2a3a" metalness={0.7} roughness={0.25} />
+    </mesh>
+    {/* Actuator label plate */}
+    <mesh position={[-radius * 0.6, length * 0.45, radius * 0.31]} castShadow>
+      <boxGeometry args={[radius * 0.35, length * 0.08, 0.003]} />
+      <meshStandardMaterial color="#00d4aa" metalness={0.5} roughness={0.3} emissive="#00d4aa" emissiveIntensity={0.1} />
     </mesh>
   </group>
 );
 
+/** Joint sphere with rotation indicator ring and axis marker */
 const JointSphere = ({ radius = 0.12, color }: { radius?: number; color: string }) => (
-  <mesh castShadow>
-    <sphereGeometry args={[radius, 24, 24]} />
-    <JointMaterial color={color} />
-  </mesh>
+  <group>
+    {/* Main joint body */}
+    <mesh castShadow>
+      <sphereGeometry args={[radius, 24, 24]} />
+      <JointMaterial color={color} />
+    </mesh>
+    {/* Joint housing ring */}
+    <mesh rotation={[Math.PI / 2, 0, 0]}>
+      <torusGeometry args={[radius * 1.1, radius * 0.12, 8, 24]} />
+      <meshStandardMaterial color="#1a1a2e" metalness={0.85} roughness={0.15} />
+    </mesh>
+    {/* Rotation axis indicator dot */}
+    <mesh position={[0, radius * 1.25, 0]}>
+      <sphereGeometry args={[0.012, 8, 8]} />
+      <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.5} />
+    </mesh>
+    {/* Sensor mount indicator */}
+    <mesh position={[radius * 0.9, 0, 0]}>
+      <boxGeometry args={[0.02, 0.03, 0.02]} />
+      <meshStandardMaterial color="#636e72" metalness={0.8} roughness={0.2} />
+    </mesh>
+  </group>
 );
 
+/** Animated gripper end effector */
 const EndEffector = () => {
   const ref = useRef<THREE.Group>(null);
   useFrame((_, delta) => {
@@ -48,17 +98,29 @@ const EndEffector = () => {
   });
   return (
     <group ref={ref}>
+      {/* Gripper base plate */}
+      <mesh position={[0, 0, 0]}>
+        <cylinderGeometry args={[0.06, 0.08, 0.04, 16]} />
+        <meshStandardMaterial color="#1a2a3a" metalness={0.75} roughness={0.25} />
+      </mesh>
+      {/* Gripper fingers */}
       {[-1, 1].map(side => (
-        <group key={side} position={[side * 0.06, 0.08, 0]}>
+        <group key={side} position={[side * 0.055, 0.06, 0]}>
           <mesh>
-            <boxGeometry args={[0.02, 0.12, 0.04]} />
-            <meshStandardMaterial color="#00d4aa" metalness={0.7} roughness={0.2} emissive="#00d4aa" emissiveIntensity={0.15} />
+            <boxGeometry args={[0.018, 0.1, 0.035]} />
+            <meshStandardMaterial color="#00d4aa" metalness={0.7} roughness={0.2} emissive="#00d4aa" emissiveIntensity={0.12} />
+          </mesh>
+          {/* Finger tip contact pad */}
+          <mesh position={[side * -0.003, 0.055, 0]}>
+            <boxGeometry args={[0.012, 0.015, 0.03]} />
+            <meshStandardMaterial color="#f0a500" metalness={0.5} roughness={0.4} />
           </mesh>
         </group>
       ))}
-      <mesh position={[0, 0, 0]}>
-        <cylinderGeometry args={[0.05, 0.07, 0.04, 12]} />
-        <meshStandardMaterial color="#1a2a3a" metalness={0.7} roughness={0.3} />
+      {/* Tool center point indicator */}
+      <mesh position={[0, 0.12, 0]}>
+        <sphereGeometry args={[0.008, 8, 8]} />
+        <meshBasicMaterial color="#ff4444" />
       </mesh>
     </group>
   );
@@ -66,6 +128,7 @@ const EndEffector = () => {
 
 const CoordinateFrame = ({ size = 0.2 }: { size?: number }) => (
   <group>
+    {/* X axis - red */}
     <mesh position={[size / 2, 0, 0]} rotation={[0, 0, -Math.PI / 2]}>
       <cylinderGeometry args={[0.008, 0.008, size, 6]} />
       <meshBasicMaterial color="#ff4444" />
@@ -74,14 +137,16 @@ const CoordinateFrame = ({ size = 0.2 }: { size?: number }) => (
       <coneGeometry args={[0.02, 0.06, 6]} />
       <meshBasicMaterial color="#ff4444" />
     </mesh>
+    {/* Y axis - green */}
     <mesh position={[0, size / 2, 0]}>
       <cylinderGeometry args={[0.008, 0.008, size, 6]} />
       <meshBasicMaterial color="#44ff44" />
     </mesh>
-    <mesh position={[0, size / 2 + size * 0.15, 0]} rotation={[0, 0, 0]}>
+    <mesh position={[0, size / 2 + size * 0.15, 0]}>
       <coneGeometry args={[0.02, 0.06, 6]} />
       <meshBasicMaterial color="#44ff44" />
     </mesh>
+    {/* Z axis - blue */}
     <mesh position={[0, 0, size / 2]} rotation={[Math.PI / 2, 0, 0]}>
       <cylinderGeometry args={[0.008, 0.008, size, 6]} />
       <meshBasicMaterial color="#4488ff" />
@@ -110,11 +175,21 @@ const JointArc = ({ angle, radius = 0.2, color }: { angle: number; radius?: numb
   return <primitive ref={lineRef} object={new THREE.Line(geometry, material)} />;
 };
 
-/** Trajectory trail rendered from stored world-space points */
+/** Trajectory trail with fading opacity */
 const TrajectoryTrail = ({ points }: { points: THREE.Vector3[] }) => {
   const line = useMemo(() => {
-    const geometry = points.length < 2 ? new THREE.BufferGeometry() : new THREE.BufferGeometry().setFromPoints(points);
-    const material = new THREE.LineBasicMaterial({ color: "#00d4aa", transparent: true, opacity: 0.4 });
+    if (points.length < 2) return new THREE.Line(new THREE.BufferGeometry(), new THREE.LineBasicMaterial());
+    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    // Fade older points
+    const colors = new Float32Array(points.length * 3);
+    for (let i = 0; i < points.length; i++) {
+      const alpha = i / points.length;
+      colors[i * 3] = 0;
+      colors[i * 3 + 1] = alpha * 0.83;
+      colors[i * 3 + 2] = alpha * 0.67;
+    }
+    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+    const material = new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.6 });
     return new THREE.Line(geometry, material);
   }, [points]);
   return <primitive object={line} />;
@@ -123,7 +198,7 @@ const TrajectoryTrail = ({ points }: { points: THREE.Vector3[] }) => {
 export const RobotArm3D = ({ joint1, joint2, joint3, link1 = 1.2, link2 = 1.0, link3 = 0.8, showDebug = false, trailPoints = [] }: RobotArmProps) => {
   return (
     <group>
-      {/* Base platform */}
+      {/* Base platform with industrial detail */}
       <mesh position={[0, -0.05, 0]}>
         <cylinderGeometry args={[0.35, 0.4, 0.1, 32]} />
         <meshStandardMaterial color="#1a1a2e" metalness={0.8} roughness={0.2} />
@@ -132,11 +207,22 @@ export const RobotArm3D = ({ joint1, joint2, joint3, link1 = 1.2, link2 = 1.0, l
         <cylinderGeometry args={[0.45, 0.45, 0.04, 32]} />
         <meshStandardMaterial color="#0d1117" metalness={0.9} roughness={0.1} />
       </mesh>
-
+      {/* Base mounting bolts */}
+      {[0, Math.PI / 3, Math.PI * 2 / 3, Math.PI, Math.PI * 4 / 3, Math.PI * 5 / 3].map((a, i) => (
+        <mesh key={i} position={[Math.cos(a) * 0.38, -0.1, Math.sin(a) * 0.38]}>
+          <cylinderGeometry args={[0.015, 0.015, 0.03, 6]} />
+          <meshStandardMaterial color="#636e72" metalness={0.9} roughness={0.1} />
+        </mesh>
+      ))}
       {/* Base rotation ring */}
       <mesh position={[0, 0.02, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[0.32, 0.025, 8, 32]} />
         <meshStandardMaterial color="#00d4aa" metalness={0.5} roughness={0.3} emissive="#00d4aa" emissiveIntensity={0.3} />
+      </mesh>
+      {/* Base encoder ring */}
+      <mesh position={[0, 0.005, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.28, 0.008, 6, 48]} />
+        <meshStandardMaterial color="#636e72" metalness={0.8} roughness={0.2} />
       </mesh>
 
       {/* Joint 1 - Base rotation */}
