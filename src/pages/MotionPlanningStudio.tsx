@@ -29,7 +29,9 @@ const MotionPlanningStudio = () => {
   const [start, setStart] = useState({ x: 2, y: 2 });
   const [goal, setGoal] = useState({ x: 37, y: 22 });
   const [tool, setTool] = useState<"wall" | "start" | "goal" | "erase">("wall");
-  const [algorithm, setAlgorithm] = useState<"astar" | "rrt" | "dijkstra" | "potential">("astar");
+  const [algorithm, setAlgorithm] = useState<"astar" | "rrt" | "dijkstra" | "potential" | "prm">("astar");
+  const [prmNodes, setPrmNodes] = useState(200);
+  const [prmK, setPrmK] = useState(6);
   const [isRunning, setIsRunning] = useState(false);
   const [stepDelay, setStepDelay] = useState(20);
   const [rrtStepSize, setRrtStepSize] = useState(3);
