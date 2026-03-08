@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import {
   Cpu, Route, SlidersHorizontal, Users, PersonStanding, Navigation,
-  Eye, Brain, Zap, Network, Wrench, ArrowRight, Sparkles, Activity
+  Eye, Brain, Zap, Network, Wrench, ArrowRight, Sparkles, Activity, GitBranch
 } from "lucide-react";
 
 interface ModuleCard {
@@ -113,6 +113,15 @@ const modules: ModuleCard[] = [
     color: "hsl(32, 78%, 48%)",
     route: "/sim/robot-builder",
     tags: ["3D", "Builder"],
+  },
+  {
+    id: "trajectory-optimization",
+    title: "Trajectory Optimization",
+    description: "Define start/goal poses, optimize trajectories with cost minimization and collision avoidance",
+    icon: GitBranch,
+    color: "hsl(292, 58%, 50%)",
+    route: "/sim/trajectory-optimization",
+    tags: ["3D", "Optimize"],
   },
 ];
 

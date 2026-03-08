@@ -15,6 +15,7 @@ import RobotDynamicsSimulator from "./pages/RobotDynamicsSimulator";
 import AutonomousNavigation from "./pages/AutonomousNavigation";
 import MultiAgentCoordination from "./pages/MultiAgentCoordination";
 import CustomRobotBuilder from "./pages/CustomRobotBuilder";
+import TrajectoryOptimizationLab from "./pages/TrajectoryOptimizationLab";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const App = () => (
           <Route path="/sim/navigation" element={<AutonomousNavigation />} />
           <Route path="/sim/multi-agent" element={<MultiAgentCoordination />} />
           <Route path="/sim/robot-builder" element={<CustomRobotBuilder />} />
+          <Route path="/sim/trajectory-optimization" element={<TrajectoryOptimizationLab />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

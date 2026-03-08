@@ -1,4 +1,4 @@
-import { useState, Suspense, useCallback, useRef, useEffect } from "react";
+import { useState, Suspense, useCallback, useRef, useEffect, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import SimLayout from "@/components/SimLayout";
@@ -26,6 +26,9 @@ const ArmKinematicsLab = () => {
   const [showJacobian, setShowJacobian] = useState(false);
   const [showEllipsoid, setShowEllipsoid] = useState(false);
   const [showDH, setShowDH] = useState(false);
+  const [showDebug, setShowDebug] = useState(false);
+  const [showTrail, setShowTrail] = useState(false);
+  const trailRef = useRef<THREE.Vector3[]>([]);
 
   // Imitation learning state
   const [recording, setRecording] = useState(false);
@@ -105,6 +108,16 @@ const ArmKinematicsLab = () => {
     setPlaying(true);
     setRecording(false);
   };
+
+  // Trail recording
+  useEffect(() => {
+    if (!showTrail) return;
+    const pt = new THREE.Vector3(endX, endY, 0);
+    if (trailRef.current.length === 0 || trailRef.current[trailRef.current.length - 1].distanceTo(pt) > 0.02) {
+      trailRef.current.push(pt);
+      if (trailRef.current.length > 500) trailRef.current.shift();
+    }
+  }, [endX, endY, showTrail]);
 
   // Record frames while recording
   useEffect(() => {
@@ -192,11 +205,14 @@ const ArmKinematicsLab = () => {
 
       <ControlSection title="Visualization">
         <div className="grid grid-cols-2 gap-2">
+          <button onClick={() => setShowDebug(!showDebug)} className={`sim-btn ${showDebug ? "sim-btn-active" : "sim-btn-inactive"}`}>Debug</button>
+          <button onClick={() => setShowTrail(!showTrail)} className={`sim-btn ${showTrail ? "sim-btn-active" : "sim-btn-inactive"}`}>Trail</button>
           <button onClick={() => setShowJacobian(!showJacobian)} className={`sim-btn ${showJacobian ? "sim-btn-active" : "sim-btn-inactive"}`}>Jacobian</button>
           <button onClick={() => setShowEllipsoid(!showEllipsoid)} className={`sim-btn ${showEllipsoid ? "sim-btn-active" : "sim-btn-inactive"}`}>Ellipsoid</button>
           <button onClick={() => setShowDH(!showDH)} className={`sim-btn ${showDH ? "sim-btn-active" : "sim-btn-inactive"}`}>DH Params</button>
           <button onClick={() => setShowWorkspace(!showWorkspace)} className={`sim-btn ${showWorkspace ? "sim-btn-active" : "sim-btn-inactive"}`}>Workspace</button>
           <button onClick={() => setAutoRotate(!autoRotate)} className={`sim-btn ${autoRotate ? "sim-btn-active" : "sim-btn-inactive"}`}>Auto-Rotate</button>
+          <button onClick={() => { trailRef.current = []; setShowTrail(false); setTimeout(() => setShowTrail(true), 10); }} className="sim-btn sim-btn-inactive">Clear Trail</button>
         </div>
       </ControlSection>
 
@@ -275,7 +291,7 @@ const ArmKinematicsLab = () => {
             <OrbitControls autoRotate={autoRotate} autoRotateSpeed={1} enableDamping dampingFactor={0.05} minDistance={2} maxDistance={12} target={[0, 1.5, 0]} />
             <SceneLighting />
             <RobotBase3D />
-            <RobotArm3D joint1={joint1} joint2={joint2} joint3={joint3} link1={link1} link2={link2} link3={link3} />
+            <RobotArm3D joint1={joint1} joint2={joint2} joint3={joint3} link1={link1} link2={link2} link3={link3} showDebug={showDebug} trailPoints={showTrail ? trailRef.current : []} />
             {showWorkspace && (
               <mesh position={[0, 0, 0]}>
                 <sphereGeometry args={[link1 + link2 + link3, 24, 24]} />
