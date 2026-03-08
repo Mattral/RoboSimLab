@@ -7,7 +7,7 @@ import { exportToCSV } from "@/components/DataExport";
 interface Cell {
   x: number;
   y: number;
-  type: "empty" | "wall" | "start" | "goal" | "open" | "closed" | "path" | "rrt-tree" | "rrt-path" | "potential";
+  type: "empty" | "wall" | "start" | "goal" | "open" | "closed" | "path" | "rrt-tree" | "rrt-path" | "potential" | "prm-node" | "prm-edge" | "prm-path";
 }
 
 interface AStarNode {
