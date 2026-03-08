@@ -1,4 +1,4 @@
-import { useState, Suspense, useCallback, useRef, useEffect } from "react";
+import { useState, Suspense, useCallback, useRef, useEffect, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import SimLayout from "@/components/SimLayout";
