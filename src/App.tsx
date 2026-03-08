@@ -19,6 +19,8 @@ import TrajectoryOptimizationLab from "./pages/TrajectoryOptimizationLab";
 import SensorFusionLab from "./pages/SensorFusionLab";
 import SLAMExploration from "./pages/SLAMExploration";
 import MultiAgentRL from "./pages/MultiAgentRL";
+import RobotTeleoperation from "./pages/RobotTeleoperation";
+import AlgorithmComparison from "./pages/AlgorithmComparison";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
