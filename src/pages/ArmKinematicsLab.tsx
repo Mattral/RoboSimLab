@@ -32,6 +32,7 @@ const ArmKinematicsLab = () => {
   const [showDH, setShowDH] = useState(false);
   const [showDebug, setShowDebug] = useState(false);
   const [showTrail, setShowTrail] = useState(false);
+  const [focusMode, setFocusMode] = useState(false);
   const trailRef = useRef<THREE.Vector3[]>([]);
 
   // Imitation learning state
