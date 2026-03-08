@@ -78,9 +78,9 @@
 - [x] **Velocity Vector Arrows** — 3D ArrowHelper overlays for joint velocities in Dynamics module
 - [x] **Cinematic Camera Mode** — Smooth auto-orbit in Dynamics, Humanoid, and Arm modules
 - [x] **Trajectory Optimization Lab** — Start/goal poses, cost minimization, smoothness & obstacle weights, animated playback
-- [ ] Multi-agent reinforcement learning
-- [ ] SLAM exploration simulation (advanced)
-- [ ] Sensor fusion visualization
+- [x] **Multi-Agent RL** — Cooperative Q-learning with shared Q-tables, reward curves, policy visualization
+- [x] **SLAM Exploration** — Frontier-based autonomous mapping with BFS pathfinding
+- [x] **Sensor Fusion Lab** — Lidar + Camera + IMU unified perception with confidence heatmap
 
 ---
 
@@ -93,4 +93,4 @@
 | Phase 3 — Sensor & Perception | ✅ Complete |
 | Phase 4 — Advanced Physics | ✅ Complete |
 | Phase 5 — AI & RL Systems | ✅ Complete |
-| Phase 6 — Experimental | 🔶 In Progress (10/13 done) |
+| Phase 6 — Experimental | ✅ Complete (13/13 done) |
