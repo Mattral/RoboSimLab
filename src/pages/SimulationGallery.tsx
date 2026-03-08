@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import {
   Cpu, Route, SlidersHorizontal, Users, PersonStanding, Navigation,
   Eye, Brain, Zap, Network, Wrench, ArrowRight, Sparkles, Activity, GitBranch,
-  Layers, Map, Bot, Gamepad2, GitCompareArrows, Sigma, Radar, Search, Shuffle, CircuitBoard
+  Layers, Map, Bot, Gamepad2, GitCompareArrows, Sigma, Radar, Search, Shuffle, CircuitBoard,
+  Blocks, Workflow, Target, BarChart3
 } from "lucide-react";
 
 interface ModuleCard {
