@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { 
   Cpu, Route, SlidersHorizontal, Users, PersonStanding, Navigation, 
-  Eye, Brain, Zap, Network 
+  Eye, Brain, Zap, Network, Wrench 
 } from "lucide-react";
 
 interface ModuleCard {
@@ -103,6 +103,15 @@ const modules: ModuleCard[] = [
     icon: Network,
     color: "hsl(190, 70%, 50%)",
     route: "/sim/multi-agent",
+    status: "active",
+  },
+  {
+    id: "robot-builder",
+    title: "Custom Robot Builder",
+    description: "Design custom manipulators with configurable DOF, link lengths, joint types, and export to JSON",
+    icon: Wrench,
+    color: "hsl(35, 80%, 50%)",
+    route: "/sim/robot-builder",
     status: "active",
   },
 ];
