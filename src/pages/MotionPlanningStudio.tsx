@@ -7,7 +7,7 @@ import { exportToCSV } from "@/components/DataExport";
 interface Cell {
   x: number;
   y: number;
-  type: "empty" | "wall" | "start" | "goal" | "open" | "closed" | "path" | "rrt-tree" | "rrt-path" | "potential";
+  type: "empty" | "wall" | "start" | "goal" | "open" | "closed" | "path" | "rrt-tree" | "rrt-path" | "potential" | "prm-node" | "prm-edge" | "prm-path";
 }
 
 interface AStarNode {
@@ -29,7 +29,9 @@ const MotionPlanningStudio = () => {
   const [start, setStart] = useState({ x: 2, y: 2 });
   const [goal, setGoal] = useState({ x: 37, y: 22 });
   const [tool, setTool] = useState<"wall" | "start" | "goal" | "erase">("wall");
-  const [algorithm, setAlgorithm] = useState<"astar" | "rrt" | "dijkstra" | "potential">("astar");
+  const [algorithm, setAlgorithm] = useState<"astar" | "rrt" | "dijkstra" | "potential" | "prm">("astar");
+  const [prmNodes, setPrmNodes] = useState(200);
+  const [prmK, setPrmK] = useState(6);
   const [isRunning, setIsRunning] = useState(false);
   const [stepDelay, setStepDelay] = useState(20);
   const [rrtStepSize, setRrtStepSize] = useState(3);
@@ -220,12 +222,99 @@ const MotionPlanningStudio = () => {
     setGrid(g.map(r => r.map(c => ({ ...c })))); setIsRunning(false);
   }, [grid, start, goal, cols, rows, stepDelay, rrtStepSize, rrtMaxIter, clearPath]);
 
+  // PRM algorithm
+  const runPRM = useCallback(async () => {
+    setIsRunning(true); clearPath(); await new Promise(r => setTimeout(r, 50));
+    const g = grid.map(row => row.map(cell => ({ ...cell })));
+    const isWall = (x: number, y: number) => {
+      const ix = Math.round(x), iy = Math.round(y);
+      return ix < 0 || iy < 0 || ix >= cols || iy >= rows || g[iy][ix].type === "wall";
+    };
+    const lineCollision = (x1: number, y1: number, x2: number, y2: number) => {
+      const steps = Math.ceil(Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2) * 2);
+      for (let i = 0; i <= steps; i++) {
+        const t = i / Math.max(1, steps);
+        if (isWall(x1 + (x2 - x1) * t, y1 + (y2 - y1) * t)) return true;
+      }
+      return false;
+    };
+
+    // Sample nodes
+    interface PRMNode { x: number; y: number; neighbors: number[]; }
+    const nodes: PRMNode[] = [
+      { x: start.x, y: start.y, neighbors: [] },
+      { x: goal.x, y: goal.y, neighbors: [] },
+    ];
+    for (let i = 0; i < prmNodes; i++) {
+      const x = Math.random() * cols;
+      const y = Math.random() * rows;
+      if (!isWall(x, y)) nodes.push({ x, y, neighbors: [] });
+    }
+
+    // Mark nodes on grid
+    for (let i = 2; i < nodes.length; i++) {
+      const ix = Math.round(nodes[i].x), iy = Math.round(nodes[i].y);
+      if (ix >= 0 && iy >= 0 && ix < cols && iy < rows && g[iy][ix].type === "empty") g[iy][ix].type = "prm-node";
+    }
+    setGrid(g.map(r => r.map(c => ({ ...c })))); await new Promise(r => setTimeout(r, stepDelay * 5));
+
+    // Connect k-nearest neighbors
+    for (let i = 0; i < nodes.length; i++) {
+      const dists = nodes.map((n, j) => ({ j, d: Math.sqrt((n.x - nodes[i].x) ** 2 + (n.y - nodes[i].y) ** 2) }));
+      dists.sort((a, b) => a.d - b.d);
+      for (let k = 1; k <= Math.min(prmK, dists.length - 1); k++) {
+        const j = dists[k].j;
+        if (!lineCollision(nodes[i].x, nodes[i].y, nodes[j].x, nodes[j].y)) {
+          if (!nodes[i].neighbors.includes(j)) nodes[i].neighbors.push(j);
+          if (!nodes[j].neighbors.includes(i)) nodes[j].neighbors.push(i);
+        }
+      }
+    }
+
+    // Dijkstra on roadmap graph
+    const dist = Array(nodes.length).fill(Infinity);
+    const parent = Array(nodes.length).fill(-1);
+    const visited = new Set<number>();
+    dist[0] = 0;
+    const queue = [{ idx: 0, d: 0 }];
+
+    while (queue.length > 0) {
+      queue.sort((a, b) => a.d - b.d);
+      const { idx } = queue.shift()!;
+      if (visited.has(idx)) continue;
+      visited.add(idx);
+      if (idx === 1) break; // goal found
+      for (const ni of nodes[idx].neighbors) {
+        const nd = dist[idx] + Math.sqrt((nodes[ni].x - nodes[idx].x) ** 2 + (nodes[ni].y - nodes[idx].y) ** 2);
+        if (nd < dist[ni]) {
+          dist[ni] = nd;
+          parent[ni] = idx;
+          queue.push({ idx: ni, d: nd });
+        }
+      }
+    }
+
+    // Trace path
+    if (dist[1] < Infinity) {
+      let cur = 1;
+      while (cur !== -1 && cur !== 0) {
+        const ix = Math.round(nodes[cur].x), iy = Math.round(nodes[cur].y);
+        if (ix >= 0 && iy >= 0 && ix < cols && iy < rows && g[iy][ix].type !== "start" && g[iy][ix].type !== "goal")
+          g[iy][ix].type = "prm-path";
+        cur = parent[cur];
+      }
+    }
+
+    setGrid(g.map(r => r.map(c => ({ ...c })))); setIsRunning(false);
+  }, [grid, start, goal, cols, rows, stepDelay, prmNodes, prmK, clearPath]);
+
   const runAlgorithm = useCallback(() => {
     if (algorithm === "astar") runAStar();
     else if (algorithm === "dijkstra") runDijkstra();
     else if (algorithm === "potential") runPotentialField();
+    else if (algorithm === "prm") runPRM();
     else runRRT();
-  }, [algorithm, runAStar, runDijkstra, runPotentialField, runRRT]);
+  }, [algorithm, runAStar, runDijkstra, runPotentialField, runRRT, runPRM]);
 
   // Canvas rendering
   useEffect(() => {
@@ -243,10 +332,10 @@ const MotionPlanningStudio = () => {
       const cellSize = Math.min(cellW, cellH);
       const offsetX = (cw - cellSize * cols) / 2; const offsetY = (ch - cellSize * rows) / 2;
       const colors: Record<string, string> = {
-        empty: "hsl(225, 14%, 9%)", wall: "hsl(225, 12%, 22%)", start: "hsl(175, 80%, 50%)",
-        goal: "hsl(40, 90%, 55%)", open: "hsl(210, 55%, 22%)", closed: "hsl(225, 15%, 14%)",
-        path: "hsl(150, 70%, 45%)", "rrt-tree": "hsl(270, 35%, 20%)", "rrt-path": "hsl(270, 60%, 50%)",
-        potential: "hsl(15, 60%, 20%)",
+        empty: "hsl(228, 14%, 9%)", wall: "hsl(228, 12%, 22%)", start: "hsl(172, 78%, 47%)",
+        goal: "hsl(38, 88%, 52%)", open: "hsl(212, 55%, 22%)", closed: "hsl(228, 15%, 14%)",
+        path: "hsl(152, 68%, 42%)", "rrt-tree": "hsl(268, 35%, 20%)", "rrt-path": "hsl(268, 58%, 50%)",
+        potential: "hsl(15, 60%, 20%)", "prm-node": "hsl(48, 50%, 18%)", "prm-edge": "hsl(48, 40%, 15%)", "prm-path": "hsl(48, 78%, 48%)",
       };
       for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
@@ -303,25 +392,35 @@ const MotionPlanningStudio = () => {
         </div>
       </ControlSection>
       <ControlSection title="Algorithm">
-        <div className="grid grid-cols-2 gap-2">
-          {(["astar", "dijkstra", "rrt", "potential"] as const).map(a => (
-            <button key={a} onClick={() => setAlgorithm(a)}
-              className={`sim-btn ${algorithm === a ? "sim-btn-active" : "sim-btn-inactive"}`}
-              style={algorithm === a && a === "rrt" ? { borderColor: "hsl(270, 60%, 55%)", color: "hsl(270, 60%, 55%)" } : algorithm === a && a === "potential" ? { borderColor: "hsl(15, 80%, 55%)", color: "hsl(15, 80%, 55%)" } : {}}>
-              {a === "astar" ? "A*" : a === "dijkstra" ? "Dijkstra" : a === "rrt" ? "RRT" : "Potential"}
-            </button>
-          ))}
+        <div className="grid grid-cols-3 gap-1.5">
+          {(["astar", "dijkstra", "rrt", "potential", "prm"] as const).map(a => {
+            const colors: Record<string, string> = { rrt: "hsl(268, 58%, 52%)", potential: "hsl(15, 78%, 52%)", prm: "hsl(48, 78%, 48%)" };
+            const labels: Record<string, string> = { astar: "A*", dijkstra: "Dijkstra", rrt: "RRT", potential: "Potential", prm: "PRM" };
+            return (
+              <button key={a} onClick={() => setAlgorithm(a)}
+                className={`sim-btn ${algorithm === a ? "sim-btn-active" : "sim-btn-inactive"}`}
+                style={algorithm === a && colors[a] ? { borderColor: colors[a], color: colors[a] } : {}}>
+                {labels[a]}
+              </button>
+            );
+          })}
         </div>
         {algorithm === "rrt" && (
           <div className="space-y-2 mt-2">
-            <SliderControl label="Step Size" value={rrtStepSize} min={1} max={8} step={0.5} onChange={setRrtStepSize} color="hsl(270, 60%, 55%)" />
-            <SliderControl label="Max Iterations" value={rrtMaxIter} min={500} max={10000} step={100} onChange={v => setRrtMaxIter(Math.round(v))} color="hsl(270, 60%, 55%)" />
+            <SliderControl label="Step Size" value={rrtStepSize} min={1} max={8} step={0.5} onChange={setRrtStepSize} color="hsl(268, 58%, 52%)" />
+            <SliderControl label="Max Iterations" value={rrtMaxIter} min={500} max={10000} step={100} onChange={v => setRrtMaxIter(Math.round(v))} color="hsl(268, 58%, 52%)" />
           </div>
         )}
         {algorithm === "potential" && (
           <div className="space-y-2 mt-2">
-            <SliderControl label="Attractive Gain" value={potentialAttractive} min={0.1} max={5} step={0.1} onChange={setPotentialAttractive} color="hsl(15, 80%, 55%)" />
-            <SliderControl label="Repulsive Gain" value={potentialRepulsive} min={10} max={500} step={10} onChange={v => setPotentialRepulsive(Math.round(v))} color="hsl(15, 80%, 55%)" />
+            <SliderControl label="Attractive Gain" value={potentialAttractive} min={0.1} max={5} step={0.1} onChange={setPotentialAttractive} color="hsl(15, 78%, 52%)" />
+            <SliderControl label="Repulsive Gain" value={potentialRepulsive} min={10} max={500} step={10} onChange={v => setPotentialRepulsive(Math.round(v))} color="hsl(15, 78%, 52%)" />
+          </div>
+        )}
+        {algorithm === "prm" && (
+          <div className="space-y-2 mt-2">
+            <SliderControl label="Sample Nodes" value={prmNodes} min={50} max={500} step={10} onChange={v => setPrmNodes(Math.round(v))} color="hsl(48, 78%, 48%)" />
+            <SliderControl label="K-Nearest" value={prmK} min={3} max={12} step={1} onChange={v => setPrmK(Math.round(v))} color="hsl(48, 78%, 48%)" />
           </div>
         )}
       </ControlSection>
@@ -341,14 +440,15 @@ const MotionPlanningStudio = () => {
         <p className="text-xs text-muted-foreground leading-relaxed">
           <span className="text-primary">A*</span> & <span className="text-blue-glow">Dijkstra</span>: optimal graph search.
           <span className="text-purple-glow"> RRT</span>: random tree exploration.
-          <span style={{ color: "hsl(15, 80%, 55%)" }}> Potential Field</span>: gradient descent with attractive/repulsive forces.
+          <span style={{ color: "hsl(15, 78%, 52%)" }}> Potential</span>: gradient descent.
+          <span style={{ color: "hsl(48, 78%, 48%)" }}> PRM</span>: probabilistic roadmap with k-nearest neighbors.
         </p>
       </ControlSection>
     </>
   );
 
   return (
-    <SimLayout title="Motion Planning Studio" subtitle="A* · Dijkstra · RRT · Potential Field" controls={controls}>
+    <SimLayout title="Motion Planning Studio" subtitle="A* · Dijkstra · RRT · PRM · Potential" controls={controls}>
       <div ref={containerRef} className="w-full h-full min-h-[400px] relative">
         <canvas ref={canvasRef} className="absolute inset-0" />
       </div>

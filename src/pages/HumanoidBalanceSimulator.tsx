@@ -8,6 +8,7 @@ import { Humanoid3D, HumanoidSceneLighting } from "@/components/3d/Humanoid3D";
 import { exportToCSV } from "@/components/DataExport";
 
 const HumanoidBalanceSimulator = () => {
+  const [cinematic, setCinematic] = useState(false);
   const [kp, setKp] = useState(50);
   const [kd, setKd] = useState(15);
   const [disturbance, setDisturbance] = useState(0);
@@ -89,9 +90,10 @@ const HumanoidBalanceSimulator = () => {
         </div>
       </ControlSection>
       <ControlSection title="Display">
-        <div className="flex gap-2">
-          <button onClick={() => setShowCoM(!showCoM)} className={`flex-1 sim-btn ${showCoM ? "sim-btn-active" : "sim-btn-inactive"}`}>CoM</button>
-          <button onClick={() => setShowPolygon(!showPolygon)} className={`flex-1 sim-btn ${showPolygon ? "sim-btn-active" : "sim-btn-inactive"}`}>Support</button>
+        <div className="grid grid-cols-3 gap-2">
+          <button onClick={() => setShowCoM(!showCoM)} className={`sim-btn ${showCoM ? "sim-btn-active" : "sim-btn-inactive"}`}>CoM</button>
+          <button onClick={() => setShowPolygon(!showPolygon)} className={`sim-btn ${showPolygon ? "sim-btn-active" : "sim-btn-inactive"}`}>Support</button>
+          <button onClick={() => setCinematic(!cinematic)} className={`sim-btn ${cinematic ? "sim-btn-active" : "sim-btn-inactive"}`}>Cinematic</button>
         </div>
       </ControlSection>
       <ControlSection title="Simulation">
@@ -111,7 +113,7 @@ const HumanoidBalanceSimulator = () => {
           <Suspense fallback={<div className="flex items-center justify-center h-full text-muted-foreground text-sm">Loading 3D Scene...</div>}>
             <Canvas shadows>
               <PerspectiveCamera makeDefault position={[3, 2.5, 4]} fov={45} />
-              <OrbitControls enableDamping dampingFactor={0.05} target={[0, 1.5, 0]} minDistance={2} maxDistance={10} />
+              <OrbitControls enableDamping dampingFactor={0.05} target={[0, 1.5, 0]} minDistance={2} maxDistance={10} autoRotate={cinematic} autoRotateSpeed={0.8} />
               <HumanoidSceneLighting />
               <gridHelper args={[10, 20, "#1a2a3a", "#111827"]} position={[0, 0, 0]} />
               <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, 0]} receiveShadow><planeGeometry args={[10, 10]} /><meshStandardMaterial color="#0d1117" transparent opacity={0.8} /></mesh>
