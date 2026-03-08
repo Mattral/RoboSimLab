@@ -151,9 +151,13 @@
 - [x] **EducationPanel polish** — Icon badge, rounded borders, smooth open/close transitions, spacing refinement
 - [x] **ContextHint polish** — Rounded corners, improved typography line-height, amber accent
 
+### Focus Mode & Telemetry (✅ Complete)
+- [x] **Focus Mode** — Cinematic vignette overlay with robot name badge, subsystem labels, smooth staggered animation
+- [x] **Context-aware telemetry** — Adaptive panels showing mode-specific data (Balancing/Planning/Learning/Idle)
+- [x] **FocusMode component** — Reusable across all 3D modules with configurable labels
+- [x] **TelemetryPanel component** — Mode-colored indicator, highlight on critical values
+
 ### Remaining Improvements
-- [ ] Focus Mode — cinematic camera zoom on robot click
-- [ ] Context-aware telemetry — panels adapt to current robot mode
 - [ ] Component hover tooltips — explanations for joints, sensors, actuators
 - [ ] Motion path visualization — planned vs executed trajectory overlays
 
