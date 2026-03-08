@@ -195,11 +195,14 @@ const ArmKinematicsLab = () => {
 
       <ControlSection title="Visualization">
         <div className="grid grid-cols-2 gap-2">
+          <button onClick={() => setShowDebug(!showDebug)} className={`sim-btn ${showDebug ? "sim-btn-active" : "sim-btn-inactive"}`}>Debug</button>
+          <button onClick={() => setShowTrail(!showTrail)} className={`sim-btn ${showTrail ? "sim-btn-active" : "sim-btn-inactive"}`}>Trail</button>
           <button onClick={() => setShowJacobian(!showJacobian)} className={`sim-btn ${showJacobian ? "sim-btn-active" : "sim-btn-inactive"}`}>Jacobian</button>
           <button onClick={() => setShowEllipsoid(!showEllipsoid)} className={`sim-btn ${showEllipsoid ? "sim-btn-active" : "sim-btn-inactive"}`}>Ellipsoid</button>
           <button onClick={() => setShowDH(!showDH)} className={`sim-btn ${showDH ? "sim-btn-active" : "sim-btn-inactive"}`}>DH Params</button>
           <button onClick={() => setShowWorkspace(!showWorkspace)} className={`sim-btn ${showWorkspace ? "sim-btn-active" : "sim-btn-inactive"}`}>Workspace</button>
           <button onClick={() => setAutoRotate(!autoRotate)} className={`sim-btn ${autoRotate ? "sim-btn-active" : "sim-btn-inactive"}`}>Auto-Rotate</button>
+          <button onClick={() => { trailRef.current = []; setShowTrail(false); setTimeout(() => setShowTrail(true), 10); }} className="sim-btn sim-btn-inactive">Clear Trail</button>
         </div>
       </ControlSection>
 
