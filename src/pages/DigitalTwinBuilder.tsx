@@ -21,10 +21,10 @@ const DigitalTwinBuilder = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const animRef = useRef<number>(0);
 
-  const [components, setComponents] = useState<RobotComponent[]>([
-    { id: nextId++, type: "link", length: 1.2, mass: 2.0, jointMin: -Math.PI, jointMax: Math.PI, angle: 0 },
-    { id: nextId++, type: "revolute", length: 1.0, mass: 1.5, jointMin: -Math.PI, jointMax: Math.PI, angle: -0.6 },
-    { id: nextId++, type: "revolute", length: 0.8, mass: 1.0, jointMin: -Math.PI, jointMax: Math.PI, angle: 0.4 },
+  const [components, setComponents] = useState<RobotComponent[]>(() => [
+    { id: 1, type: "link", length: 1.2, mass: 2.0, jointMin: -Math.PI, jointMax: Math.PI, angle: 0 },
+    { id: 2, type: "revolute", length: 1.0, mass: 1.5, jointMin: -Math.PI, jointMax: Math.PI, angle: -0.6 },
+    { id: 3, type: "revolute", length: 0.8, mass: 1.0, jointMin: -Math.PI, jointMax: Math.PI, angle: 0.4 },
   ]);
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [showSensors, setShowSensors] = useState(true);
