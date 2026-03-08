@@ -103,7 +103,7 @@ const modules: ModuleCard[] = [
     icon: Network,
     color: "hsl(190, 70%, 50%)",
     route: "/sim/multi-agent",
-    status: "coming-soon",
+    status: "active",
   },
 ];
 
