@@ -105,6 +105,15 @@ const modules: ModuleCard[] = [
     route: "/sim/multi-agent",
     status: "active",
   },
+  {
+    id: "robot-builder",
+    title: "Custom Robot Builder",
+    description: "Design custom manipulators with configurable DOF, link lengths, joint types, and export to JSON",
+    icon: Wrench,
+    color: "hsl(35, 80%, 50%)",
+    route: "/sim/robot-builder",
+    status: "active",
+  },
 ];
 
 const SimulationGallery = () => {
