@@ -2,15 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import SimLayout from "@/components/SimLayout";
 import ControlSection from "@/components/ControlSection";
 
-interface PipelineModule {
-  id: string;
-  label: string;
-  category: "input" | "processing" | "output";
-  color: string;
-  active: boolean;
-  value: number;
-}
-
 const ControlArchitectureViz = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);

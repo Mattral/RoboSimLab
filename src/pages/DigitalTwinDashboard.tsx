@@ -121,13 +121,14 @@ const DigitalTwinDashboard = () => {
             ctx.stroke();
           });
 
-          // Legend
+          // Legend - distribute across available width
+          const legendStartX = w - margin - Math.min(colors.length * 35, chartW * 0.4);
           colors.forEach((color, li) => {
             if (li >= labels.length) return;
             ctx.fillStyle = color;
             ctx.font = "8px 'JetBrains Mono'";
             ctx.textAlign = "left";
-            ctx.fillText(labels[li], w - margin - 120 + li * 30, y + 14);
+            ctx.fillText(labels[li], legendStartX + li * 28, y + 14);
           });
 
           // Current values

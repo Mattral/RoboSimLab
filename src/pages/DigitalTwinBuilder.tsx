@@ -14,17 +14,17 @@ interface RobotComponent {
   sensorType?: "lidar" | "camera" | "imu";
 }
 
-let nextId = 1;
+const idCounter = { current: 100 };
 
 const DigitalTwinBuilder = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const animRef = useRef<number>(0);
 
-  const [components, setComponents] = useState<RobotComponent[]>([
-    { id: nextId++, type: "link", length: 1.2, mass: 2.0, jointMin: -Math.PI, jointMax: Math.PI, angle: 0 },
-    { id: nextId++, type: "revolute", length: 1.0, mass: 1.5, jointMin: -Math.PI, jointMax: Math.PI, angle: -0.6 },
-    { id: nextId++, type: "revolute", length: 0.8, mass: 1.0, jointMin: -Math.PI, jointMax: Math.PI, angle: 0.4 },
+  const [components, setComponents] = useState<RobotComponent[]>(() => [
+    { id: 1, type: "link", length: 1.2, mass: 2.0, jointMin: -Math.PI, jointMax: Math.PI, angle: 0 },
+    { id: 2, type: "revolute", length: 1.0, mass: 1.5, jointMin: -Math.PI, jointMax: Math.PI, angle: -0.6 },
+    { id: 3, type: "revolute", length: 0.8, mass: 1.0, jointMin: -Math.PI, jointMax: Math.PI, angle: 0.4 },
   ]);
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [showSensors, setShowSensors] = useState(true);
@@ -33,8 +33,9 @@ const DigitalTwinBuilder = () => {
   const [autoAnimate, setAutoAnimate] = useState(false);
 
   const addComponent = (type: RobotComponent["type"]) => {
+    const id = ++idCounter.current;
     const comp: RobotComponent = {
-      id: nextId++,
+      id,
       type,
       length: type === "sensor" ? 0.3 : 0.8,
       mass: type === "sensor" ? 0.2 : 1.0,
@@ -159,12 +160,31 @@ const DigitalTwinBuilder = () => {
           ctx.lineWidth = 1;
           if (comp.sensorType === "lidar") {
             ctx.beginPath(); ctx.arc(ex, ey, 30, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+            // Scan lines
+            for (let r = 0; r < 12; r++) {
+              const ra = angle + (r / 12) * Math.PI * 2;
+              ctx.strokeStyle = "hsla(268, 58%, 52%, 0.15)";
+              ctx.beginPath(); ctx.moveTo(ex, ey);
+              ctx.lineTo(ex + Math.cos(ra) * 30, ey + Math.sin(ra) * 30);
+              ctx.stroke();
+            }
           } else if (comp.sensorType === "camera") {
             ctx.beginPath();
             ctx.moveTo(ex, ey);
             ctx.lineTo(ex + Math.cos(angle - 0.5) * 40, ey - Math.sin(angle - 0.5) * 40);
             ctx.lineTo(ex + Math.cos(angle + 0.5) * 40, ey - Math.sin(angle + 0.5) * 40);
             ctx.closePath(); ctx.fill(); ctx.stroke();
+          } else if (comp.sensorType === "imu") {
+            // IMU: small axes indicator
+            ctx.strokeStyle = "hsl(0, 62%, 50%)";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(ex, ey); ctx.lineTo(ex + 15, ey); ctx.stroke();
+            ctx.strokeStyle = "hsl(152, 68%, 42%)";
+            ctx.beginPath(); ctx.moveTo(ex, ey); ctx.lineTo(ex, ey - 15); ctx.stroke();
+            ctx.fillStyle = "hsl(268, 58%, 52%)";
+            ctx.font = "7px 'JetBrains Mono'";
+            ctx.textAlign = "center";
+            ctx.fillText("IMU", ex, ey + 12);
           }
         }
 

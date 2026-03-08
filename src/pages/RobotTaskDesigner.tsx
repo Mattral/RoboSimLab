@@ -157,7 +157,26 @@ const RobotTaskDesigner = () => {
         if (pathRef.current.length > 2000) pathRef.current.shift();
         setStepCount(s => s + 1);
         setTotalReward(r => r + computeReward(agent.x, agent.y) * 0.01);
-        if (dist < rewardRadius * 0.5) setRunning(false);
+        if (dist < rewardRadius * 0.5) {
+          setRunning(false);
+        }
+      }
+
+      // Task completed overlay
+      {
+        const ag = agentRef.current;
+        const goalDist = Math.sqrt((ag.x - goal.x) ** 2 + (ag.y - goal.y) ** 2);
+        if (!running && stepCount > 0 && goalDist < rewardRadius * 0.5) {
+          ctx.fillStyle = "hsla(152, 70%, 45%, 0.15)";
+          ctx.fillRect(0, 0, w, h);
+          ctx.fillStyle = "hsl(152, 70%, 55%)";
+          ctx.font = "bold 18px 'Inter'";
+          ctx.textAlign = "center";
+          ctx.fillText("✓ TASK COMPLETE", w / 2, h / 2 - 10);
+          ctx.font = "12px 'JetBrains Mono'";
+          ctx.fillStyle = "hsl(220, 10%, 70%)";
+          ctx.fillText(`${stepCount} steps · reward: ${totalReward.toFixed(2)}`, w / 2, h / 2 + 15);
+        }
       }
 
       // Path
@@ -174,9 +193,9 @@ const RobotTaskDesigner = () => {
       }
 
       // Robot
-      const agent = agentRef.current;
-      const rx = ox + agent.x * cellW;
-      const ry = oy + agent.y * cellH;
+      const curAgent = agentRef.current;
+      const rx = ox + curAgent.x * cellW;
+      const ry = oy + curAgent.y * cellH;
       ctx.fillStyle = "hsl(38, 90%, 55%)";
       ctx.beginPath(); ctx.arc(rx, ry, 6, 0, Math.PI * 2); ctx.fill();
       ctx.strokeStyle = "hsla(38, 90%, 55%, 0.4)";
