@@ -93,6 +93,7 @@ Full deployment documentation with production-ready configurations:
 | [🐳 Docker](./docs/docker.md) | Multi-stage builds, Docker Compose, Nginx config, image optimization |
 | [☸️ Kubernetes](./docs/kubernetes.md) | Deployment, Service, Ingress, HPA, TLS, production checklist |
 | [⚙️ CI/CD](./docs/ci-cd.md) | GitHub Actions — lint, test, build, Docker push, K8s deploy, releases |
+| [🏗️ Architecture](./docs/architecture.md) | Simulation engine, kinematics, control systems, component API |
 
 ### Quick Deploy with Docker
 
