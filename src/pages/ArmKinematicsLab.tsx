@@ -16,6 +16,7 @@ interface DemoFrame {
 }
 
 const ArmKinematicsLab = () => {
+  const learningMode = useLearningMode();
   const [joint1, setJoint1] = useState(0.5);
   const [joint2, setJoint2] = useState(-0.8);
   const [joint3, setJoint3] = useState(0.3);
