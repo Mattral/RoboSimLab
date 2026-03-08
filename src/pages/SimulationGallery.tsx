@@ -151,6 +151,24 @@ const modules: ModuleCard[] = [
     route: "/sim/multi-agent-rl",
     tags: ["AI", "MARL"],
   },
+  {
+    id: "teleoperation",
+    title: "Robot Teleoperation",
+    description: "Drive a robot with WASD keyboard controls through obstacle courses with real-time lidar and minimap",
+    icon: Gamepad2,
+    color: "hsl(340, 65%, 52%)",
+    route: "/sim/teleoperation",
+    tags: ["WASD", "Interactive"],
+  },
+  {
+    id: "algorithm-comparison",
+    title: "Algorithm Comparison",
+    description: "Run two pathfinding algorithms side-by-side on the same maze for direct performance analysis",
+    icon: GitCompareArrows,
+    color: "hsl(45, 80%, 50%)",
+    route: "/sim/algorithm-comparison",
+    tags: ["Compare", "Analysis"],
+  },
 ];
 
 const SimulationGallery = () => {
