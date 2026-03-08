@@ -2,11 +2,13 @@
 
 ## Project Overview
 
-**RoboSimLab** is a fully front-end, browser-based interactive robotics simulation platform built with React, Three.js, and TypeScript. It serves as a professional multi-robot research laboratory and educational environment where users can explore robotics concepts interactively.
+**RoboSimLab** is a fully front-end, browser-based interactive multi-robot simulation platform built with React, Three.js, and TypeScript. It serves as a professional robotics research laboratory and educational environment where users can explore robotics concepts interactively.
+
+**Current Version: v6.0 — 29 modules across 6 labs**
 
 ---
 
-## Phase 1 — Core Simulation Infrastructure
+## Phase 1 — Core Simulation Infrastructure ✅
 
 - [x] Interactive 3D simulation scene (Three.js + @react-three/fiber)
 - [x] Camera orbit / pan / zoom (OrbitControls)
@@ -21,147 +23,107 @@
 
 ---
 
-## Phase 2 — Robotics Simulation Modules
+## Phase 2 — Robotics Simulation Modules ✅
 
-- [x] **Robotic Arm Simulator** — FK, IK, joint controls, end-effector targeting, workspace visualization, Jacobian matrix, manipulability ellipsoid, DH parameters, debug overlays, trajectory trail
-- [x] **Motion Planning Studio** — A*, RRT, Dijkstra, PRM, Potential Field algorithms, obstacle placement, animated path visualization
-- [x] **PID Control Lab** — Tunable P/I/D gains, system response curves, error signal, overshoot/settling metrics, CSV export
-- [x] **Swarm Robotics Simulator** — 3D boids flocking, formation control, collision avoidance, up to 300 agents, CSV export
+- [x] **Robotic Arm Simulator** — FK, IK, Jacobian, DH parameters, trajectory trail
+- [x] **Motion Planning Studio** — A*, RRT, Dijkstra, PRM, Potential Field
+- [x] **PID Control Lab** — Tunable gains, response curves, CSV export
+- [x] **Swarm Robotics Simulator** — 3D boids flocking, up to 300 agents
 
 ---
 
-## Phase 3 — Sensor & Perception Systems
+## Phase 3 — Sensor & Perception Systems ✅
 
-- [x] **Sensor & Perception Lab** — Lidar raycasting (up to 180 rays), depth profile visualization
+- [x] **Sensor & Perception Lab** — Lidar raycasting, depth profiling
 - [x] Camera FOV cone visualization
-- [x] Distance sensor rays with hit detection
-- [x] Environment mapping (SLAM-style point accumulation)
+- [x] Environment mapping (SLAM-style)
 - [x] Depth bar visualization panel
 
 ---
 
-## Phase 4 — Advanced Robotics Physics
+## Phase 4 — Advanced Robotics Physics ✅
 
-- [x] **Robot Dynamics & Torque Simulator** — Joint torque, velocity, acceleration charts, velocity vector arrows, coordinate frames, debug overlays, cinematic camera, CSV export
-- [x] Energy propagation visualization (kinetic + potential)
-- [x] Payload mass and friction controls
-- [x] Trajectory rendering with real-time dynamics
-- [x] **Humanoid Balance Simulator** — Inverted pendulum PD control, CoM visualization, support polygon, cinematic camera, CSV export
-- [x] **Autonomous Navigation** — Waypoint following, reactive obstacle avoidance, SLAM mapping
-- [x] **Multi-Agent Coordination** — Nearest-first & priority auction task allocation, communication radius
-- [x] **Custom Robot Builder** — 1–7 DOF configurable manipulators, JSON export
+- [x] **Robot Dynamics & Torque Simulator** — Torque/velocity/energy charts
+- [x] **Humanoid Balance Simulator** — Inverted pendulum PD control, CoM, support polygon
+- [x] **Autonomous Navigation** — Waypoint following, SLAM mapping
+- [x] **Multi-Agent Coordination** — Task allocation strategies
+- [x] **Custom Robot Builder** — 1–7 DOF manipulators
 
 ---
 
-## Phase 5 — AI & Reinforcement Learning Systems
+## Phase 5 — AI & Reinforcement Learning ✅
 
-- [x] **RL Playground** — Q-learning grid world, epsilon-greedy exploration, CSV export
-- [x] State representation & action selection
-- [x] Reward calculation & Q-table updates
-- [x] Policy visualization (arrows + Q-value heatmap)
-- [x] Training progress visualization (reward curve, episode counter)
-- [x] **Imitation Learning Mode** — Record user demonstrations, train policy to reproduce motion
+- [x] **RL Playground** — Q-learning grid world
+- [x] **Imitation Learning Mode** — Record & replay demonstrations
 
 ---
 
-## Phase 6 — Experimental Research Features
+## Phase 6 — Experimental Research Features ✅
 
-- [x] Manipulability ellipsoid visualization
-- [x] Robot Jacobian visualization
-- [x] DH Parameter Panel (Denavit-Hartenberg)
-- [x] Potential Field Navigation
-- [x] **Probabilistic Roadmaps (PRM)** algorithm
-- [x] CSV export for all modules
-- [x] **Robot Debug Mode** — Coordinate frames, joint arc indicators, end-effector frame, trajectory trail
-- [x] **Velocity Vector Arrows** — 3D ArrowHelper overlays for joint velocities in Dynamics module
-- [x] **Cinematic Camera Mode** — Smooth auto-orbit in Dynamics, Humanoid, and Arm modules
-- [x] **Trajectory Optimization Lab** — Start/goal poses, cost minimization, smoothness & obstacle weights, animated playback
-- [x] **Multi-Agent RL** — Cooperative Q-learning with shared Q-tables, reward curves, policy visualization
-- [x] **SLAM Exploration** — Frontier-based autonomous mapping with BFS pathfinding
-- [x] **Sensor Fusion Lab** — Lidar + Camera + IMU unified perception with confidence heatmap
-- [x] **Robot Teleoperation** — WASD keyboard control with lidar, minimap, collision warning HUD
-- [x] **Algorithm Comparison** — Side-by-side pathfinding analysis (A*, Dijkstra, BFS, RRT)
+- [x] **Trajectory Optimization Lab**
+- [x] **Multi-Agent RL** — Cooperative Q-learning
+- [x] **SLAM Exploration** — Frontier-based autonomous mapping
+- [x] **Sensor Fusion Lab** — Lidar + Camera + IMU
+- [x] **Robot Teleoperation** — WASD control with lidar/minimap
+- [x] **Algorithm Comparison** — Side-by-side pathfinding
 
 ---
 
-## Phase 7 — Advanced Robotics Research Capabilities
+## Phase 7 — Advanced Research Capabilities ✅
 
-- [x] **Differentiable Robotics Lab** — Real-time Jacobian, manipulability & velocity ellipsoids, singularity detection, joint sensitivity bars, condition number, Math Mode overlay
-- [x] **SLAM Visualization** — Autonomous frontier-based exploration with laser range scanning, occupancy grid mapping, true vs estimated pose tracking, trajectory comparison
-- [x] **RL Policy Introspection** — Deep Q-learning analysis with policy entropy, state visitation heatmap, success rate tracking, multi-chart dashboard
-- [x] **Sim-to-Real Gap Lab** — Ideal vs noisy trajectory comparison with configurable sensor noise, actuator delay, joint friction, control latency, environment randomness, presets
-- [x] **Neural Policy Brain Visualizer** — Neural network visualization with real-time activations, signal flow particles, weight connections, 5-layer architecture
-
----
-
-## Phase 8 — Digital Twin Robotics Lab
-
-- [x] **Digital Twin Builder** — Modular robot construction with links, revolute/prismatic joints, sensor modules, configurable mass/length/limits, JSON export
-- [x] **Control Architecture Visualizer** — Real-time sensor→perception→state estimation→planning→control→actuator pipeline with data flow particles, latency indicators, toggleable modules
-- [x] **Robot Task Designer** — Custom task design with configurable goal positions, obstacle placement, reward field visualization, gradient navigation, randomization
-- [x] **Digital Twin Dashboard** — Real-time telemetry monitoring with multi-joint torque/velocity charts, energy consumption, controller output, CSV export
+- [x] **Differentiable Robotics Lab** — Jacobian, singularity detection
+- [x] **SLAM Visualization** — Occupancy grid, pose estimation
+- [x] **RL Policy Introspection** — Entropy, state visitation
+- [x] **Sim-to-Real Gap Lab** — Noise, delay, domain randomization
+- [x] **Neural Policy Brain** — Network visualization, signal flow
 
 ---
 
-## Phase 9 — Visual Refinement & Educational Mode
+## Phase 8 — Digital Twin Lab ✅
 
-- [x] **Robot Body Refinement** — Mechanical detail: bolt rings, cable channels, actuator housings, sensor mounts, structural ribbing, encoder rings, contact pads
-- [x] **Humanoid Detail Enhancement** — Camera lens, depth sensor, ventilation grille, ankle sensors, foot contact sensors, finger stubs, neck cable bundles
-- [x] **Trajectory Fading** — Trajectory trails use vertex colors for gradual fade, reducing visual clutter
-- [x] **Learning Mode** — Global toggle in SimLayout header, exposes educational panels and contextual hints
-- [x] **Education Panel System** — Reusable EducationPanel component with concept, formula, key points, and tips
-- [x] **Contextual Hints** — Interactive tooltips that appear during specific user actions (IK mode, ellipsoid view)
-- [x] **Module Education Content** — Added to: Arm Kinematics (FK/IK + DH), PID Control, Humanoid Balance, RL Playground, Robot Dynamics
+- [x] **Digital Twin Builder** — Modular robot construction
+- [x] **Control Architecture Visualizer** — Real-time data pipeline
+- [x] **Robot Task Designer** — Goals, obstacles, reward fields
+- [x] **Digital Twin Dashboard** — Telemetry monitoring
 
 ---
 
-## Phase 10 — Boston Dynamics / Apple-Level Visual Polish
+## Phase 9 — Visual Refinement & Educational Mode ✅
 
-- [x] **Material system overhaul** — Brushed metal, matte polymer, rubber surfaces with physically-based metalness/roughness values
-- [x] **Precision joint housings** — Encoder rings, tick marks, bearing details, slow encoder spin animation
-- [x] **Actuator housing detail** — Ventilation slots, status LEDs, cable clip points
-- [x] **End-effector refinement** — Rubber grip pads, contact sensors, tool center point indicator, breathing micro-motion
-- [x] **Base platform engineering** — 8-bolt mounting circle, logo plate, encoder ring, ground shadow disc
-- [x] **Micro-motion system** — Servo hum, encoder spin, gripper breathing, humanoid torso sway, head scanning, LIDAR spin, core light breathing
-- [x] **Three-point studio lighting** — Key (warm white), fill (cool blue), rim (teal accent), 2048px shadow maps
-- [x] **Focus Mode** — Cinematic vignette overlay with robot name badge, subsystem labels
-- [x] **Context-aware telemetry** — Adaptive panels showing mode-specific data
-- [x] **3D hover tooltips** — Educational explanations on joints, sensors, actuators in 3D scenes
-- [x] **EducationPanel & ContextHint polish** — Icon badges, transitions, typography
+- [x] Robot body mechanical detail (bolt rings, cable channels, actuator housings)
+- [x] Learning Mode with Education Panels and Contextual Hints
+- [x] Module education content for Arm, PID, Humanoid, RL, Dynamics
 
 ---
 
-## Phase 11 — Multi-Robot Platform (✅ Complete)
+## Phase 10 — Boston Dynamics / Apple-Level Visual Polish ✅
 
-> Expanding the simulator into a comprehensive multi-robot research and education platform
+- [x] Material system overhaul (brushed metal, polymer, rubber)
+- [x] Micro-motion system (servo hum, encoder spin, LIDAR rotation)
+- [x] Three-point studio lighting with 2048px shadow maps
+- [x] Focus Mode — cinematic inspection overlay
+- [x] Context-aware telemetry panels
+- [x] 3D hover tooltips for educational explanations
 
-### New Robot Types (✅ Complete)
-- [x] **Quadruped Robot** — Walking & trotting gaits, CoM stabilization, support polygon, footstep planning, disturbance recovery, 4-leg coordinated animation
-- [x] **Drone (Quadcopter)** — Attitude control (roll/pitch/yaw), thrust vectors, waypoint navigation, manual & autonomous flight modes, rotor spin animation
-- [x] **Soft Robot** — Pneumatic chamber pressure control, deformable body (CatmullRom tube), pressure visualization, shape presets (curl, reach, S-curve), continuum mechanics
+---
 
-### Gallery Reorganization (✅ Complete)
-- [x] **Lab categories** — Locomotion Lab, Manipulation Lab, Autonomy Lab, Control Systems, AI & Learning, Digital Twin Lab
-- [x] **Section headers** — Colored accent bars, module counts, descriptions
-- [x] **NEW badges** — Visual indicator for newly added modules
-- [x] **Consistent card design** — All modules use same card layout with hover effects
+## Phase 11 — Multi-Robot Platform ✅
 
-### 3D Components (✅ Complete)
-- [x] **Quadruped3D** — Articulated 4-leg body with hip/knee joints, LIDAR, camera, status LEDs, tooltip hotspots
-- [x] **Drone3D** — Central body with 4 rotor arms, spinning propellers, camera gimbal, GPS, thrust vector visualization
-- [x] **SoftRobot3D** — Procedural deformable tube geometry, pressure chamber indicators, wireframe overlay, tip sensor
+### New Robot Types
+- [x] **Quadruped Robot** — Walk/trot gaits, CoM, support polygon, footstep planning, 4-leg animation
+- [x] **Drone (Quadcopter)** — Attitude control, thrust vectors, waypoint navigation, manual & auto modes
+- [x] **Soft Robot** — Pneumatic chambers, deformable tube body, pressure visualization, shape presets
 
-### Educational Content (✅ Complete)
-- [x] **Quadruped education** — Gait cycles, phase offsets, support polygon theory
-- [x] **Drone education** — Quadcopter dynamics, PID attitude control, cascaded loops
-- [x] **Soft robot education** — Continuum mechanics, pneumatic actuation, Cosserat rod model
-- [x] **3D tooltip hotspots** — All new robots have interactive educational hotspots
+### Gallery Reorganization
+- [x] **6 Lab categories** — Locomotion, Manipulation, Autonomy, Control, AI, Digital Twin
+- [x] **NEW badges** on newly added modules
+- [x] **Section headers** with colored accents and module counts
 
-### Integration (✅ Complete)
-- [x] **Routes** — `/sim/quadruped`, `/sim/drone`, `/sim/soft-robot`
-- [x] **Focus Mode** — All new robots have cinematic inspection overlay
-- [x] **Telemetry panels** — Mode-adaptive data display on all new simulators
-- [x] **SimLayout reuse** — All new pages use existing layout, controls, and learning mode
+### Infrastructure
+- [x] **Dockerfile** — Multi-stage Node 20 → Nginx Alpine with SPA fallback
+- [x] **.dockerignore** — Optimized build context
+- [x] **CI workflow** — Compatible with npm install (no lockfile dependency issues)
+- [x] **Docker workflow** — Points to Dockerfile correctly
 
 ---
 
@@ -182,3 +144,13 @@
 | Phase 11 — Multi-Robot Platform | ✅ Complete |
 
 **Total Modules: 29 | Total Labs: 6 | Version: v6.0**
+
+---
+
+## Planned (Future)
+
+- [ ] Mobile robot with live 3D SLAM
+- [ ] Robot comparison side-by-side view
+- [ ] Real screenshots in README
+- [ ] Performance profiling dashboard
+- [ ] Collaborative multi-user simulation
