@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import SimLayout from "@/components/SimLayout";
 import SliderControl from "@/components/SliderControl";
 import ControlSection from "@/components/ControlSection";
+import { exportToCSV } from "@/components/DataExport";
 
 interface DataPoint {
   t: number;
