@@ -43,6 +43,9 @@ const App = () => (
           <Route path="/sim/multi-agent" element={<MultiAgentCoordination />} />
           <Route path="/sim/robot-builder" element={<CustomRobotBuilder />} />
           <Route path="/sim/trajectory-optimization" element={<TrajectoryOptimizationLab />} />
+          <Route path="/sim/sensor-fusion" element={<SensorFusionLab />} />
+          <Route path="/sim/slam-exploration" element={<SLAMExploration />} />
+          <Route path="/sim/multi-agent-rl" element={<MultiAgentRL />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

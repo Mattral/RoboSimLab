@@ -124,6 +124,33 @@ const modules: ModuleCard[] = [
     route: "/sim/trajectory-optimization",
     tags: ["3D", "Optimize"],
   },
+  {
+    id: "sensor-fusion",
+    title: "Sensor Fusion Lab",
+    description: "Combine lidar, camera, and IMU data into a unified perception map with confidence visualization",
+    icon: Layers,
+    color: "hsl(150, 70%, 45%)",
+    route: "/sim/sensor-fusion",
+    tags: ["Fusion", "Perception"],
+  },
+  {
+    id: "slam-exploration",
+    title: "SLAM Exploration",
+    description: "Frontier-based autonomous mapping — a robot explores unknown environments using BFS pathfinding",
+    icon: Map,
+    color: "hsl(200, 70%, 50%)",
+    route: "/sim/slam-exploration",
+    tags: ["SLAM", "Autonomy"],
+  },
+  {
+    id: "multi-agent-rl",
+    title: "Multi-Agent RL",
+    description: "Swarm agents learn cooperative task completion through shared Q-tables and reward shaping",
+    icon: Bot,
+    color: "hsl(280, 60%, 55%)",
+    route: "/sim/multi-agent-rl",
+    tags: ["AI", "MARL"],
+  },
 ];
 
 const SimulationGallery = () => {
