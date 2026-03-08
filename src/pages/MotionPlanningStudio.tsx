@@ -332,10 +332,10 @@ const MotionPlanningStudio = () => {
       const cellSize = Math.min(cellW, cellH);
       const offsetX = (cw - cellSize * cols) / 2; const offsetY = (ch - cellSize * rows) / 2;
       const colors: Record<string, string> = {
-        empty: "hsl(225, 14%, 9%)", wall: "hsl(225, 12%, 22%)", start: "hsl(175, 80%, 50%)",
-        goal: "hsl(40, 90%, 55%)", open: "hsl(210, 55%, 22%)", closed: "hsl(225, 15%, 14%)",
-        path: "hsl(150, 70%, 45%)", "rrt-tree": "hsl(270, 35%, 20%)", "rrt-path": "hsl(270, 60%, 50%)",
-        potential: "hsl(15, 60%, 20%)",
+        empty: "hsl(228, 14%, 9%)", wall: "hsl(228, 12%, 22%)", start: "hsl(172, 78%, 47%)",
+        goal: "hsl(38, 88%, 52%)", open: "hsl(212, 55%, 22%)", closed: "hsl(228, 15%, 14%)",
+        path: "hsl(152, 68%, 42%)", "rrt-tree": "hsl(268, 35%, 20%)", "rrt-path": "hsl(268, 58%, 50%)",
+        potential: "hsl(15, 60%, 20%)", "prm-node": "hsl(48, 50%, 18%)", "prm-edge": "hsl(48, 40%, 15%)", "prm-path": "hsl(48, 78%, 48%)",
       };
       for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
