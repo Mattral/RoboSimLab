@@ -58,7 +58,7 @@ const modules: ModuleCard[] = [
     icon: PersonStanding,
     color: "hsl(0, 70%, 55%)",
     route: "/sim/humanoid-balance",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "navigation",
