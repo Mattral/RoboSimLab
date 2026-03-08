@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import {
   Cpu, Route, SlidersHorizontal, Users, PersonStanding, Navigation,
-  Eye, Brain, Zap, Network, Wrench, ArrowRight, Sparkles, Activity, GitBranch
+  Eye, Brain, Zap, Network, Wrench, ArrowRight, Sparkles, Activity, GitBranch,
+  Layers, Map, Bot
 } from "lucide-react";
 
 interface ModuleCard {
