@@ -90,8 +90,8 @@ const HumanoidBalanceSimulator = () => {
       <ControlSection title="Disturbance">
         <SliderControl label="Constant Force" value={disturbance} min={-20} max={20} step={0.5} unit=" N" onChange={setDisturbance} color="hsl(0, 65%, 52%)" />
         <div className="flex gap-2">
-          <button onClick={() => applyPush(-5)} className="flex-1 sim-btn sim-btn-inactive">← Push Left</button>
-          <button onClick={() => applyPush(5)} className="flex-1 sim-btn sim-btn-inactive">Push Right →</button>
+          <button onClick={() => applyPush(-8)} className="flex-1 sim-btn sim-btn-inactive">← Push Left</button>
+          <button onClick={() => applyPush(8)} className="flex-1 sim-btn sim-btn-inactive">Push Right →</button>
         </div>
       </ControlSection>
       <ControlSection title="Display">
