@@ -32,7 +32,7 @@ const DigitalTwinBuilder = () => {
   const [showLimits, setShowLimits] = useState(false);
   const [autoAnimate, setAutoAnimate] = useState(false);
 
-  const addComponent = (type: RobotComponent["type"]) => {
+  const id = ++idCounter.current;
     const comp: RobotComponent = {
       id: nextId++,
       type,
