@@ -8,6 +8,9 @@ import PIDControlLab from "./pages/PIDControlLab";
 import ArmKinematicsLab from "./pages/ArmKinematicsLab";
 import SwarmSimulator from "./pages/SwarmSimulator";
 import MotionPlanningStudio from "./pages/MotionPlanningStudio";
+import SensorPerceptionLab from "./pages/SensorPerceptionLab";
+import HumanoidBalanceSimulator from "./pages/HumanoidBalanceSimulator";
+import RLPlayground from "./pages/RLPlayground";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +27,9 @@ const App = () => (
           <Route path="/sim/arm-kinematics" element={<ArmKinematicsLab />} />
           <Route path="/sim/swarm" element={<SwarmSimulator />} />
           <Route path="/sim/motion-planning" element={<MotionPlanningStudio />} />
+          <Route path="/sim/perception" element={<SensorPerceptionLab />} />
+          <Route path="/sim/humanoid-balance" element={<HumanoidBalanceSimulator />} />
+          <Route path="/sim/rl-playground" element={<RLPlayground />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
