@@ -30,6 +30,9 @@ import DigitalTwinBuilder from "./pages/DigitalTwinBuilder";
 import ControlArchitectureViz from "./pages/ControlArchitectureViz";
 import RobotTaskDesigner from "./pages/RobotTaskDesigner";
 import DigitalTwinDashboard from "./pages/DigitalTwinDashboard";
+import QuadrupedLocomotion from "./pages/QuadrupedLocomotion";
+import DroneSimulator from "./pages/DroneSimulator";
+import SoftRobotLab from "./pages/SoftRobotLab";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -68,6 +71,9 @@ const App = () => (
           <Route path="/sim/control-architecture" element={<ControlArchitectureViz />} />
           <Route path="/sim/task-designer" element={<RobotTaskDesigner />} />
           <Route path="/sim/digital-twin-dashboard" element={<DigitalTwinDashboard />} />
+          <Route path="/sim/quadruped" element={<QuadrupedLocomotion />} />
+          <Route path="/sim/drone" element={<DroneSimulator />} />
+          <Route path="/sim/soft-robot" element={<SoftRobotLab />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
