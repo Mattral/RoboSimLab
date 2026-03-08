@@ -34,7 +34,7 @@ const DigitalTwinBuilder = () => {
 
   const id = ++idCounter.current;
     const comp: RobotComponent = {
-      id: nextId++,
+      id,
       type,
       length: type === "sensor" ? 0.3 : 0.8,
       mass: type === "sensor" ? 0.2 : 1.0,
