@@ -55,6 +55,11 @@ const App = () => (
           <Route path="/sim/multi-agent-rl" element={<MultiAgentRL />} />
           <Route path="/sim/teleoperation" element={<RobotTeleoperation />} />
           <Route path="/sim/algorithm-comparison" element={<AlgorithmComparison />} />
+          <Route path="/sim/differentiable-robotics" element={<DifferentiableRoboticsLab />} />
+          <Route path="/sim/slam-visualization" element={<SLAMVisualization />} />
+          <Route path="/sim/rl-introspection" element={<RLPolicyIntrospection />} />
+          <Route path="/sim/sim-to-real" element={<SimToRealLab />} />
+          <Route path="/sim/neural-policy" element={<NeuralPolicyVisualizer />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
