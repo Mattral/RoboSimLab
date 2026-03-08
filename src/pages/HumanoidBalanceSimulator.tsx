@@ -105,6 +105,22 @@ const HumanoidBalanceSimulator = () => {
         </div>
         <button onClick={() => exportToCSV(historyRef.current, "humanoid_balance")} className="w-full sim-btn sim-btn-inactive mt-1">📥 Export CSV</button>
       </ControlSection>
+
+      {learningMode && (
+        <EducationPanel
+          title="Inverted Pendulum"
+          concept="The fundamental problem of bipedal balance"
+          explanation="A humanoid robot is essentially an inverted pendulum — inherently unstable. The PD controller constantly applies corrective torques to keep the center of mass above the support polygon (the feet)."
+          formula="τ = -Kp·θ - Kd·ω"
+          keyPoints={[
+            "Without control, the robot falls like a stick balancing on your finger",
+            "Stiffness (Kp) determines how strongly the robot resists tilting",
+            "Damping (Kd) prevents oscillation — too little causes wobbling",
+            "Real humanoids like Atlas use model-predictive control for walking",
+          ]}
+          tip="Push the robot and watch the torque spike — this is how real robots recover from disturbances."
+        />
+      )}
     </>
   );
 

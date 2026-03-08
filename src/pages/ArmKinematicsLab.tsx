@@ -355,9 +355,17 @@ const ArmKinematicsLab = () => {
         <div className="absolute top-3 left-3 glass-panel text-[11px] font-mono text-muted-foreground px-3 py-2 rounded-lg">
           θ₁={((joint1 * 180) / Math.PI).toFixed(1)}° θ₂={((joint2 * 180) / Math.PI).toFixed(1)}° θ₃={((joint3 * 180) / Math.PI).toFixed(1)}°
           <span className="ml-2 text-primary">{mode.toUpperCase()}</span>
-          {recording && <span className="ml-2 text-red-glow">● REC</span>}
-          {playing && <span className="ml-2 text-green-glow">▶ PLAY</span>}
+          {recording && <span className="ml-2 text-destructive">● REC</span>}
+          {playing && <span className="ml-2 text-primary">▶ PLAY</span>}
         </div>
+        <ContextHint
+          visible={learningMode && mode === "ik"}
+          message="Inverse Kinematics finds joint angles that position the end-effector at your target. Move the target sliders and watch how the arm reconfigures."
+        />
+        <ContextHint
+          visible={learningMode && showEllipsoid && mode === "fk"}
+          message="The manipulability ellipsoid shows motion capability. A sphere means equal dexterity in all directions; a flat ellipse means the robot is near a singularity."
+        />
         {showEllipsoid && (
           <div className="absolute bottom-3 left-3 glass-panel text-[10px] font-mono text-muted-foreground px-3 py-2 rounded-lg">
             w = {manipulability.toFixed(3)} | σ₁={eig1.toFixed(2)} σ₂={eig2.toFixed(2)}
