@@ -222,12 +222,99 @@ const MotionPlanningStudio = () => {
     setGrid(g.map(r => r.map(c => ({ ...c })))); setIsRunning(false);
   }, [grid, start, goal, cols, rows, stepDelay, rrtStepSize, rrtMaxIter, clearPath]);
 
+  // PRM algorithm
+  const runPRM = useCallback(async () => {
+    setIsRunning(true); clearPath(); await new Promise(r => setTimeout(r, 50));
+    const g = grid.map(row => row.map(cell => ({ ...cell })));
+    const isWall = (x: number, y: number) => {
+      const ix = Math.round(x), iy = Math.round(y);
+      return ix < 0 || iy < 0 || ix >= cols || iy >= rows || g[iy][ix].type === "wall";
+    };
+    const lineCollision = (x1: number, y1: number, x2: number, y2: number) => {
+      const steps = Math.ceil(Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2) * 2);
+      for (let i = 0; i <= steps; i++) {
+        const t = i / Math.max(1, steps);
+        if (isWall(x1 + (x2 - x1) * t, y1 + (y2 - y1) * t)) return true;
+      }
+      return false;
+    };
+
+    // Sample nodes
+    interface PRMNode { x: number; y: number; neighbors: number[]; }
+    const nodes: PRMNode[] = [
+      { x: start.x, y: start.y, neighbors: [] },
+      { x: goal.x, y: goal.y, neighbors: [] },
+    ];
+    for (let i = 0; i < prmNodes; i++) {
+      const x = Math.random() * cols;
+      const y = Math.random() * rows;
+      if (!isWall(x, y)) nodes.push({ x, y, neighbors: [] });
+    }
+
+    // Mark nodes on grid
+    for (let i = 2; i < nodes.length; i++) {
+      const ix = Math.round(nodes[i].x), iy = Math.round(nodes[i].y);
+      if (ix >= 0 && iy >= 0 && ix < cols && iy < rows && g[iy][ix].type === "empty") g[iy][ix].type = "prm-node";
+    }
+    setGrid(g.map(r => r.map(c => ({ ...c })))); await new Promise(r => setTimeout(r, stepDelay * 5));
+
+    // Connect k-nearest neighbors
+    for (let i = 0; i < nodes.length; i++) {
+      const dists = nodes.map((n, j) => ({ j, d: Math.sqrt((n.x - nodes[i].x) ** 2 + (n.y - nodes[i].y) ** 2) }));
+      dists.sort((a, b) => a.d - b.d);
+      for (let k = 1; k <= Math.min(prmK, dists.length - 1); k++) {
+        const j = dists[k].j;
+        if (!lineCollision(nodes[i].x, nodes[i].y, nodes[j].x, nodes[j].y)) {
+          if (!nodes[i].neighbors.includes(j)) nodes[i].neighbors.push(j);
+          if (!nodes[j].neighbors.includes(i)) nodes[j].neighbors.push(i);
+        }
+      }
+    }
+
+    // Dijkstra on roadmap graph
+    const dist = Array(nodes.length).fill(Infinity);
+    const parent = Array(nodes.length).fill(-1);
+    const visited = new Set<number>();
+    dist[0] = 0;
+    const queue = [{ idx: 0, d: 0 }];
+
+    while (queue.length > 0) {
+      queue.sort((a, b) => a.d - b.d);
+      const { idx } = queue.shift()!;
+      if (visited.has(idx)) continue;
+      visited.add(idx);
+      if (idx === 1) break; // goal found
+      for (const ni of nodes[idx].neighbors) {
+        const nd = dist[idx] + Math.sqrt((nodes[ni].x - nodes[idx].x) ** 2 + (nodes[ni].y - nodes[idx].y) ** 2);
+        if (nd < dist[ni]) {
+          dist[ni] = nd;
+          parent[ni] = idx;
+          queue.push({ idx: ni, d: nd });
+        }
+      }
+    }
+
+    // Trace path
+    if (dist[1] < Infinity) {
+      let cur = 1;
+      while (cur !== -1 && cur !== 0) {
+        const ix = Math.round(nodes[cur].x), iy = Math.round(nodes[cur].y);
+        if (ix >= 0 && iy >= 0 && ix < cols && iy < rows && g[iy][ix].type !== "start" && g[iy][ix].type !== "goal")
+          g[iy][ix].type = "prm-path";
+        cur = parent[cur];
+      }
+    }
+
+    setGrid(g.map(r => r.map(c => ({ ...c })))); setIsRunning(false);
+  }, [grid, start, goal, cols, rows, stepDelay, prmNodes, prmK, clearPath]);
+
   const runAlgorithm = useCallback(() => {
     if (algorithm === "astar") runAStar();
     else if (algorithm === "dijkstra") runDijkstra();
     else if (algorithm === "potential") runPotentialField();
+    else if (algorithm === "prm") runPRM();
     else runRRT();
-  }, [algorithm, runAStar, runDijkstra, runPotentialField, runRRT]);
+  }, [algorithm, runAStar, runDijkstra, runPotentialField, runRRT, runPRM]);
 
   // Canvas rendering
   useEffect(() => {
