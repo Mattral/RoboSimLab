@@ -13,12 +13,14 @@ Internal documentation for RoboSimLab's simulation engine, component architectur
 │  └── Navigation (react-router-dom)                  │
 ├─────────────────────────────────────────────────────┤
 │  SimLayout                                          │
-│  ├── Header (glass-panel, navigation, status)       │
+│  ├── Header (glass-panel, navigation, Learning Mode)│
+│  ├── LearningModeContext (global toggle)            │
 │  ├── ErrorBoundary (crash recovery)                 │
 │  │   └── Module Canvas / 3D Scene                   │
 │  └── Controls Sidebar                               │
 │      ├── ControlSection (collapsible panels)        │
-│      └── SliderControl (precision inputs)           │
+│      ├── SliderControl (precision inputs)           │
+│      └── EducationPanel (learning content)          │
 ├─────────────────────────────────────────────────────┤
 │  Simulation Modules (26 modules)                    │
 │  ├── Canvas-based (2D): PID, Motion Planning,       │
