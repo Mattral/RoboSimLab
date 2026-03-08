@@ -29,6 +29,7 @@ const VelocityArrow = ({ origin, direction, length, color }: { origin: [number, 
 };
 
 const RobotDynamicsSimulator = () => {
+  const learningMode = useLearningMode();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [running, setRunning] = useState(true);
