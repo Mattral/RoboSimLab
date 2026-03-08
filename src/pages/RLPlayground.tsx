@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import SimLayout from "@/components/SimLayout";
+import SimLayout, { useLearningMode } from "@/components/SimLayout";
 import SliderControl from "@/components/SliderControl";
 import ControlSection from "@/components/ControlSection";
+import EducationPanel from "@/components/EducationPanel";
 import { exportToCSV } from "@/components/DataExport";
 
 const GRID = 12;
