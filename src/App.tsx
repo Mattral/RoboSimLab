@@ -26,6 +26,10 @@ import SLAMVisualization from "./pages/SLAMVisualization";
 import RLPolicyIntrospection from "./pages/RLPolicyIntrospection";
 import SimToRealLab from "./pages/SimToRealLab";
 import NeuralPolicyVisualizer from "./pages/NeuralPolicyVisualizer";
+import DigitalTwinBuilder from "./pages/DigitalTwinBuilder";
+import ControlArchitectureViz from "./pages/ControlArchitectureViz";
+import RobotTaskDesigner from "./pages/RobotTaskDesigner";
+import DigitalTwinDashboard from "./pages/DigitalTwinDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
