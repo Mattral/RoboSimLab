@@ -440,14 +440,15 @@ const MotionPlanningStudio = () => {
         <p className="text-xs text-muted-foreground leading-relaxed">
           <span className="text-primary">A*</span> & <span className="text-blue-glow">Dijkstra</span>: optimal graph search.
           <span className="text-purple-glow"> RRT</span>: random tree exploration.
-          <span style={{ color: "hsl(15, 80%, 55%)" }}> Potential Field</span>: gradient descent with attractive/repulsive forces.
+          <span style={{ color: "hsl(15, 78%, 52%)" }}> Potential</span>: gradient descent.
+          <span style={{ color: "hsl(48, 78%, 48%)" }}> PRM</span>: probabilistic roadmap with k-nearest neighbors.
         </p>
       </ControlSection>
     </>
   );
 
   return (
-    <SimLayout title="Motion Planning Studio" subtitle="A* · Dijkstra · RRT · Potential Field" controls={controls}>
+    <SimLayout title="Motion Planning Studio" subtitle="A* · Dijkstra · RRT · PRM · Potential" controls={controls}>
       <div ref={containerRef} className="w-full h-full min-h-[400px] relative">
         <canvas ref={canvasRef} className="absolute inset-0" />
       </div>
