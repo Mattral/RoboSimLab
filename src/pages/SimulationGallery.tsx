@@ -67,7 +67,7 @@ const modules: ModuleCard[] = [
     icon: Navigation,
     color: "hsl(210, 80%, 55%)",
     route: "/sim/navigation",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "perception",
