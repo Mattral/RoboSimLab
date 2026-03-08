@@ -95,6 +95,7 @@ const CoordinateFrame = ({ size = 0.2 }: { size?: number }) => (
 
 /** Joint rotation arc indicator */
 const JointArc = ({ angle, radius = 0.2, color }: { angle: number; radius?: number; color: string }) => {
+  const lineRef = useRef<THREE.Line>(null);
   const geometry = useMemo(() => {
     const segments = 32;
     const absAngle = Math.abs(angle);
@@ -105,7 +106,8 @@ const JointArc = ({ angle, radius = 0.2, color }: { angle: number; radius?: numb
     }
     return new THREE.BufferGeometry().setFromPoints(points);
   }, [angle, radius]);
-  return <line geometry={geometry}><lineBasicMaterial color={color} transparent opacity={0.6} /></line>;
+  const material = useMemo(() => new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.6 }), [color]);
+  return <primitive ref={lineRef} object={new THREE.Line(geometry, material)} />;
 };
 
 /** Trajectory trail rendered from stored world-space points */
