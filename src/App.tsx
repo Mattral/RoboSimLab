@@ -64,6 +64,10 @@ const App = () => (
           <Route path="/sim/rl-introspection" element={<RLPolicyIntrospection />} />
           <Route path="/sim/sim-to-real" element={<SimToRealLab />} />
           <Route path="/sim/neural-policy" element={<NeuralPolicyVisualizer />} />
+          <Route path="/sim/digital-twin-builder" element={<DigitalTwinBuilder />} />
+          <Route path="/sim/control-architecture" element={<ControlArchitectureViz />} />
+          <Route path="/sim/task-designer" element={<RobotTaskDesigner />} />
+          <Route path="/sim/digital-twin-dashboard" element={<DigitalTwinDashboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

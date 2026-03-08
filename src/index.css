@@ -289,6 +289,10 @@
   .stagger-fade > *:nth-child(20) { animation-delay: 0.60s; }
   .stagger-fade > *:nth-child(21) { animation-delay: 0.63s; }
   .stagger-fade > *:nth-child(22) { animation-delay: 0.66s; }
+  .stagger-fade > *:nth-child(23) { animation-delay: 0.69s; }
+  .stagger-fade > *:nth-child(24) { animation-delay: 0.72s; }
+  .stagger-fade > *:nth-child(25) { animation-delay: 0.75s; }
+  .stagger-fade > *:nth-child(26) { animation-delay: 0.78s; }
 
   /* ── Shimmer accent for hero text ── */
   .shimmer-text {
