@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 interface ControlSectionProps {
   title: string;
@@ -14,16 +14,21 @@ const ControlSection = ({ title, children, defaultOpen = true }: ControlSectionP
     <div className="sim-panel overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-4 py-3 hover:bg-secondary/20 transition-colors duration-150"
+        className="w-full flex items-center justify-between px-3.5 py-2.5 hover:bg-secondary/15 transition-colors duration-200"
       >
-        <h3 className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.12em]">{title}</h3>
-        <ChevronDown className={`w-3.5 h-3.5 text-muted-foreground transition-transform duration-200 ${open ? "" : "-rotate-90"}`} />
+        <h3 className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.14em]">{title}</h3>
+        <ChevronRight
+          className={`w-3 h-3 text-muted-foreground/60 transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${open ? "rotate-90" : "rotate-0"}`}
+        />
       </button>
       <div
-        className="overflow-hidden transition-all duration-300 ease-out"
-        style={{ maxHeight: open ? "600px" : "0px", opacity: open ? 1 : 0 }}
+        className="transition-all duration-350 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden"
+        style={{
+          maxHeight: open ? "800px" : "0px",
+          opacity: open ? 1 : 0,
+        }}
       >
-        <div className="px-4 pb-4 space-y-3">
+        <div className="px-3.5 pb-3.5 space-y-2.5">
           {children}
         </div>
       </div>
