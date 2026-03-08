@@ -14,6 +14,7 @@ const ARROWS = ["↑", "→", "↓", "←"];
 interface CellType { reward: number; wall: boolean; terminal: boolean; }
 
 const RLPlayground = () => {
+  const learningMode = useLearningMode();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const animRef = useRef<number>(0);
