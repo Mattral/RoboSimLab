@@ -232,6 +232,12 @@ const PIDControlLab = () => {
             ↺ Reset
           </button>
         </div>
+        <button
+          onClick={() => exportToCSV(dataRef.current, `pid_kp${kp}_ki${ki}_kd${kd}`)}
+          className="w-full text-xs font-mono py-2 rounded border border-border hover:border-primary/50 text-foreground transition-colors"
+        >
+          📥 Export CSV
+        </button>
       </ControlSection>
       <ControlSection title="Guide">
         <p className="text-xs text-muted-foreground leading-relaxed">
