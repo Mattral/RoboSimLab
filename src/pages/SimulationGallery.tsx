@@ -94,7 +94,7 @@ const modules: ModuleCard[] = [
     icon: Zap,
     color: "hsl(15, 80%, 55%)",
     route: "/sim/dynamics",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "multi-agent",
