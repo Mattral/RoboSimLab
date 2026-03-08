@@ -112,15 +112,12 @@ const JointArc = ({ angle, radius = 0.2, color }: { angle: number; radius?: numb
 
 /** Trajectory trail rendered from stored world-space points */
 const TrajectoryTrail = ({ points }: { points: THREE.Vector3[] }) => {
-  const geometry = useMemo(() => {
-    if (points.length < 2) return new THREE.BufferGeometry();
-    return new THREE.BufferGeometry().setFromPoints(points);
+  const line = useMemo(() => {
+    const geometry = points.length < 2 ? new THREE.BufferGeometry() : new THREE.BufferGeometry().setFromPoints(points);
+    const material = new THREE.LineBasicMaterial({ color: "#00d4aa", transparent: true, opacity: 0.4 });
+    return new THREE.Line(geometry, material);
   }, [points]);
-  return (
-    <line geometry={geometry}>
-      <lineBasicMaterial color="#00d4aa" transparent opacity={0.4} linewidth={1} />
-    </line>
-  );
+  return <primitive object={line} />;
 };
 
 export const RobotArm3D = ({ joint1, joint2, joint3, link1 = 1.2, link2 = 1.0, link3 = 0.8, showDebug = false, trailPoints = [] }: RobotArmProps) => {
