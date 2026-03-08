@@ -1,16 +1,15 @@
 import { useCallback } from "react";
 
-interface DataExportProps {
-  data: Record<string, number>[];
-  filename: string;
-}
-
-export const exportToCSV = (data: Array<Record<string, number | string>>, filename: string) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const exportToCSV = (data: any[], filename: string) => {
   if (data.length === 0) return;
   const headers = Object.keys(data[0]);
   const csv = [
     headers.join(","),
-    ...data.map(row => headers.map(h => row[h]?.toFixed(6) ?? "").join(","))
+    ...data.map(row => headers.map(h => {
+      const v = row[h];
+      return typeof v === "number" ? v.toFixed(6) : String(v ?? "");
+    }).join(","))
   ].join("\n");
 
   const blob = new Blob([csv], { type: "text/csv" });
@@ -23,7 +22,8 @@ export const exportToCSV = (data: Array<Record<string, number | string>>, filena
 };
 
 export const useDataExport = () => {
-  const download = useCallback((data: Record<string, number>[], filename: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const download = useCallback((data: any[], filename: string) => {
     exportToCSV(data, filename);
   }, []);
 
