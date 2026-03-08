@@ -13,6 +13,7 @@ interface DataPoint {
 }
 
 const PIDControlLab = () => {
+  const learningMode = useLearningMode();
   const [kp, setKp] = useState(1.5);
   const [ki, setKi] = useState(0.3);
   const [kd, setKd] = useState(0.5);
