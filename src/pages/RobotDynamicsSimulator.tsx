@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, useCallback, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
-import SimLayout from "@/components/SimLayout";
+import SimLayout, { useLearningMode } from "@/components/SimLayout";
 import SliderControl from "@/components/SliderControl";
 import ControlSection from "@/components/ControlSection";
+import EducationPanel from "@/components/EducationPanel";
 import { RobotArm3D, RobotBase3D, SceneLighting } from "@/components/3d/RobotArm3D";
 import { exportToCSV } from "@/components/DataExport";
 import * as THREE from "three";
