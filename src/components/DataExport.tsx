@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const exportToCSV = (data: any[], filename: string) => {
   if (data.length === 0) return;
   const headers = Object.keys(data[0]);
