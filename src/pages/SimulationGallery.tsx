@@ -334,7 +334,7 @@ const SimulationGallery = () => {
       <footer className="relative z-10 border-t border-border/20 px-6 py-5">
         <div className="max-w-7xl mx-auto flex items-center justify-between text-[10px] text-muted-foreground/60">
           <span className="tracking-wide">RoboSimLab — Browser-based Robotics Research</span>
-          <span className="font-mono tracking-wider">v3.0</span>
+          <span className="font-mono tracking-wider">v4.0</span>
         </div>
       </footer>
     </div>

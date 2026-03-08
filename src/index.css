@@ -284,7 +284,11 @@
   .stagger-fade > *:nth-child(14) { animation-delay: 0.42s; }
   .stagger-fade > *:nth-child(15) { animation-delay: 0.45s; }
   .stagger-fade > *:nth-child(16) { animation-delay: 0.48s; }
-  .stagger-fade > *:nth-child(17) { animation-delay: 0.51s; }
+  .stagger-fade > *:nth-child(18) { animation-delay: 0.54s; }
+  .stagger-fade > *:nth-child(19) { animation-delay: 0.57s; }
+  .stagger-fade > *:nth-child(20) { animation-delay: 0.60s; }
+  .stagger-fade > *:nth-child(21) { animation-delay: 0.63s; }
+  .stagger-fade > *:nth-child(22) { animation-delay: 0.66s; }
 
   /* ── Shimmer accent for hero text ── */
   .shimmer-text {
