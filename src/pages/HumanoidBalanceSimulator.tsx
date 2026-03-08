@@ -143,9 +143,37 @@ const HumanoidBalanceSimulator = () => {
               <fog attach="fog" args={["hsl(225, 15%, 6%)", 8, 18]} />
             </Canvas>
           </Suspense>
-          <div className="absolute top-3 left-3 glass-panel text-[11px] font-mono text-muted-foreground px-3 py-2 rounded-lg">
-            θ={(theta * 180 / Math.PI).toFixed(1)}° ω={stateRef.current.omega.toFixed(2)} rad/s τ={stateRef.current.torque.toFixed(1)} N·m
+          {/* Focus Mode */}
+          <FocusMode
+            active={focusMode}
+            onToggle={() => setFocusMode(false)}
+            robotName="Humanoid Balance Robot"
+            labels={[
+              { name: "LIDAR Scanner", color: "hsl(172, 78%, 47%)" },
+              { name: "Stereo Camera", color: "hsl(212, 78%, 52%)" },
+              { name: "Depth Sensor", color: "hsl(268, 58%, 52%)" },
+              { name: "Force Sensors (feet)", color: "hsl(38, 88%, 52%)" },
+              { name: "IMU (torso)", color: "hsl(152, 68%, 42%)" },
+              { name: "PD Balance Controller", value: `Kp=${kp} Kd=${kd}`, color: "hsl(0, 65%, 52%)" },
+            ]}
+          />
+          {/* Context-aware telemetry */}
+          <div className="absolute top-3 right-3 w-[155px] z-20">
+            <TelemetryPanel
+              mode={Math.abs(theta) > 0.15 ? "Balancing" : running ? "Balancing" : "Idle"}
+              items={[
+                { label: "Tilt", value: (theta * 180 / Math.PI).toFixed(1), unit: "°", highlight: Math.abs(theta) > 0.1 },
+                { label: "Angular Vel", value: stateRef.current.omega.toFixed(2), unit: " rad/s" },
+                { label: "Torque", value: stateRef.current.torque.toFixed(1), unit: " N·m", highlight: Math.abs(stateRef.current.torque) > 10 },
+                { label: "Stability", value: Math.abs(theta) < 0.05 ? "STABLE" : Math.abs(theta) < 0.2 ? "OK" : "UNSTABLE", color: Math.abs(theta) < 0.05 ? "hsl(152, 68%, 42%)" : Math.abs(theta) < 0.2 ? "hsl(38, 88%, 52%)" : "hsl(0, 65%, 52%)" },
+              ]}
+            />
           </div>
+          {!focusMode && (
+            <div className="absolute top-3 left-3 glass-panel text-[11px] font-mono text-muted-foreground px-3 py-2 rounded-lg">
+              θ={(theta * 180 / Math.PI).toFixed(1)}° ω={stateRef.current.omega.toFixed(2)} rad/s τ={stateRef.current.torque.toFixed(1)} N·m
+            </div>
+          )}
         </div>
         <div ref={chartContainerRef} className="h-[160px] border-t border-border/40 relative shrink-0">
           <canvas ref={canvasRef} className="absolute inset-0" />
