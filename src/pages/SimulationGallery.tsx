@@ -58,7 +58,7 @@ const modules: ModuleCard[] = [
     icon: PersonStanding,
     color: "hsl(0, 70%, 55%)",
     route: "/sim/humanoid-balance",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "navigation",
@@ -76,7 +76,7 @@ const modules: ModuleCard[] = [
     icon: Eye,
     color: "hsl(320, 60%, 55%)",
     route: "/sim/perception",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "rl-playground",
@@ -85,7 +85,7 @@ const modules: ModuleCard[] = [
     icon: Brain,
     color: "hsl(50, 80%, 50%)",
     route: "/sim/rl-playground",
-    status: "coming-soon",
+    status: "active",
   },
   {
     id: "dynamics",

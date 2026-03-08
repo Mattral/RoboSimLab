@@ -7,18 +7,18 @@
 - [x] **PID Control Lab** — Real-time second-order system, tunable P/I/D gains, response curves, error/overshoot metrics
 - [x] **Robotic Arm Kinematics Lab** — 3-DOF planar arm, forward/inverse kinematics, workspace visualization, coordinate frames, IK drag targeting
 - [x] **Swarm Robotics Simulator** — Boids flocking (separation/alignment/cohesion), velocity vectors, perception radius, up to 200 agents
-- [x] **Motion Planning Studio** — A* pathfinding, drawable obstacle grid, animated algorithm exploration, path visualization
+- [x] **Motion Planning Studio** — A* pathfinding + RRT algorithm, drawable obstacle grid, animated algorithm exploration, path visualization
+- [x] **Sensor & Perception Lab** — Lidar raycasting, depth profile, camera FOV cone, SLAM-style environment mapping, draggable robot
+- [x] **Humanoid Balance Simulator** — Inverted pendulum dynamics, PD balance control, CoM visualization, support polygon, disturbance forces, angle/torque charts
+- [x] **RL Playground** — Q-learning grid world, epsilon-greedy exploration, policy arrows, Q-value heatmap, episode reward learning curve
+- [x] **RRT Algorithm** — Added Rapidly-exploring Random Trees to Motion Planning Studio with step size & iteration controls
 - [x] **Shared Components** — SimLayout, SliderControl, ControlSection reusable UI primitives
 
 ## 🔲 Outstanding
 
-- [ ] **Humanoid Balance Simulation** — Center of mass, support polygon, balance control, external disturbances
 - [ ] **Autonomous Navigation Environment** — SLAM-based mapping, autonomous path following, dynamic obstacles
-- [ ] **Sensor & Perception Lab** — Lidar, depth sensing, camera FOV, proximity sensors, environment mapping
-- [ ] **Reinforcement Learning Playground** — Grid-world agent, Q-learning, policy visualization, reward signals
 - [ ] **Robot Dynamics & Torque Simulator** — Joint torque, velocity, acceleration, energy propagation
 - [ ] **Multi-Agent Coordination** — Distributed task allocation, consensus algorithms, cooperative planning
-- [ ] **RRT Algorithm** — Add Rapidly-exploring Random Trees to Motion Planning Studio
 - [ ] **Potential Field Navigation** — Add potential field method to Motion Planning Studio
 - [ ] **Probabilistic Roadmaps** — Add PRM algorithm to Motion Planning Studio
 - [ ] **3D Visualization** — Migrate select modules to Three.js with orbit/pan/zoom, shadows, depth cues
