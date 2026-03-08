@@ -9,6 +9,7 @@ import { Humanoid3D, HumanoidSceneLighting } from "@/components/3d/Humanoid3D";
 import { exportToCSV } from "@/components/DataExport";
 
 const HumanoidBalanceSimulator = () => {
+  const learningMode = useLearningMode();
   const [cinematic, setCinematic] = useState(false);
   const [kp, setKp] = useState(50);
   const [kd, setKd] = useState(15);
