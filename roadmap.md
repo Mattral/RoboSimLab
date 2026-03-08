@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**RoboSimLab** is a fully front-end, browser-based interactive robotics simulation platform built with React, Three.js, and TypeScript. It serves as a professional robotics research laboratory where users can explore robotics concepts interactively — from kinematics and control theory to reinforcement learning and multi-agent systems.
+**RoboSimLab** is a fully front-end, browser-based interactive robotics simulation platform built with React, Three.js, and TypeScript. It serves as a professional robotics research laboratory where users can explore robotics concepts interactively.
 
 ---
 
@@ -23,10 +23,10 @@
 
 ## Phase 2 — Robotics Simulation Modules
 
-- [x] **Robotic Arm Simulator** — Forward kinematics, inverse kinematics, joint controls, end-effector targeting, workspace visualization
-- [x] **Motion Planning Studio** — A*, RRT, Dijkstra algorithms, obstacle placement, animated path visualization
+- [x] **Robotic Arm Simulator** — Forward kinematics, inverse kinematics, joint controls, end-effector targeting, workspace visualization, Jacobian matrix, manipulability ellipsoid, DH parameters
+- [x] **Motion Planning Studio** — A*, RRT, Dijkstra, Potential Field algorithms, obstacle placement, animated path visualization
 - [x] **PID Control Lab** — Tunable P/I/D gains, system response curves, error signal, overshoot/settling metrics, CSV export
-- [x] **Swarm Robotics Simulator** — 3D boids flocking, formation control, collision avoidance, up to 300 agents
+- [x] **Swarm Robotics Simulator** — 3D boids flocking, formation control, collision avoidance, up to 300 agents, CSV export
 
 ---
 
@@ -42,11 +42,11 @@
 
 ## Phase 4 — Advanced Robotics Physics
 
-- [x] **Robot Dynamics & Torque Simulator** — Joint torque, velocity, acceleration charts
+- [x] **Robot Dynamics & Torque Simulator** — Joint torque, velocity, acceleration charts, CSV export
 - [x] Energy propagation visualization (kinetic + potential)
 - [x] Payload mass and friction controls
 - [x] Trajectory rendering with real-time dynamics
-- [x] **Humanoid Balance Simulator** — Inverted pendulum PD control, CoM visualization, support polygon
+- [x] **Humanoid Balance Simulator** — Inverted pendulum PD control, CoM visualization, support polygon, CSV export
 - [x] **Autonomous Navigation** — Waypoint following, reactive obstacle avoidance, SLAM mapping
 - [x] **Multi-Agent Coordination** — Nearest-first & priority auction task allocation, communication radius
 - [x] **Custom Robot Builder** — 1–7 DOF configurable manipulators, JSON export
@@ -55,32 +55,30 @@
 
 ## Phase 5 — AI & Reinforcement Learning Systems
 
-> ⚠️ Phase 1–4 must be fully complete before beginning Phase 5.
+> ⚠️ Phase 1–4 fully complete.
 
-- [x] **RL Playground** — Q-learning grid world, epsilon-greedy exploration
+- [x] **RL Playground** — Q-learning grid world, epsilon-greedy exploration, CSV export
 - [x] State representation & action selection
 - [x] Reward calculation & Q-table updates
 - [x] Policy visualization (arrows + Q-value heatmap)
 - [x] Training progress visualization (reward curve, episode counter)
-- [ ] **Imitation Learning Mode** — Record user demonstrations, train policy to reproduce motion
+- [x] **Imitation Learning Mode** — Record user demonstrations, train policy to reproduce motion
 - [ ] **RL Robot Tasks** — Reach target, push object, pick-and-place via learned policy
 
 ---
 
 ## Phase 6 — Experimental Research Features
 
-> Optional advanced features to be added gradually after all core systems are stable.
-
+- [x] Manipulability ellipsoid visualization
+- [x] Robot Jacobian visualization
+- [x] DH Parameter Panel (Denavit-Hartenberg)
+- [x] Potential Field Navigation
+- [x] CSV export for all modules
 - [ ] Multi-agent reinforcement learning
 - [ ] Robot trajectory optimization
 - [ ] SLAM exploration simulation (advanced)
 - [ ] Sensor fusion visualization
-- [ ] Robot Jacobian visualization
-- [ ] Manipulability ellipsoid visualization
 - [ ] Probabilistic Roadmaps (PRM) algorithm
-- [ ] Potential Field Navigation
-- [ ] DH Parameter Panel (Denavit-Hartenberg)
-- [ ] CSV export for all remaining modules
 
 ---
 
@@ -92,5 +90,5 @@
 | Phase 2 — Simulation Modules | ✅ Complete |
 | Phase 3 — Sensor & Perception | ✅ Complete |
 | Phase 4 — Advanced Physics | ✅ Complete |
-| Phase 5 — AI & RL Systems | 🔶 In Progress (3/5 done) |
-| Phase 6 — Experimental | 🔲 Not Started |
+| Phase 5 — AI & RL Systems | 🔶 In Progress (6/7 done) |
+| Phase 6 — Experimental | 🔶 In Progress (5/10 done) |
