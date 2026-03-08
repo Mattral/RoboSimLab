@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import {
   Cpu, Route, SlidersHorizontal, Users, PersonStanding, Navigation,
   Eye, Brain, Zap, Network, Wrench, ArrowRight, Sparkles, Activity, GitBranch,
-  Layers, Map, Bot, Gamepad2, GitCompareArrows
+  Layers, Map, Bot, Gamepad2, GitCompareArrows, Sigma, Radar, Search, Shuffle, CircuitBoard
 } from "lucide-react";
 
 interface ModuleCard {
@@ -168,6 +168,51 @@ const modules: ModuleCard[] = [
     color: "hsl(45, 80%, 50%)",
     route: "/sim/algorithm-comparison",
     tags: ["Compare", "Analysis"],
+  },
+  {
+    id: "differentiable-robotics",
+    title: "Differentiable Robotics",
+    description: "Real-time Jacobian, manipulability ellipsoid, singularity detection, and joint sensitivity visualization",
+    icon: Sigma,
+    color: "hsl(20, 75%, 55%)",
+    route: "/sim/differentiable-robotics",
+    tags: ["Jacobian", "Research"],
+  },
+  {
+    id: "slam-visualization",
+    title: "SLAM Visualization",
+    description: "Autonomous frontier-based exploration with laser scanning, occupancy grid mapping, and pose estimation",
+    icon: Radar,
+    color: "hsl(190, 70%, 48%)",
+    route: "/sim/slam-visualization",
+    tags: ["SLAM", "Mapping"],
+  },
+  {
+    id: "rl-introspection",
+    title: "RL Policy Introspection",
+    description: "Deep Q-learning analysis with policy entropy, state visitation heatmap, value landscape, and success tracking",
+    icon: Search,
+    color: "hsl(310, 55%, 50%)",
+    route: "/sim/rl-introspection",
+    tags: ["AI", "Entropy"],
+  },
+  {
+    id: "sim-to-real",
+    title: "Sim-to-Real Gap",
+    description: "Compare ideal vs noisy robot behavior with configurable sensor noise, actuator delay, and domain randomization",
+    icon: Shuffle,
+    color: "hsl(355, 65%, 50%)",
+    route: "/sim/sim-to-real",
+    tags: ["Realism", "Research"],
+  },
+  {
+    id: "neural-policy",
+    title: "Neural Policy Brain",
+    description: "Visualize neural network decision-making with real-time activations, signal flow, and weight connections",
+    icon: CircuitBoard,
+    color: "hsl(260, 65%, 55%)",
+    route: "/sim/neural-policy",
+    tags: ["Neural", "AI"],
   },
 ];
 

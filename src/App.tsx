@@ -21,6 +21,11 @@ import SLAMExploration from "./pages/SLAMExploration";
 import MultiAgentRL from "./pages/MultiAgentRL";
 import RobotTeleoperation from "./pages/RobotTeleoperation";
 import AlgorithmComparison from "./pages/AlgorithmComparison";
+import DifferentiableRoboticsLab from "./pages/DifferentiableRoboticsLab";
+import SLAMVisualization from "./pages/SLAMVisualization";
+import RLPolicyIntrospection from "./pages/RLPolicyIntrospection";
+import SimToRealLab from "./pages/SimToRealLab";
+import NeuralPolicyVisualizer from "./pages/NeuralPolicyVisualizer";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -50,6 +55,11 @@ const App = () => (
           <Route path="/sim/multi-agent-rl" element={<MultiAgentRL />} />
           <Route path="/sim/teleoperation" element={<RobotTeleoperation />} />
           <Route path="/sim/algorithm-comparison" element={<AlgorithmComparison />} />
+          <Route path="/sim/differentiable-robotics" element={<DifferentiableRoboticsLab />} />
+          <Route path="/sim/slam-visualization" element={<SLAMVisualization />} />
+          <Route path="/sim/rl-introspection" element={<RLPolicyIntrospection />} />
+          <Route path="/sim/sim-to-real" element={<SimToRealLab />} />
+          <Route path="/sim/neural-policy" element={<NeuralPolicyVisualizer />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
