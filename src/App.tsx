@@ -16,6 +16,9 @@ import AutonomousNavigation from "./pages/AutonomousNavigation";
 import MultiAgentCoordination from "./pages/MultiAgentCoordination";
 import CustomRobotBuilder from "./pages/CustomRobotBuilder";
 import TrajectoryOptimizationLab from "./pages/TrajectoryOptimizationLab";
+import SensorFusionLab from "./pages/SensorFusionLab";
+import SLAMExploration from "./pages/SLAMExploration";
+import MultiAgentRL from "./pages/MultiAgentRL";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
