@@ -81,6 +81,8 @@
 - [x] **Multi-Agent RL** — Cooperative Q-learning with shared Q-tables, reward curves, policy visualization
 - [x] **SLAM Exploration** — Frontier-based autonomous mapping with BFS pathfinding
 - [x] **Sensor Fusion Lab** — Lidar + Camera + IMU unified perception with confidence heatmap
+- [x] **Robot Teleoperation** — WASD keyboard control with lidar, minimap, collision warning HUD
+- [x] **Algorithm Comparison** — Side-by-side pathfinding analysis (A*, Dijkstra, BFS, RRT)
 
 ---
 
@@ -93,4 +95,4 @@
 | Phase 3 — Sensor & Perception | ✅ Complete |
 | Phase 4 — Advanced Physics | ✅ Complete |
 | Phase 5 — AI & RL Systems | ✅ Complete |
-| Phase 6 — Experimental | ✅ Complete (13/13 done) |
+| Phase 6 — Experimental | ✅ Complete (15/15 done) |

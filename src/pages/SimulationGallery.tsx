@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import {
   Cpu, Route, SlidersHorizontal, Users, PersonStanding, Navigation,
   Eye, Brain, Zap, Network, Wrench, ArrowRight, Sparkles, Activity, GitBranch,
-  Layers, Map, Bot
+  Layers, Map, Bot, Gamepad2, GitCompareArrows
 } from "lucide-react";
 
 interface ModuleCard {
@@ -151,6 +151,24 @@ const modules: ModuleCard[] = [
     route: "/sim/multi-agent-rl",
     tags: ["AI", "MARL"],
   },
+  {
+    id: "teleoperation",
+    title: "Robot Teleoperation",
+    description: "Drive a robot with WASD keyboard controls through obstacle courses with real-time lidar and minimap",
+    icon: Gamepad2,
+    color: "hsl(340, 65%, 52%)",
+    route: "/sim/teleoperation",
+    tags: ["WASD", "Interactive"],
+  },
+  {
+    id: "algorithm-comparison",
+    title: "Algorithm Comparison",
+    description: "Run two pathfinding algorithms side-by-side on the same maze for direct performance analysis",
+    icon: GitCompareArrows,
+    color: "hsl(45, 80%, 50%)",
+    route: "/sim/algorithm-comparison",
+    tags: ["Compare", "Analysis"],
+  },
 ];
 
 const SimulationGallery = () => {
@@ -271,7 +289,7 @@ const SimulationGallery = () => {
       <footer className="relative z-10 border-t border-border/20 px-6 py-5">
         <div className="max-w-7xl mx-auto flex items-center justify-between text-[10px] text-muted-foreground/60">
           <span className="tracking-wide">RoboSimLab — Browser-based Robotics Research</span>
-          <span className="font-mono tracking-wider">v2.1</span>
+          <span className="font-mono tracking-wider">v3.0</span>
         </div>
       </footer>
     </div>
