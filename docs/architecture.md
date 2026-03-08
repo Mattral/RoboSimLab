@@ -13,12 +13,14 @@ Internal documentation for RoboSimLab's simulation engine, component architectur
 │  └── Navigation (react-router-dom)                  │
 ├─────────────────────────────────────────────────────┤
 │  SimLayout                                          │
-│  ├── Header (glass-panel, navigation, status)       │
+│  ├── Header (glass-panel, navigation, Learning Mode)│
+│  ├── LearningModeContext (global toggle)            │
 │  ├── ErrorBoundary (crash recovery)                 │
 │  │   └── Module Canvas / 3D Scene                   │
 │  └── Controls Sidebar                               │
 │      ├── ControlSection (collapsible panels)        │
-│      └── SliderControl (precision inputs)           │
+│      ├── SliderControl (precision inputs)           │
+│      └── EducationPanel (learning content)          │
 ├─────────────────────────────────────────────────────┤
 │  Simulation Modules (26 modules)                    │
 │  ├── Canvas-based (2D): PID, Motion Planning,       │
@@ -139,13 +141,26 @@ Complementary filter combining:
   <SimulationCanvas />
 </SimLayout>
 ```
+Provides `LearningModeContext` — use `useLearningMode()` in child components to conditionally render educational content.
 
-### ControlSection
+### EducationPanel
 ```tsx
-<ControlSection title="Parameters" defaultOpen={true}>
-  <SliderControl label="Speed" value={speed} min={0} max={10} step={0.1} onChange={setSpeed} color="hsl(...)" />
-</ControlSection>
+<EducationPanel
+  title="Robot Kinematics"
+  concept="How robots calculate arm positions"
+  explanation="..."
+  formula="T = R(θ₁)·T(L₁)..."
+  keyPoints={["FK is straightforward", "IK can have multiple solutions"]}
+  tip="Try moving joints near full extension to see manipulability drop."
+/>
 ```
+Collapsible panel with concept, formula, key points, and tips. Render conditionally with `useLearningMode()`.
+
+### ContextHint
+```tsx
+<ContextHint visible={learningMode && mode === "ik"} message="IK finds joint angles..." />
+```
+Floating tooltip that appears during specific interactions.
 
 ### SliderControl
 - Automatically clamps values to [min, max]

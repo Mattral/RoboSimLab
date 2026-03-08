@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**RoboSimLab** is a fully front-end, browser-based interactive robotics simulation platform built with React, Three.js, and TypeScript. It serves as a professional robotics research laboratory where users can explore robotics concepts interactively.
+**RoboSimLab** is a fully front-end, browser-based interactive robotics simulation platform built with React, Three.js, and TypeScript. It serves as a professional robotics research laboratory and educational environment where users can explore robotics concepts interactively.
 
 ---
 
@@ -107,6 +107,20 @@
 
 ---
 
+## Phase 9 — Visual Refinement & Educational Mode
+
+> Elevating robot body quality, visualization clarity, and educational value
+
+- [x] **Robot Body Refinement** — Mechanical detail: bolt rings, cable channels, actuator housings, sensor mounts, structural ribbing, encoder rings, contact pads
+- [x] **Humanoid Detail Enhancement** — Camera lens, depth sensor, ventilation grille, ankle sensors, foot contact sensors, finger stubs, neck cable bundles
+- [x] **Trajectory Fading** — Trajectory trails use vertex colors for gradual fade, reducing visual clutter
+- [x] **Learning Mode** — Global toggle in SimLayout header, exposes educational panels and contextual hints
+- [x] **Education Panel System** — Reusable EducationPanel component with concept, formula, key points, and tips
+- [x] **Contextual Hints** — Interactive tooltips that appear during specific user actions (IK mode, ellipsoid view)
+- [x] **Module Education Content** — Added to: Arm Kinematics (FK/IK + DH), PID Control, Humanoid Balance, RL Playground, Robot Dynamics
+
+---
+
 ## Status Summary
 
 | Phase | Status |
@@ -119,5 +133,6 @@
 | Phase 6 — Experimental | ✅ Complete (15/15 done) |
 | Phase 7 — Research Capabilities | ✅ Complete (5/5 done) |
 | Phase 8 — Digital Twin Lab | ✅ Complete (4/4 done) |
+| Phase 9 — Visual & Educational | ✅ Complete (7/7 done) |
 
-**Total Modules: 26**
+**Total Modules: 26 | Version: v5.1**

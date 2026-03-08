@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import SimLayout from "@/components/SimLayout";
+import SimLayout, { useLearningMode } from "@/components/SimLayout";
 import SliderControl from "@/components/SliderControl";
 import ControlSection from "@/components/ControlSection";
+import EducationPanel from "@/components/EducationPanel";
 import { exportToCSV } from "@/components/DataExport";
 
 const GRID = 12;
@@ -13,6 +14,7 @@ const ARROWS = ["↑", "→", "↓", "←"];
 interface CellType { reward: number; wall: boolean; terminal: boolean; }
 
 const RLPlayground = () => {
+  const learningMode = useLearningMode();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const animRef = useRef<number>(0);
@@ -171,6 +173,22 @@ const RLPlayground = () => {
         </div>
         <button onClick={() => exportToCSV(rewardHistRef.current.map((r, i) => ({ episode: i, reward: r })), "rl_rewards")} className="w-full sim-btn sim-btn-inactive mt-1">📥 Export CSV</button>
       </ControlSection>
+
+      {learningMode && (
+        <EducationPanel
+          title="Reinforcement Learning"
+          concept="Learning through trial and error"
+          explanation="The agent explores a grid world, receiving rewards or penalties. It builds a Q-table mapping state-action pairs to expected returns. Over time, the policy converges to optimal behavior."
+          formula="Q(s,a) ← Q(s,a) + α[r + γ·max Q(s',a') - Q(s,a)]"
+          keyPoints={[
+            "ε-greedy balances exploration (random actions) vs exploitation (best known action)",
+            "The discount factor γ controls how much the agent values future rewards",
+            "Policy arrows show the best action at each state based on Q-values",
+            "The heatmap shows which states have higher expected value",
+          ]}
+          tip="Watch early episodes — the agent explores randomly. After ~100 episodes, arrows should converge toward the goal."
+        />
+      )}
     </>
   );
 

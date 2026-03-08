@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import SimLayout from "@/components/SimLayout";
+import SimLayout, { useLearningMode } from "@/components/SimLayout";
 import SliderControl from "@/components/SliderControl";
 import ControlSection from "@/components/ControlSection";
+import EducationPanel from "@/components/EducationPanel";
 import { exportToCSV } from "@/components/DataExport";
 
 interface DataPoint {
@@ -12,6 +13,7 @@ interface DataPoint {
 }
 
 const PIDControlLab = () => {
+  const learningMode = useLearningMode();
   const [kp, setKp] = useState(1.5);
   const [ki, setKi] = useState(0.3);
   const [kd, setKd] = useState(0.5);
@@ -242,10 +244,26 @@ const PIDControlLab = () => {
       <ControlSection title="Guide">
         <p className="text-xs text-muted-foreground leading-relaxed">
           Tune the PID gains to control a second-order system. The <span className="text-primary">cyan</span> curve shows system output, 
-          <span className="text-amber-glow"> amber</span> is the setpoint, and <span className="text-red-glow">red</span> shows the error signal.
+          <span style={{ color: "hsl(var(--amber-glow))" }}> amber</span> is the setpoint, and <span className="text-destructive">red</span> shows the error signal.
           Try increasing Kp for faster response, Ki to eliminate steady-state error, and Kd to reduce overshoot.
         </p>
       </ControlSection>
+
+      {learningMode && (
+        <EducationPanel
+          title="PID Control"
+          concept="The most widely used control algorithm"
+          explanation="PID control computes a control signal from three terms: Proportional (reacts to current error), Integral (eliminates steady-state error), and Derivative (dampens oscillation). Nearly every industrial robot uses PID."
+          formula="u(t) = Kp·e(t) + Ki·∫e(t)dt + Kd·de(t)/dt"
+          keyPoints={[
+            "Kp alone causes oscillation — the system overshoots",
+            "Ki removes steady-state error but can cause integral windup",
+            "Kd acts as a damper, reducing overshoot at the cost of response speed",
+            "Real robots tune PID per-joint for optimal performance",
+          ]}
+          tip="Start with only Kp, then add Kd to reduce oscillation, and finally Ki to eliminate remaining error."
+        />
+      )}
     </>
   );
 

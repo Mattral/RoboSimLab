@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, useCallback, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
-import SimLayout from "@/components/SimLayout";
+import SimLayout, { useLearningMode } from "@/components/SimLayout";
 import SliderControl from "@/components/SliderControl";
 import ControlSection from "@/components/ControlSection";
+import EducationPanel from "@/components/EducationPanel";
 import { RobotArm3D, RobotBase3D, SceneLighting } from "@/components/3d/RobotArm3D";
 import { exportToCSV } from "@/components/DataExport";
 import * as THREE from "three";
@@ -28,6 +29,7 @@ const VelocityArrow = ({ origin, direction, length, color }: { origin: [number, 
 };
 
 const RobotDynamicsSimulator = () => {
+  const learningMode = useLearningMode();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [running, setRunning] = useState(true);
@@ -188,6 +190,22 @@ const RobotDynamicsSimulator = () => {
         </div>
         <button onClick={() => exportToCSV(dataRef.current, `dynamics_${chartMode}`)} className="w-full sim-btn sim-btn-inactive mt-1">📥 Export CSV</button>
       </ControlSection>
+
+      {learningMode && (
+        <EducationPanel
+          title="Robot Dynamics"
+          concept="How forces create motion in robots"
+          explanation="Dynamics extends kinematics by considering forces, torques, and inertia. The Euler-Lagrange equations describe how joint torques produce accelerations, accounting for gravity, Coriolis effects, and friction."
+          formula="τ = M(q)q̈ + C(q,q̇)q̇ + g(q)"
+          keyPoints={[
+            "M(q) is the mass/inertia matrix — heavier links need more torque",
+            "C(q,q̇) captures Coriolis and centrifugal effects from joint coupling",
+            "g(q) is gravitational torque — the arm must fight gravity constantly",
+            "Energy conservation: kinetic + potential energy is tracked in real-time",
+          ]}
+          tip="Increase payload mass and watch torque requirements spike. This is why industrial robots have torque limits."
+        />
+      )}
     </>
   );
 
