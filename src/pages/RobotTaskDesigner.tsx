@@ -163,18 +163,20 @@ const RobotTaskDesigner = () => {
       }
 
       // Task completed overlay
-      const agent = agentRef.current;
-      const goalDist = Math.sqrt((agent.x - goal.x) ** 2 + (agent.y - goal.y) ** 2);
-      if (!running && stepCount > 0 && goalDist < rewardRadius * 0.5) {
-        ctx.fillStyle = "hsla(152, 70%, 45%, 0.15)";
-        ctx.fillRect(0, 0, w, h);
-        ctx.fillStyle = "hsl(152, 70%, 55%)";
-        ctx.font = "bold 18px 'Inter'";
-        ctx.textAlign = "center";
-        ctx.fillText("✓ TASK COMPLETE", w / 2, h / 2 - 10);
-        ctx.font = "12px 'JetBrains Mono'";
-        ctx.fillStyle = "hsl(220, 10%, 70%)";
-        ctx.fillText(`${stepCount} steps · reward: ${totalReward.toFixed(2)}`, w / 2, h / 2 + 15);
+      {
+        const ag = agentRef.current;
+        const goalDist = Math.sqrt((ag.x - goal.x) ** 2 + (ag.y - goal.y) ** 2);
+        if (!running && stepCount > 0 && goalDist < rewardRadius * 0.5) {
+          ctx.fillStyle = "hsla(152, 70%, 45%, 0.15)";
+          ctx.fillRect(0, 0, w, h);
+          ctx.fillStyle = "hsl(152, 70%, 55%)";
+          ctx.font = "bold 18px 'Inter'";
+          ctx.textAlign = "center";
+          ctx.fillText("✓ TASK COMPLETE", w / 2, h / 2 - 10);
+          ctx.font = "12px 'JetBrains Mono'";
+          ctx.fillStyle = "hsl(220, 10%, 70%)";
+          ctx.fillText(`${stepCount} steps · reward: ${totalReward.toFixed(2)}`, w / 2, h / 2 + 15);
+        }
       }
 
       // Path
