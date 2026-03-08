@@ -1,6 +1,7 @@
 import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import TooltipHotspot from "./TooltipHotspot";
 
 interface RobotArmProps {
   joint1: number;
