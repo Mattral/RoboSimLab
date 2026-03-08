@@ -1,6 +1,6 @@
 # RoboSimLab
 
-**Professional-grade interactive robotics simulation platform running entirely in the browser.**
+**Professional-grade interactive robotics simulation and education platform running entirely in the browser.**
 
 Built with React, Three.js, TypeScript, and Tailwind CSS. Designed to Apple Human Interface standards with Boston Dynamics-style engineering visualization.
 
@@ -70,22 +70,45 @@ Open `http://localhost:5173` — that's it.
 | **RL Playground** | Q-learning grid world, policy visualization, reward curves |
 | **Multi-Agent RL** | Cooperative Q-learning with shared Q-tables |
 
-### Phase 7 — Research Capabilities
+### Research Capabilities
 | Module | Description |
 |--------|-------------|
-| **Differentiable Robotics** | Real-time Jacobian, singularity detection, manipulability/velocity ellipsoids, joint sensitivity |
-| **SLAM Visualization** | Autonomous frontier exploration with laser scanning, occupancy grid, true vs estimated pose |
-| **RL Policy Introspection** | Policy entropy, state visitation heatmap, success rate, multi-chart dashboard |
-| **Sim-to-Real Gap** | Ideal vs noisy trajectory comparison with configurable noise/delay/friction |
-| **Neural Policy Brain** | Neural network visualization with activations, signal flow, weight connections |
+| **Differentiable Robotics** | Real-time Jacobian, singularity detection, manipulability/velocity ellipsoids |
+| **SLAM Visualization** | Autonomous frontier exploration with laser scanning, occupancy grid |
+| **RL Policy Introspection** | Policy entropy, state visitation heatmap, success rate dashboard |
+| **Sim-to-Real Gap** | Ideal vs noisy trajectory comparison with configurable noise/delay |
+| **Neural Policy Brain** | Neural network visualization with activations and signal flow |
 
-### Phase 8 — Digital Twin Lab
+### Digital Twin Lab
 | Module | Description |
 |--------|-------------|
 | **Digital Twin Builder** | Modular robot assembly with links, joints, sensors, mass distribution |
 | **Control Architecture** | Visual sensor→perception→planning→control→actuator pipeline |
 | **Robot Task Designer** | Custom task design with goals, obstacles, reward fields |
-| **Digital Twin Dashboard** | Real-time monitoring of torques, velocities, energy, controller output |
+| **Digital Twin Dashboard** | Real-time monitoring of torques, velocities, energy |
+
+---
+
+## 🎓 Learning Mode
+
+Every simulation module includes a **Learning Mode** toggle in the header that transforms the simulator into an educational robotics lab:
+
+- **Education Panels** — Concept explanations, formulas, key points, and practical tips
+- **Contextual Hints** — Interactive tooltips that appear during specific interactions
+- **Visual Overlays** — Debug frames, manipulability ellipsoids, velocity vectors
+
+Topics covered: robot kinematics, dynamics, PID control, reinforcement learning, SLAM, sensor fusion, and more.
+
+---
+
+## 🤖 Robot Visual Design
+
+Robot models feature engineering-grade mechanical detail:
+
+- **Links** — Structural tubes with bolt rings, cable channels, and actuator housings
+- **Joints** — Rotation indicator rings, axis markers, encoder rings, sensor mounts
+- **End Effectors** — Gripper fingers with contact pads and tool center point
+- **Humanoid** — Camera lens, depth sensor, ventilation grille, structural ribbing
 
 ---
 
@@ -94,17 +117,19 @@ Open `http://localhost:5173` — that's it.
 ```
 src/
 ├── components/
-│   ├── 3d/              # Three.js robot models (RobotArm3D, Humanoid3D)
-│   ├── ui/              # shadcn/ui component library
-│   ├── SimLayout.tsx    # Shared simulation page layout
+│   ├── 3d/                # Three.js robot models (RobotArm3D, Humanoid3D)
+│   ├── ui/                # shadcn/ui component library
+│   ├── SimLayout.tsx      # Shared layout with Learning Mode context
 │   ├── ControlSection.tsx # Collapsible control panel
 │   ├── SliderControl.tsx  # Apple-style parameter slider
+│   ├── EducationPanel.tsx # Educational content panel + ContextHint
+│   ├── LearningModeToggle.tsx # Learning mode header toggle
 │   ├── ErrorBoundary.tsx  # Crash recovery wrapper
-│   └── DataExport.tsx   # CSV export utility
-├── pages/               # 26 simulation module pages
-├── hooks/               # Custom React hooks
-├── lib/                 # Utilities
-└── index.css            # Design system tokens
+│   └── DataExport.tsx     # CSV export utility
+├── pages/                 # 26 simulation module pages
+├── hooks/                 # Custom React hooks
+├── lib/                   # Utilities
+└── index.css              # Design system tokens
 ```
 
 ---
@@ -145,7 +170,7 @@ docker run -d -p 8080:80 robosimlab
 
 ## 📋 Roadmap
 
-See [roadmap.md](./roadmap.md) for detailed phase-by-phase progress tracking (8 phases, all complete).
+See [roadmap.md](./roadmap.md) for detailed phase-by-phase progress tracking (9 phases, all complete).
 
 ---
 
