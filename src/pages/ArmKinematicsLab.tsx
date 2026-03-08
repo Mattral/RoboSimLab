@@ -109,6 +109,16 @@ const ArmKinematicsLab = () => {
     setRecording(false);
   };
 
+  // Trail recording
+  useEffect(() => {
+    if (!showTrail) return;
+    const pt = new THREE.Vector3(endX, endY, 0);
+    if (trailRef.current.length === 0 || trailRef.current[trailRef.current.length - 1].distanceTo(pt) > 0.02) {
+      trailRef.current.push(pt);
+      if (trailRef.current.length > 500) trailRef.current.shift();
+    }
+  }, [endX, endY, showTrail]);
+
   // Record frames while recording
   useEffect(() => {
     if (!recording) return;
