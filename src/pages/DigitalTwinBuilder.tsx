@@ -14,7 +14,7 @@ interface RobotComponent {
   sensorType?: "lidar" | "camera" | "imu";
 }
 
-let nextId = 1;
+const idCounter = { current: 100 };
 
 const DigitalTwinBuilder = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
