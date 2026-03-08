@@ -5,6 +5,8 @@ import SimLayout, { useLearningMode } from "@/components/SimLayout";
 import SliderControl from "@/components/SliderControl";
 import ControlSection from "@/components/ControlSection";
 import EducationPanel from "@/components/EducationPanel";
+import FocusMode, { FocusToggleButton } from "@/components/FocusMode";
+import TelemetryPanel from "@/components/TelemetryPanel";
 import { Humanoid3D, HumanoidSceneLighting } from "@/components/3d/Humanoid3D";
 import { exportToCSV } from "@/components/DataExport";
 
