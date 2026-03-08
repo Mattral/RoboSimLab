@@ -5,6 +5,8 @@ import SimLayout, { useLearningMode } from "@/components/SimLayout";
 import SliderControl from "@/components/SliderControl";
 import ControlSection from "@/components/ControlSection";
 import EducationPanel, { ContextHint } from "@/components/EducationPanel";
+import FocusMode, { FocusToggleButton } from "@/components/FocusMode";
+import TelemetryPanel from "@/components/TelemetryPanel";
 import { RobotArm3D, RobotBase3D, SceneLighting } from "@/components/3d/RobotArm3D";
 import * as THREE from "three";
 
