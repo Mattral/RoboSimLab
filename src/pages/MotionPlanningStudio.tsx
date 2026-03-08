@@ -392,25 +392,35 @@ const MotionPlanningStudio = () => {
         </div>
       </ControlSection>
       <ControlSection title="Algorithm">
-        <div className="grid grid-cols-2 gap-2">
-          {(["astar", "dijkstra", "rrt", "potential"] as const).map(a => (
-            <button key={a} onClick={() => setAlgorithm(a)}
-              className={`sim-btn ${algorithm === a ? "sim-btn-active" : "sim-btn-inactive"}`}
-              style={algorithm === a && a === "rrt" ? { borderColor: "hsl(270, 60%, 55%)", color: "hsl(270, 60%, 55%)" } : algorithm === a && a === "potential" ? { borderColor: "hsl(15, 80%, 55%)", color: "hsl(15, 80%, 55%)" } : {}}>
-              {a === "astar" ? "A*" : a === "dijkstra" ? "Dijkstra" : a === "rrt" ? "RRT" : "Potential"}
-            </button>
-          ))}
+        <div className="grid grid-cols-3 gap-1.5">
+          {(["astar", "dijkstra", "rrt", "potential", "prm"] as const).map(a => {
+            const colors: Record<string, string> = { rrt: "hsl(268, 58%, 52%)", potential: "hsl(15, 78%, 52%)", prm: "hsl(48, 78%, 48%)" };
+            const labels: Record<string, string> = { astar: "A*", dijkstra: "Dijkstra", rrt: "RRT", potential: "Potential", prm: "PRM" };
+            return (
+              <button key={a} onClick={() => setAlgorithm(a)}
+                className={`sim-btn ${algorithm === a ? "sim-btn-active" : "sim-btn-inactive"}`}
+                style={algorithm === a && colors[a] ? { borderColor: colors[a], color: colors[a] } : {}}>
+                {labels[a]}
+              </button>
+            );
+          })}
         </div>
         {algorithm === "rrt" && (
           <div className="space-y-2 mt-2">
-            <SliderControl label="Step Size" value={rrtStepSize} min={1} max={8} step={0.5} onChange={setRrtStepSize} color="hsl(270, 60%, 55%)" />
-            <SliderControl label="Max Iterations" value={rrtMaxIter} min={500} max={10000} step={100} onChange={v => setRrtMaxIter(Math.round(v))} color="hsl(270, 60%, 55%)" />
+            <SliderControl label="Step Size" value={rrtStepSize} min={1} max={8} step={0.5} onChange={setRrtStepSize} color="hsl(268, 58%, 52%)" />
+            <SliderControl label="Max Iterations" value={rrtMaxIter} min={500} max={10000} step={100} onChange={v => setRrtMaxIter(Math.round(v))} color="hsl(268, 58%, 52%)" />
           </div>
         )}
         {algorithm === "potential" && (
           <div className="space-y-2 mt-2">
-            <SliderControl label="Attractive Gain" value={potentialAttractive} min={0.1} max={5} step={0.1} onChange={setPotentialAttractive} color="hsl(15, 80%, 55%)" />
-            <SliderControl label="Repulsive Gain" value={potentialRepulsive} min={10} max={500} step={10} onChange={v => setPotentialRepulsive(Math.round(v))} color="hsl(15, 80%, 55%)" />
+            <SliderControl label="Attractive Gain" value={potentialAttractive} min={0.1} max={5} step={0.1} onChange={setPotentialAttractive} color="hsl(15, 78%, 52%)" />
+            <SliderControl label="Repulsive Gain" value={potentialRepulsive} min={10} max={500} step={10} onChange={v => setPotentialRepulsive(Math.round(v))} color="hsl(15, 78%, 52%)" />
+          </div>
+        )}
+        {algorithm === "prm" && (
+          <div className="space-y-2 mt-2">
+            <SliderControl label="Sample Nodes" value={prmNodes} min={50} max={500} step={10} onChange={v => setPrmNodes(Math.round(v))} color="hsl(48, 78%, 48%)" />
+            <SliderControl label="K-Nearest" value={prmK} min={3} max={12} step={1} onChange={v => setPrmK(Math.round(v))} color="hsl(48, 78%, 48%)" />
           </div>
         )}
       </ControlSection>
