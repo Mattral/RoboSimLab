@@ -113,7 +113,7 @@ const HumanoidBalanceSimulator = () => {
           <Suspense fallback={<div className="flex items-center justify-center h-full text-muted-foreground text-sm">Loading 3D Scene...</div>}>
             <Canvas shadows>
               <PerspectiveCamera makeDefault position={[3, 2.5, 4]} fov={45} />
-              <OrbitControls enableDamping dampingFactor={0.05} target={[0, 1.5, 0]} minDistance={2} maxDistance={10} />
+              <OrbitControls enableDamping dampingFactor={0.05} target={[0, 1.5, 0]} minDistance={2} maxDistance={10} autoRotate={cinematic} autoRotateSpeed={0.8} />
               <HumanoidSceneLighting />
               <gridHelper args={[10, 20, "#1a2a3a", "#111827"]} position={[0, 0, 0]} />
               <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, 0]} receiveShadow><planeGeometry args={[10, 10]} /><meshStandardMaterial color="#0d1117" transparent opacity={0.8} /></mesh>
