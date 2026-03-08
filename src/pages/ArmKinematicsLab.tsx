@@ -276,11 +276,38 @@ const ArmKinematicsLab = () => {
 
       <ControlSection title="Guide" defaultOpen={false}>
         <p className="text-xs text-muted-foreground leading-relaxed">
-          <span className="text-primary">FK</span>: Direct joint control. <span className="text-amber-glow">IK</span>: Target-based positioning.
-          <span className="text-red-glow"> Learn</span>: Record demonstrations & replay. Toggle <span className="text-primary">Jacobian</span>, 
-          <span className="text-amber-glow"> Ellipsoid</span> (manipulability), and <span className="text-blue-glow">DH params</span> for analysis.
+          <span className="text-primary">FK</span>: Direct joint control. <span style={{ color: "hsl(var(--amber-glow))" }}>IK</span>: Target-based positioning.
+          <span className="text-destructive"> Learn</span>: Record demonstrations & replay. Toggle <span className="text-primary">Jacobian</span>, 
+          <span style={{ color: "hsl(var(--amber-glow))" }}> Ellipsoid</span> (manipulability), and <span style={{ color: "hsl(var(--blue-glow))" }}>DH params</span> for analysis.
         </p>
       </ControlSection>
+
+      {learningMode && (
+        <>
+          <EducationPanel
+            title="Robot Kinematics"
+            concept="How robots calculate arm positions"
+            explanation="Kinematics studies motion without considering forces. Forward Kinematics (FK) computes end-effector position from joint angles. Inverse Kinematics (IK) finds joint angles to reach a target position."
+            formula="T = R(θ₁)·T(L₁)·R(θ₂)·T(L₂)·R(θ₃)·T(L₃)"
+            keyPoints={[
+              "FK is straightforward — each joint adds a rotation",
+              "IK can have multiple solutions or none (out of reach)",
+              "The Jacobian maps joint velocities to end-effector velocities",
+              "Manipulability measures how easily the robot can move in different directions",
+            ]}
+            tip="Try moving joints near full extension to see manipulability drop — the robot loses dexterity near singularities."
+          />
+          <EducationPanel
+            title="Denavit-Hartenberg"
+            concept="Standardized robot geometry description"
+            explanation="DH parameters describe the relationship between consecutive links using 4 parameters: θ (joint angle), d (link offset), a (link length), α (link twist). This convention is universal in robotics."
+            keyPoints={[
+              "Every serial robot can be described using DH parameters",
+              "The parameters define a 4×4 transformation matrix for each joint",
+            ]}
+          />
+        </>
+      )}
     </>
   );
 
