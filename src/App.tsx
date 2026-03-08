@@ -21,6 +21,11 @@ import SLAMExploration from "./pages/SLAMExploration";
 import MultiAgentRL from "./pages/MultiAgentRL";
 import RobotTeleoperation from "./pages/RobotTeleoperation";
 import AlgorithmComparison from "./pages/AlgorithmComparison";
+import DifferentiableRoboticsLab from "./pages/DifferentiableRoboticsLab";
+import SLAMVisualization from "./pages/SLAMVisualization";
+import RLPolicyIntrospection from "./pages/RLPolicyIntrospection";
+import SimToRealLab from "./pages/SimToRealLab";
+import NeuralPolicyVisualizer from "./pages/NeuralPolicyVisualizer";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
