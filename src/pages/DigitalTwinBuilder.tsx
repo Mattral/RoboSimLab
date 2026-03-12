@@ -112,8 +112,8 @@ const DigitalTwinBuilder = () => {
         const endX = curX + Math.cos(angle) * comp.length;
         const endY = curY - Math.sin(angle) * comp.length;
 
-        const [sx, sy] = toScreen(curX, -curY);
-        const [ex, ey] = toScreen(endX, -endY);
+        const [sx, sy] = toScreen(curX, curY);
+        const [ex, ey] = toScreen(endX, endY);
 
         // Link
         const colors: Record<string, string> = {
@@ -195,7 +195,7 @@ const DigitalTwinBuilder = () => {
       });
 
       // End effector
-      const [eex, eey] = toScreen(curX, -curY);
+      const [eex, eey] = toScreen(curX, curY);
       ctx.fillStyle = "hsl(40, 90%, 55%)";
       ctx.beginPath(); ctx.arc(eex, eey, 7, 0, Math.PI * 2); ctx.fill();
       ctx.strokeStyle = "hsla(40, 90%, 55%, 0.4)";
