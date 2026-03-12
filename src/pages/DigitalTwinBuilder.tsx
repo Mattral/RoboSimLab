@@ -112,8 +112,8 @@ const DigitalTwinBuilder = () => {
         const endX = curX + Math.cos(angle) * comp.length;
         const endY = curY - Math.sin(angle) * comp.length;
 
-        const [sx, sy] = toScreen(curX, -curY);
-        const [ex, ey] = toScreen(endX, -endY);
+        const [sx, sy] = toScreen(curX, curY);
+        const [ex, ey] = toScreen(endX, endY);
 
         // Link
         const colors: Record<string, string> = {
