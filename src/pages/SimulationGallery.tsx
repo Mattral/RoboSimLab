@@ -6,6 +6,18 @@ import {
   Blocks, Workflow, Target, BarChart3, Dog, Plane, Worm
 } from "lucide-react";
 
+// Gallery images
+import droneImg from "@/assets/gallery/drone.jpg";
+import humanoidImg from "@/assets/gallery/humanoid.jpg";
+import quadrupedImg from "@/assets/gallery/quadruped.jpg";
+import armImg from "@/assets/gallery/arm.jpg";
+import softRobotImg from "@/assets/gallery/soft-robot.jpg";
+import swarmImg from "@/assets/gallery/swarm.jpg";
+import navigationImg from "@/assets/gallery/navigation.jpg";
+import controlImg from "@/assets/gallery/control.jpg";
+import aiImg from "@/assets/gallery/ai.jpg";
+import digitalTwinImg from "@/assets/gallery/digital-twin.jpg";
+
 interface ModuleCard {
   id: string;
   title: string;
@@ -14,6 +26,7 @@ interface ModuleCard {
   color: string;
   route: string;
   tags: string[];
+  image?: string;
 }
 
 interface LabSection {
@@ -37,6 +50,7 @@ const labs: LabSection[] = [
         color: "hsl(172, 78%, 47%)",
         route: "/sim/quadruped",
         tags: ["3D", "Gait", "NEW"],
+        image: quadrupedImg,
       },
       {
         id: "humanoid-balance",
@@ -46,6 +60,7 @@ const labs: LabSection[] = [
         color: "hsl(0, 62%, 50%)",
         route: "/sim/humanoid-balance",
         tags: ["3D", "Physics"],
+        image: humanoidImg,
       },
       {
         id: "swarm",
@@ -55,6 +70,7 @@ const labs: LabSection[] = [
         color: "hsl(268, 58%, 52%)",
         route: "/sim/swarm",
         tags: ["3D", "Boids"],
+        image: swarmImg,
       },
     ],
   },
@@ -71,6 +87,7 @@ const labs: LabSection[] = [
         color: "hsl(172, 78%, 47%)",
         route: "/sim/arm-kinematics",
         tags: ["3D", "FK/IK", "Jacobian"],
+        image: armImg,
       },
       {
         id: "soft-robot",
@@ -80,6 +97,7 @@ const labs: LabSection[] = [
         color: "hsl(268, 58%, 52%)",
         route: "/sim/soft-robot",
         tags: ["3D", "Soft", "NEW"],
+        image: softRobotImg,
       },
       {
         id: "dynamics",
@@ -89,6 +107,7 @@ const labs: LabSection[] = [
         color: "hsl(15, 78%, 52%)",
         route: "/sim/dynamics",
         tags: ["3D", "Dynamics"],
+        image: armImg,
       },
       {
         id: "trajectory-optimization",
@@ -98,6 +117,7 @@ const labs: LabSection[] = [
         color: "hsl(292, 58%, 50%)",
         route: "/sim/trajectory-optimization",
         tags: ["3D", "Optimize"],
+        image: armImg,
       },
       {
         id: "differentiable-robotics",
@@ -132,6 +152,7 @@ const labs: LabSection[] = [
         color: "hsl(38, 88%, 52%)",
         route: "/sim/drone",
         tags: ["3D", "PID", "NEW"],
+        image: droneImg,
       },
       {
         id: "navigation",
@@ -141,6 +162,7 @@ const labs: LabSection[] = [
         color: "hsl(212, 78%, 52%)",
         route: "/sim/navigation",
         tags: ["SLAM", "Autonomy"],
+        image: navigationImg,
       },
       {
         id: "slam-exploration",
@@ -150,6 +172,7 @@ const labs: LabSection[] = [
         color: "hsl(200, 70%, 50%)",
         route: "/sim/slam-exploration",
         tags: ["SLAM", "Autonomy"],
+        image: navigationImg,
       },
       {
         id: "slam-visualization",
@@ -159,6 +182,7 @@ const labs: LabSection[] = [
         color: "hsl(190, 70%, 48%)",
         route: "/sim/slam-visualization",
         tags: ["SLAM", "Mapping"],
+        image: navigationImg,
       },
       {
         id: "perception",
@@ -168,6 +192,7 @@ const labs: LabSection[] = [
         color: "hsl(322, 58%, 52%)",
         route: "/sim/perception",
         tags: ["Lidar", "SLAM"],
+        image: navigationImg,
       },
       {
         id: "sensor-fusion",
@@ -202,6 +227,7 @@ const labs: LabSection[] = [
         color: "hsl(38, 88%, 52%)",
         route: "/sim/pid-control",
         tags: ["Control", "Export"],
+        image: controlImg,
       },
       {
         id: "motion-planning",
@@ -211,6 +237,7 @@ const labs: LabSection[] = [
         color: "hsl(152, 68%, 42%)",
         route: "/sim/motion-planning",
         tags: ["A*", "RRT", "Dijkstra"],
+        image: controlImg,
       },
       {
         id: "algorithm-comparison",
@@ -254,6 +281,7 @@ const labs: LabSection[] = [
         color: "hsl(48, 78%, 48%)",
         route: "/sim/rl-playground",
         tags: ["AI", "Q-Learn"],
+        image: aiImg,
       },
       {
         id: "multi-agent-rl",
@@ -263,6 +291,7 @@ const labs: LabSection[] = [
         color: "hsl(280, 60%, 55%)",
         route: "/sim/multi-agent-rl",
         tags: ["AI", "MARL"],
+        image: aiImg,
       },
       {
         id: "rl-introspection",
@@ -281,6 +310,7 @@ const labs: LabSection[] = [
         color: "hsl(260, 65%, 55%)",
         route: "/sim/neural-policy",
         tags: ["Neural", "AI"],
+        image: aiImg,
       },
       {
         id: "sim-to-real",
@@ -306,6 +336,7 @@ const labs: LabSection[] = [
         color: "hsl(170, 65%, 45%)",
         route: "/sim/digital-twin-builder",
         tags: ["Builder", "Twin"],
+        image: digitalTwinImg,
       },
       {
         id: "digital-twin-dashboard",
@@ -315,6 +346,7 @@ const labs: LabSection[] = [
         color: "hsl(28, 80%, 52%)",
         route: "/sim/digital-twin-dashboard",
         tags: ["Monitor", "Telemetry"],
+        image: digitalTwinImg,
       },
       {
         id: "task-designer",
@@ -343,7 +375,7 @@ const SimulationGallery = () => {
       </div>
 
       {/* Header */}
-      <header className="border-b border-border/30 px-6 py-3 glass-panel sticky top-0 z-50">
+      <header className="border-b border-border/30 px-4 sm:px-6 py-3 glass-panel sticky top-0 z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -353,7 +385,7 @@ const SimulationGallery = () => {
               <h1 className="text-base font-bold tracking-tight text-foreground">
                 RoboSim<span className="text-primary">Lab</span>
               </h1>
-              <p className="text-[10px] text-muted-foreground font-medium tracking-[0.08em]">Multi-Robot Research Platform</p>
+              <p className="text-[10px] text-muted-foreground font-medium tracking-[0.08em] hidden sm:block">Multi-Robot Research Platform</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -370,14 +402,14 @@ const SimulationGallery = () => {
       </header>
 
       {/* Hero */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-16 pb-10">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-10 sm:pt-16 pb-8 sm:pb-10">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-5 h-5 rounded-md bg-primary/10 flex items-center justify-center">
             <Sparkles className="w-3 h-3 text-primary" />
           </div>
           <span className="text-[10px] font-semibold text-primary tracking-[0.2em] uppercase">Multi-Robot Research Platform</span>
         </div>
-        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground tracking-tight mb-4 leading-[1.05]">
+        <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-foreground tracking-tight mb-4 leading-[1.05]">
           Explore Robotics,<br />
           <span className="shimmer-text">Interactively.</span>
         </h2>
@@ -387,7 +419,7 @@ const SimulationGallery = () => {
       </div>
 
       {/* Lab Sections */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pb-20 space-y-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pb-20 space-y-12">
         {labs.map((lab) => (
           <section key={lab.title}>
             {/* Section header */}
@@ -403,7 +435,7 @@ const SimulationGallery = () => {
             </div>
 
             {/* Module grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {lab.modules.map((mod) => {
                 const Icon = mod.icon;
                 const isNew = mod.tags.includes("NEW");
@@ -411,49 +443,71 @@ const SimulationGallery = () => {
                   <button
                     key={mod.id}
                     onClick={() => navigate(mod.route)}
-                    className="sim-panel card-lift p-5 text-left group relative overflow-hidden cursor-pointer"
+                    className="sim-panel card-lift text-left group relative overflow-hidden cursor-pointer"
                   >
-                    {/* New badge */}
-                    {isNew && (
-                      <div className="absolute top-3 right-3 text-[8px] font-bold tracking-wider text-background px-2 py-0.5 rounded-full"
-                        style={{ backgroundColor: mod.color }}>
-                        NEW
+                    {/* Thumbnail image */}
+                    {mod.image && (
+                      <div className="relative h-32 sm:h-36 overflow-hidden rounded-t-xl">
+                        <img
+                          src={mod.image}
+                          alt={mod.title}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+                        {/* New badge on image */}
+                        {isNew && (
+                          <div className="absolute top-2.5 right-2.5 text-[8px] font-bold tracking-wider text-background px-2 py-0.5 rounded-full"
+                            style={{ backgroundColor: mod.color }}>
+                            NEW
+                          </div>
+                        )}
                       </div>
                     )}
 
-                    {/* Gradient overlay on hover */}
-                    <div
-                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                      style={{
-                        background: `radial-gradient(ellipse at top left, ${mod.color.replace(')', ', 0.08)')} 0%, transparent 60%)`,
-                      }}
-                    />
-
-                    <div className="relative z-10">
-                      <div className="flex items-start justify-between mb-4">
-                        <div
-                          className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-350 group-hover:scale-110 group-hover:shadow-lg"
-                          style={{
-                            backgroundColor: mod.color.replace(')', ', 0.1)'),
-                            color: mod.color,
-                          }}
-                        >
-                          <Icon className="w-4 h-4" />
+                    <div className="p-4 pt-3">
+                      {/* New badge (no image variant) */}
+                      {isNew && !mod.image && (
+                        <div className="absolute top-3 right-3 text-[8px] font-bold tracking-wider text-background px-2 py-0.5 rounded-full"
+                          style={{ backgroundColor: mod.color }}>
+                          NEW
                         </div>
-                        <div className="flex gap-1">
-                          {mod.tags.filter(t => t !== "NEW").map(tag => (
-                            <span key={tag} className="text-[8px] font-mono uppercase tracking-[0.1em] text-muted-foreground/70 bg-secondary/40 rounded px-1.5 py-0.5 border border-border/20">
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                      <h3 className="font-semibold text-foreground mb-1 text-[13px] tracking-tight">{mod.title}</h3>
-                      <p className="text-[11px] text-muted-foreground leading-relaxed mb-4">{mod.description}</p>
+                      )}
 
-                      <div className="flex items-center gap-1 text-[10px] font-medium text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1">
-                        <span>Launch module</span>
-                        <ArrowRight className="w-3 h-3" />
+                      {/* Gradient overlay on hover */}
+                      <div
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        style={{
+                          background: `radial-gradient(ellipse at top left, ${mod.color.replace(')', ', 0.08)')} 0%, transparent 60%)`,
+                        }}
+                      />
+
+                      <div className="relative z-10">
+                        <div className="flex items-start justify-between mb-3">
+                          <div
+                            className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-350 group-hover:scale-110 group-hover:shadow-lg"
+                            style={{
+                              backgroundColor: mod.color.replace(')', ', 0.1)'),
+                              color: mod.color,
+                            }}
+                          >
+                            <Icon className="w-4 h-4" />
+                          </div>
+                          <div className="flex gap-1">
+                            {mod.tags.filter(t => t !== "NEW").map(tag => (
+                              <span key={tag} className="text-[8px] font-mono uppercase tracking-[0.1em] text-muted-foreground/70 bg-secondary/40 rounded px-1.5 py-0.5 border border-border/20">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                        <h3 className="font-semibold text-foreground mb-1 text-[13px] tracking-tight">{mod.title}</h3>
+                        <p className="text-[11px] text-muted-foreground leading-relaxed mb-3 line-clamp-2">{mod.description}</p>
+
+                        <div className="flex items-center gap-1 text-[10px] font-medium text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1">
+                          <span>Launch module</span>
+                          <ArrowRight className="w-3 h-3" />
+                        </div>
                       </div>
                     </div>
 
@@ -471,7 +525,7 @@ const SimulationGallery = () => {
       </div>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-border/20 px-6 py-5">
+      <footer className="relative z-10 border-t border-border/20 px-4 sm:px-6 py-5">
         <div className="max-w-7xl mx-auto flex items-center justify-between text-[10px] text-muted-foreground/60">
           <span className="tracking-wide">RoboSimLab — Browser-based Multi-Robot Research Platform</span>
           <span className="font-mono tracking-wider">v6.0</span>
